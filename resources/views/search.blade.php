@@ -78,6 +78,10 @@
       <div class="search-result-wrap mt-5">
          <div class="result-heading-top d-flex flex-wrap align-items-center justify-content-between mb-4">
             <h4 class="result-title">{{$data->total()}} Results</h4>
+            @if(!empty(Request::get('name')) || !empty(Request::get('industry')) || !empty(Request::get('type')) || !empty(Request::get('zipcode')) || !empty(Request::get('page')) )
+            <a href="{{ url('/search') }}" class="btn btn-danger" >Reset</a>
+            @endif
+            
             <!-- <div class="search-result-select">
                <form>
                   <div class="form-group search-select-group mb-0">
