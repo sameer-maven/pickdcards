@@ -71,6 +71,8 @@ class UserController extends Controller
 
         if(isset($input['business_url']) && !empty($input['business_url'])){
             $sql->url             = $input['business_url'];
+        }else{
+           $sql->url             = ""; 
         }
 
         $sql->industry_id         = $input['business_industry'];
