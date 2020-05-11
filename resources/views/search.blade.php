@@ -28,12 +28,12 @@
    <div class="container">
       <nav>
          <div class="nav nav-tabs cstm-nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="search-city-tab" data-toggle="tab" href="#search-city" role="tab" aria-controls="nav-home" aria-selected="true">Search by Business Industry, Type, Zip Code</a>
-            <a class="nav-item nav-link" id="search-business-tab" data-toggle="tab" href="#search-business" role="tab" aria-controls="nav-profile" aria-selected="false">Search by Business Name</a>
+            <a class="nav-item nav-link @if(empty(Request::get('name'))) active @endif" id="search-city-tab" data-toggle="tab" href="#search-city" role="tab" aria-controls="nav-home" aria-selected="true">Search by Business Industry, Type, Zip Code</a>
+            <a class="nav-item nav-link @if(!empty(Request::get('name'))) active @endif" id="search-business-tab" data-toggle="tab" href="#search-business" role="tab" aria-controls="nav-profile" aria-selected="false">Search by Business Name</a>
          </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
-         <div class="tab-pane fade show active cstm-tab" id="search-city" role="tabpanel" aria-labelledby="search-city-tab">
+         <div class="tab-pane fade @if(empty(Request::get('name'))) active show @endif cstm-tab" id="search-city" role="tabpanel" aria-labelledby="search-city-tab">
             <form role="search" autocomplete="off" action="{{ url('search') }}" method="get">
                <div class="form-row align-items-center">
                   <div class="col-lg-3 form-group search-select-group">
@@ -62,7 +62,7 @@
                </div>
             </form>
          </div>
-         <div class="tab-pane fade cstm-tab" id="search-business" role="tabpanel" aria-labelledby="search-business-tab">
+         <div class="tab-pane fade cstm-tab @if(!empty(Request::get('name'))) active show @endif" id="search-business" role="tabpanel" aria-labelledby="search-business-tab">
             <form role="search" autocomplete="off" action="{{ url('search') }}" method="get">
                <div class="form-row align-items-center">
                   <div class="col-lg-10 form-group d-flex align-items-center">
