@@ -68,7 +68,11 @@ class UserController extends Controller
         $sql->address             = $input['address'];
         $sql->phone_number        = $input['phone_number'];
         $sql->business_email      = $input['email'];
-        $sql->url                 = $input['business_url'];
+
+        if(isset($input['business_url']) && !empty($input['business_url'])){
+            $sql->url             = $input['business_url'];
+        }
+
         $sql->industry_id         = $input['business_industry'];
         $sql->type_id             = $input['business_type'];
         $sql->tax_id_number       = $input['tax_id_number'];
@@ -202,7 +206,10 @@ class UserController extends Controller
         $usersBusInfo->address             = $input['address'];
         $usersBusInfo->phone_number        = $input['phone_number'];
         $usersBusInfo->business_email      = $input['business_email'];
-        $usersBusInfo->url                 = $input['url'];
+        
+        if(isset($input['url']) && !empty($input['url'])){
+            $usersBusInfo->url             = $input['url'];
+        }
         
         if(isset($input['bank_name']) && !empty($input['bank_name'])){
             $usersBusInfo->bank_name           = $input['bank_name'];
