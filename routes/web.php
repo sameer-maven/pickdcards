@@ -15,6 +15,7 @@ Route::get('home', function(){
 	return redirect('/');
 });
 
+Route::get('/search', 'HomeController@getSearch');
 
 
 // Pages Static Custom

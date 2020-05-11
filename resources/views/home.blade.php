@@ -14,7 +14,7 @@
                </h1>
                <div class="btn-wrap banner-btn mt-3">
                   <a href="{{ url('/register') }}" class="btn pickd-btn picked-btn-white mr-3 mb-3">Sign Your Business Up</a>
-                  <a href="JavaScript:(void)" class="btn pickd-btn button-outline mb-3">Search for a Business</a>
+                  <a href="{{ url('/search') }}" class="btn pickd-btn button-outline mb-3">Search for a Business</a>
                </div>
             </div>
          </div>
