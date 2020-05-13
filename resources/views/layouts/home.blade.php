@@ -9,6 +9,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('front/assets/css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/assets/css/custom-style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.12/dist/sweetalert2.min.css">
     <title>Pickd Cards</title>
   </head>

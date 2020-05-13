@@ -16,7 +16,8 @@ Route::get('home', function(){
 });
 
 Route::get('/search', 'HomeController@getSearch');
-
+Route::get('/fill-order-details/{id}', 'OrderController@fillOrderDetails');
+Route::post('/order/add', 'OrderController@store');
 
 // Pages Static Custom
 Route::get('page/{page}','PagesController@show')->where('page','[^/]*' );

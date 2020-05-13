@@ -98,7 +98,7 @@
                <div class="search-result-col">
                   <h5 class="result-col-title">{{ $user->business_name }}</h5>
                   <p class="result-col-subtitle">{{ $user->address }}</p>
-                  <a href="JavaScript:(void)" class="btn pickd-btn text-white btn-green">Purchase Gift Card</a>
+                  <a href="{{ url('/fill-order-details') }}<?php echo "/".base64_encode($user->id); ?>" class="btn pickd-btn text-white btn-green">Purchase Gift Card</a>
                </div>
             </div>
             @endforeach

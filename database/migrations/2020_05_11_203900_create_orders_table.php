@@ -19,13 +19,14 @@ class CreateOrdersTable extends Migration
             $table->string('customer_full_name');
             $table->string('customer_email');
             $table->string('customer_phone');
-            $table->string('customer_bussiness_email')->nullable();;
+            $table->string('customer_bussiness_email')->nullable();
             $table->tinyInteger('status')->default('0')->comment = '0 (not paid), 1 (paid)';
             $table->decimal('amount',9,3);
+            $table->string('trx_id');
             $table->string('recipient_name');
             $table->string('recipient_email');
             $table->text('recipient_notes');
-            $table->json('stripe_response')->nullable();
+            $table->text('stripe_response');
             $table->timestamps();
         });
     }
