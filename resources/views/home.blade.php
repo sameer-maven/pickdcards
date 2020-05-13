@@ -28,13 +28,10 @@
       <div class="row">
          <div class="col-lg-8 text-center mx-auto">
             <h2 class="sec-title">We’re in this together</h2>
-            <p class="sec-subtitle">Search for businesses by industry or location to show your support. You can also ask your favorite small
-               businesses to sign up and create their unique URL so you can purchase gift certificates. They’ll get paid now 
-               when they need it most, and you can redeem the gift certificate later.
-            </p>
+            <p class="sec-subtitle">Search for businesses by industry or location to show your support. Ask your favorite small businesses to sign up and create their unique URL so you can purchase gift cards. They’ll get paid now when they need it most, and you can redeem the gift card later.</p>
          </div>
       </div>
-      <div class="logos-wrap d-flex flex-wrap align-items-center text-center mt-4">
+      <!-- <div class="logos-wrap d-flex flex-wrap align-items-center text-center mt-4">
          <div class="logos-col">
             <img src="{{ asset('front/assets/images/brand-logo-1.png') }}" class="img-fluid">
          </div>
@@ -65,7 +62,7 @@
          <div class="logos-col">
             <img src="{{ asset('front/assets/images/brand-logo-10.pn') }}g" class="img-fluid">
          </div>
-      </div>
+      </div> -->
    </div>
 </div>
 <!-- business-industry-sec -->
@@ -74,34 +71,22 @@
    <div class="container">
       <div class="row">
          <div class="col-lg-8 text-center mx-auto">
-            <h2 class="sec-title">Here’s how to sign your
-               business up
-            </h2>
-            <p class="sec-subtitle">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..</p>
+            <h2 class="sec-title">Here’s how to sign up your business</h2>
+            <!-- <p class="sec-subtitle">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..</p> -->
          </div>
       </div>
       <div class="sign-detail-row d-flex flex-wrap justify-content-center mt-5">
          <div class="sign-col">
             <div class="icon-2" style="background: #86C959;"><span class="icon-enter"></span></div>
-            <p>Create a free account through pickd cards Payments 
-               Enter your business information and connect the 
-               account where you’d like revenue deposited.
-            </p>
+            <p>Create a free Pickd Cards account with your business information.</p>
          </div>
          <div class="sign-col">
             <div class="icon-2" style="background: #D9D54E;"><span class="icon-gift"></span></div>
-            <p>Offer online gift certificates You’ll get a unique URL you
-               can share with consumers, and they can find you by 
-               location and industry to buy gift certificates of any 
-               amount from $15 to $500.
-            </p>
+            <p>Offer online gift cards with a unique URL you can share with your consumers. Your business will be searchable here using the name, location, and industry.</p>
          </div>
          <div class="sign-col">
             <div class="icon-2" style="background: #C55C87;"><span class="icon-deposit"></span></div>
-            <p>Access earnings now Your revenue will be deposited 
-               as early as the business day after customers buy gift 
-               certificates online.
-            </p>
+            <p>Get gift card sales deposited directly into your bank account within a few days.</p>
          </div>
       </div>
       <div class="btn-wrap text-center mt-5">

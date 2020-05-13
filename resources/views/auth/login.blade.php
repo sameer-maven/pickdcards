@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{{ asset('front/assets/css/style.min.css') }}">
   <link rel="stylesheet" href="{{ asset('front/assets/css/custom-style.css') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.12/dist/sweetalert2.min.css">
-  <title>{{ config('app.name', 'Laravel') }}</title>
+  <title>Pickd Cards</title>
 </head>
 <body>
   <!-- header -->
@@ -110,11 +110,7 @@
          <div class="col-lg-3">
             <div class="footer-col">
                <h3 class="footer-title">About Us</h3>
-               <p>eque porro quisquam est qui dolorem
-                  ipsum quia dolor sit amet, consectetur, 
-                  adipisci velit.que porro quisquam est qui 
-                  dolorem ipsum quia dolor sit amet
-               </p>
+               <p>Subscribe here to stay connected to our latest updates and offers.</p>
             </div>
          </div>
          <div class="col-lg-3">
@@ -133,17 +129,15 @@
                <h3 class="footer-title">Support</h3>
                <ul class="footer-list list-unstyled">
                   <li><a href="JavaScript:(void)">support@pickdcars.com</a></li>
-                  <li><a href="JavaScript:(void)">media@pickdcars.com</a></li>
-                  <li><a href="JavaScript:(void)">partnerships@pickdcars.com</a></li>
+                  <!-- <li><a href="JavaScript:(void)">media@pickdcars.com</a></li>
+                  <li><a href="JavaScript:(void)">partnerships@pickdcars.com</a></li> -->
                </ul>
             </div>
          </div>
          <div class="col-lg-3">
             <div class="footer-col">
                <h3 class="footer-title">Newsletter</h3>
-               <p>Subscribe here to Stay Connected with us and to get more
-                  information about our new offer
-               </p>
+               <p>Subscribe here to stay connected to our latest updates and offers.</p>
                <form class="">
                   <div class="form-group mb-3">
                      <div class="custom-file" style="min-height: 46px;">

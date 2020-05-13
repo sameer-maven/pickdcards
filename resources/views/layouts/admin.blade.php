@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Picked Card - Admin | Dashboard</title>
+  <title>Pickd Cards - Admin | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -61,7 +61,7 @@
     <a href="index3.html" class="brand-link">
       <img src="{{ asset('admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Picked Cards</span>
+      <span class="brand-text font-weight-light">Pickd Cards</span>
     </a>
 
     <!-- Sidebar -->
@@ -93,7 +93,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                User Management
+                Users Management
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -101,7 +101,7 @@
               <li class="nav-item">
                 <a href="{{url('admin/users-list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Users List</p>
+                  <p>Business Users</p>
                 </a>
               </li>
             </ul>
@@ -174,7 +174,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2020 <a href="{{ url('/admin/dashboard') }}">Pickd Card</a>.</strong>
+    <strong>Copyright &copy; 2020 <a href="{{ url('/admin/dashboard') }}">Pickd Cards</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0

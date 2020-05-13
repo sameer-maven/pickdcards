@@ -7,13 +7,8 @@
       <div class="row">
          <div class="col-lg-6">
             <div class="banner-content">
-               <h1 class="sec-title text-white mb-3">
-                  Find local small
-                  businesses to 
-                  support
-               </h1>
-               <p class="sec-subtitle text-white mb-3">Purchase gift certificates from $15 to $500 to show your support.
-               </p>
+               <h1 class="sec-title text-white mb-3">Search for Small Businesses to Support</h1>
+               <p class="sec-subtitle text-white mb-3">Purchase gift cards for any amount between $15 to $500 </p>
                <!-- <div class="btn-wrap banner-btn mt-3">
                   <a href="JavaScript:(void)" class="btn pickd-btn picked-btn-white mr-3">Get Started</a>
                   </div> -->
