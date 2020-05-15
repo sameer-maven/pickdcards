@@ -318,4 +318,7 @@ public static function resizeImageFixed( $image, $width, $height, $imageNew = nu
 		$thumbnail->save($name)->destroy();
 	}
    
+   	public static function getPercentOfNumber($amount, $percent){
+	    return ($percent / 100) * $amount;
+	}
 }//<--- End Class

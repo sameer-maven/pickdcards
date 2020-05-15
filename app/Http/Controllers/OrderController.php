@@ -71,7 +71,11 @@ class OrderController extends Controller
             $order->customer_bussiness_email = "";
         }
 
-        $order->amount                   = $input['card_amount'];
+        $adminCommision = Helper::getPercentOfNumber($input['card_amount'],3);
+
+        $actualAmount = $input['card_amount'] + $adminCommision;
+
+        $order->amount                   = $actualAmount;
         $order->trx_id                   = "";
         $order->qrcode                   = "";
         $order->balance                  = $input['card_amount'];
@@ -106,11 +110,12 @@ class OrderController extends Controller
         $amount = $input['amount'];
 
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
         $response = Stripe\Charge::create ([
                 "amount" => $amount * 100,
                 "currency" => "usd",
                 "source" => $input['stripeToken'],
-                "description" => "Order Placed, Order ID: ".$order_id 
+                "description" => "Order ".$order_id 
         ]);
 
         if($response->paid==1){
@@ -121,12 +126,11 @@ class OrderController extends Controller
 
             QrCode::format('png')
             ->size(300)
-            ->generate('Get $'.round($amount).' off at the store '.$user->name, public_path('qrcode/'.$filename));
+            ->generate('Get $'.round($order->balance).' off at the store '.$user->name, public_path('qrcode/'.$filename));
 
             $order = Order::find($order_id);
             $order->status = 1;
             $order->qrcode = $filename;
-            $order->balance = $amount;
             $order->trx_id = $response->id;
             $order->stripe_response = $response;
             $order->save();
@@ -141,8 +145,13 @@ class OrderController extends Controller
     public function thankYou($id){
         $order_id = base64_decode($id);
         $order = Order::find($order_id);
-        $data['qrimage'] = $order->qrcode;
-        return view('thank_you')->with($data);
+
+        if ($order) { 
+            $data['qrimage'] = $order->qrcode;
+            return view('thank_you')->with($data);
+        }else{
+            return redirect('/search');
+        }
     }
 
     /**
