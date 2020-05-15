@@ -33,6 +33,7 @@ class AdminController extends Controller
 
     public function profile()
     {
+        //get admin profile
         $data['adminProfile'] = Auth::user();
 
         return view('admin.profile')->with($data);
