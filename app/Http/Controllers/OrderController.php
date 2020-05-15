@@ -14,6 +14,8 @@ use Image;
 use DB;
 use App\Industry;
 use App\Type;
+use Session;
+use Stripe;
 
 class OrderController extends Controller
 {
@@ -77,8 +79,46 @@ class OrderController extends Controller
         $order->stripe_response          = "";
         $order->save();
         
-        \Session::flash('notification',"Order Added Successfully.");
-        return redirect('/fill-order-details/'.$input['user_id']);
+        return redirect('/order/make-payment/'.base64_encode($order->id));
+    }
+
+    public function makePayment ($id) {
+        $order_id = base64_decode($id);
+        $order = Order::find($order_id);
+        $data['id'] = base64_encode($order->id);  
+        $data['amount'] = $order->amount;
+        return view('make_payment')->with($data); 
+    }
+
+    public function storePayment(Request $request){
+        
+        $input = $request->all();
+
+        $order_id = base64_decode($input['order_id']);
+        $amount = $input['amount'];
+
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $response = Stripe\Charge::create ([
+                "amount" => $amount * 100,
+                "currency" => "usd",
+                "source" => $input['stripeToken'],
+                "description" => "Order Placed, Order ID: ".$order_id 
+        ]);
+
+        if($response->paid==1){
+            $order = Order::find($order_id);
+            $order->status = 1;
+            $order->trx_id = $response->id;
+            $order->stripe_response = $response;
+            $order->save();
+            return redirect('/order/thank-you');
+        }else{
+            echo "Something went wrong, Please try again.";
+        }
+    }
+
+    public function thankYou(){
+        return view('thank_you');
     }
 
     /**
