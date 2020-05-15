@@ -5,7 +5,7 @@
    <div class="container-contact" style="background-color: #EAECEC;">
       <div class="wrap-contact p-0 overflow-hidden" style="width: 550px;">
          <div class="qr-wrap">
-            <img src="{{ asset('front/assets/images/qr.svg') }}" class="img-fluid d-block mx-auto">
+            <img src="{{asset('qrcode/'.$qrimage)}}" class="img-fluid d-block mx-auto">
          </div>
          <div class="thnk-content">
           <h2 class="thnk-title">Thank you</h2>

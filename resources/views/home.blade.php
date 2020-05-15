@@ -60,7 +60,7 @@
             <img src="{{ asset('front/assets/images/brand-logo-9.png') }}" class="img-fluid">
          </div>
          <div class="logos-col">
-            <img src="{{ asset('front/assets/images/brand-logo-10.pn') }}g" class="img-fluid">
+            <img src="{{ asset('front/assets/images/brand-logo-10.png') }}" class="img-fluid">
          </div>
       </div> -->
    </div>

@@ -20,7 +20,7 @@ Route::get('/fill-order-details/{id}', 'OrderController@fillOrderDetails');
 Route::post('/order/add', 'OrderController@store');
 Route::get('/order/make-payment/{id}', 'OrderController@makePayment');
 Route::post('/order/add-payment', 'OrderController@storePayment');
-Route::get('/order/thank-you', 'OrderController@thankYou');
+Route::get('/order/thank-you/{id}', 'OrderController@thankYou');
 
 // Pages Static Custom
 Route::get('page/{page}','PagesController@show')->where('page','[^/]*' );

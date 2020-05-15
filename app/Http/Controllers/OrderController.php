@@ -16,6 +16,7 @@ use App\Industry;
 use App\Type;
 use Session;
 use Stripe;
+use QrCode;
 
 class OrderController extends Controller
 {
@@ -26,7 +27,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -73,6 +73,8 @@ class OrderController extends Controller
 
         $order->amount                   = $input['card_amount'];
         $order->trx_id                   = "";
+        $order->qrcode                   = "";
+        $order->balance                  = $input['card_amount'];
         $order->recipient_name           = $input['recipient_name'];
         $order->recipient_email          = $input['recipient_email'];
         $order->recipient_notes          = $input['recipient_note'];
@@ -85,9 +87,15 @@ class OrderController extends Controller
     public function makePayment ($id) {
         $order_id = base64_decode($id);
         $order = Order::find($order_id);
-        $data['id'] = base64_encode($order->id);  
-        $data['amount'] = $order->amount;
-        return view('make_payment')->with($data); 
+        
+        if($order->status=='0'){
+            $data['id'] = base64_encode($order->id);  
+            $data['amount'] = $order->amount;
+            return view('make_payment')->with($data);
+        }else{
+           return redirect('/search'); 
+        }
+         
     }
 
     public function storePayment(Request $request){
@@ -107,18 +115,34 @@ class OrderController extends Controller
 
         if($response->paid==1){
             $order = Order::find($order_id);
+            $user = User::find($order->user_id);
+
+            $filename = 'qrcode-order-'.$order_id.'-user-'.$user->name.'.png';
+
+            QrCode::format('png')
+            ->size(300)
+            ->generate('Get $'.round($amount).' off at the store '.$user->name, public_path('qrcode/'.$filename));
+
+            $order = Order::find($order_id);
             $order->status = 1;
+            $order->qrcode = $filename;
+            $order->balance = $amount;
             $order->trx_id = $response->id;
             $order->stripe_response = $response;
             $order->save();
-            return redirect('/order/thank-you');
+
+            $data['qrimage'] = $filename;
+            return redirect('/order/thank-you/'.$input['order_id']);
         }else{
             echo "Something went wrong, Please try again.";
         }
     }
 
-    public function thankYou(){
-        return view('thank_you');
+    public function thankYou($id){
+        $order_id = base64_decode($id);
+        $order = Order::find($order_id);
+        $data['qrimage'] = $order->qrcode;
+        return view('thank_you')->with($data);
     }
 
     /**
