@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendEmail;
 use Illuminate\Support\Facades\Input as Input;
 use App\Order;
 use App\User;
@@ -26,7 +28,32 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {  
+        $order_id = 3;
+        $order = Order::find($order_id);
+            
+        $user = DB::table('users as u')->select(
+            'u.id',
+            'u.name',
+            'u.email',
+            'u.avatar',
+            'u.status',
+            'u.is_verify',
+            'b.business_name'
+        )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')->where('u.id', $order->user_id)->first();
+
+        $business_name = str_replace(' ', '', $user->business_name);
+        
+        $data = [
+                // 'avatar'=> asset('public/avatar/'.$user->avatar),
+                'avatar'=> "http://pickd.mavens.work/public/avatar/81589155192przgseaibz.png",
+                'customer_name'=> $order->customer_full_name,
+                'balance'=> round($order->balance),
+                //'qrcode'=> asset('public/qrcode/'.$filename) ,
+                'qrcode'=> "http://pickd.mavens.work/public/qrcode/qrcode-order-3-user-Jabong.png",
+            ];
+
+        Mail::to('sameer.ansari@mavencluster.com')->send(new SendEmail($data));
     }
 
     /**
@@ -119,14 +146,24 @@ class OrderController extends Controller
         ]);
 
         if($response->paid==1){
+            
             $order = Order::find($order_id);
-            $user = User::find($order->user_id);
+            
+            $user = DB::table('users as u')->select(
+                'u.id',
+                'u.name',
+                'u.email',
+                'u.avatar',
+                'u.status',
+                'u.is_verify',
+                'b.business_name'
+            )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')->where('u.id', $order->user_id)->first();
 
-            $filename = 'qrcode-order-'.$order_id.'-user-'.$user->name.'.png';
+            $filename = 'qrcode_order_'.$order_id.'_user_'.$user->business_name.'_'.time().str_random(10).'.png';
 
-            QrCode::format('png')
-            ->size(300)
-            ->generate('Get $'.round($order->balance).' off at the store '.$user->name, public_path('qrcode/'.$filename));
+            $business_name = str_replace(' ', '', $user->business_name);
+            
+            QrCode::format('png')->size(300)->generate('GIFT CARD CODE: '.strtoupper($business_name).round($order->balance), public_path('qrcode/'.$filename));
 
             $order = Order::find($order_id);
             $order->status = 1;
@@ -134,6 +171,19 @@ class OrderController extends Controller
             $order->trx_id = $response->id;
             $order->stripe_response = $response;
             $order->save();
+
+            $order = Order::find($order_id);
+            $data  = [
+                        'avatar'=> asset('public/avatar/'.$user->avatar),
+                        'customer_name'=> $order->customer_full_name,
+                        'balance'=> round($order->balance),
+                        'qrcode'=> asset('public/qrcode/'.$order->qrcode),
+                        'bgImg'=> asset('public/front-email-template/img/bg.jpg'),
+                        'mainbgImg'=> asset('public/front-email-template/img/main-bg.jpg'),
+                        'footerLogoImg'=> asset('public/front-email-template/img/logo.png')
+                    ];
+
+            Mail::to($order->customer_email)->send(new SendEmail($data));
 
             $data['qrimage'] = $filename;
             return redirect('/order/thank-you/'.$input['order_id']);
