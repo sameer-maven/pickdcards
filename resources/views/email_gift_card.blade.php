@@ -11,7 +11,7 @@
          <table width="600" style="margin: 0 auto;">
             <tbody>
                <tr>
-                  <td width="100%" style="background-image: url({{$mainbgImg}});">
+                  <td width="100%" style="background-image: url({{$data['mainbgImg']}});">
                      <table width="100%">
                         <tbody>
                            <tr>
@@ -33,7 +33,7 @@
                                        </tr>
                                        <tr>
                                           <td>
-                                             <table width="100%" style="background-image: url({{$bgImg}}); background-repeat: no-repeat; background-size: cover; min-height: 220px;background-color: #e3eef2;">
+                                             <table width="100%" style="background-image: url({{$data['bgImg']}}); background-repeat: no-repeat; background-size: cover; min-height: 220px;background-color: #e3eef2;">
                                                 <tbody>
                                                    <tr>
                                                       <td width="40%">
@@ -87,7 +87,7 @@
                         <tbody>
                            <tr>
                               <td>
-                                 <img src="{{$footerLogoImg}}" style="max-width: 100%;">
+                                 <img src="{{$data['footerLogoImg']}}" style="max-width: 100%;">
                               </td>
                            </tr>
                            <tr>
