@@ -94,7 +94,7 @@
                   <div class="w-100 px-4 pb-5">
                      <div class="profile-img-wrap">
                         <div class="profile-img">
-                           <img src="{{ asset('avatar/'.Auth::user()->avatar) }}">
+                           <img src="{{ asset('public/avatar/'.Auth::user()->avatar) }}">
                         </div>
                      </div>
                   </div>

@@ -62,7 +62,7 @@
                 </div>
               </div>
               <div class="form-group">
-                  <img class="profile-user-img img-fluid img-circle" src="{{ asset('avatar/'.$adminProfile->avatar) }}" alt="User profile picture">
+                  <img class="profile-user-img img-fluid img-circle" src="{{ asset('public/avatar/'.$adminProfile->avatar) }}" alt="User profile picture">
               </div>
 
             </div>

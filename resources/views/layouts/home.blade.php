@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="{{ asset('front/assets/css/style.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('front/assets/css/custom-style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/front/assets/css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/front/assets/css/custom-style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.12/dist/sweetalert2.min.css">
     <title>Pickd Cards</title>
   </head>
@@ -18,7 +18,7 @@
    <header>
   <nav id="mainNav" class="navbar navbar-expand-xl fixed-top cstm-navbar">
    <div class="container">
-    <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('front/assets/images/logo.svg') }}" class="img-fluid"></a>
+    <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('public/front/assets/images/logo.svg') }}" class="img-fluid"></a>
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -51,7 +51,7 @@
         @else
           <li class="dropdown nav-item cstm-dropdown show">
                 <a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown" role="button" aria-expanded="true">
-                   <img src="{{ asset('avatar/'.Auth::user()->avatar) }}" width="44" height="44" alt="Avatar">
+                   <img src="{{ asset('public/avatar/'.Auth::user()->avatar) }}" width="44" height="44" alt="Avatar">
                    <span class="user-name">{{ Auth::user()->name }}</span>
                    <span class="angle-down s7-angle-down"></span>
                 </a>
@@ -132,15 +132,15 @@
    </div>
 </footer>
 <!-- Optional JavaScript -->
-<script src="{{ asset('front/assets/js/jquery-3.4.1.min.js') }}"></script>
+<script src="{{ asset('public/front/assets/js/jquery-3.4.1.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.12/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-<script src="{{ asset('front/assets/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('front/assets/js/jquery-migrate-1.2.1.min.js') }}"></script>
-<script src="{{ asset('front/assets/js/slick.min.js') }}"></script>
-<script src="{{ asset('front/assets/js/select2.min.js') }}"></script>
-<script src="{{ asset('front/assets/js/app.js') }}"></script>
+<script src="{{ asset('public/front/assets/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('public/front/assets/js/jquery-migrate-1.2.1.min.js') }}"></script>
+<script src="{{ asset('public/front/assets/js/slick.min.js') }}"></script>
+<script src="{{ asset('public/front/assets/js/select2.min.js') }}"></script>
+<script src="{{ asset('public/front/assets/js/app.js') }}"></script>
 @yield('javascript')
 </body>
 </html>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="bg-contact overlay-2" style="background-image: url({{ asset('front/assets/images/sign-in-bg.jpg') }});">
+<div class="bg-contact overlay-2" style="background-image: url({{ asset('public/front/assets/images/sign-in-bg.jpg') }});">
    <div class="container-contact">
       <div class="wrap-contact">
         <h2 class="contact-title text-center">Business Information</h2>

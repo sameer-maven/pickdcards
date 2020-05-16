@@ -1,10 +1,10 @@
 @extends('layouts.home')
 
 @section('content')
-<div class="bg-contact overlay-2" style="background-image: url({{ asset('front/assets/images/sign-in-bg.jpg') }});">
+<div class="bg-contact overlay-2" style="background-image: url({{ asset('public/front/assets/images/sign-in-bg.jpg') }});">
    <div class="container-contact">
       <div class="wrap-contact" style="max-width: 500px;margin-top: 50px;">
-        <img src="{{ asset('avatar/'.$users->avatar) }}" class="img-fluid d-block mx-auto" width="100" height="100">
+        <img src="{{ asset('public/avatar/'.$users->avatar) }}" class="img-fluid d-block mx-auto" width="100" height="100">
          <h2 class="contact-title text-center">{{ $users->business_name }}</h2>
          <p class="contact-subtitle">Purchasing a gift certificate allows you to receive a certificate that you can redeem with 11B Inc. at a later date.
          </p>

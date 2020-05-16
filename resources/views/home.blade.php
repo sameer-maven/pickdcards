@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- top-banner -->
-<div class="top-banner overlay1" style="background-image: url({{ asset('front/assets/images/top-banner.jpg') }});">
+<div class="top-banner overlay1" style="background-image: url({{ asset('public/front/assets/images/top-banner.jpg') }});">
    <div class="container">
       <div class="row">
          <div class="col-lg-6">
@@ -33,34 +33,34 @@
       </div>
       <!-- <div class="logos-wrap d-flex flex-wrap align-items-center text-center mt-4">
          <div class="logos-col">
-            <img src="{{ asset('front/assets/images/brand-logo-1.png') }}" class="img-fluid">
+            <img src="{{ asset('public/front/assets/images/brand-logo-1.png') }}" class="img-fluid">
          </div>
          <div class="logos-col">
-            <img src="{{ asset('front/assets/images/brand-logo-2.png') }}" class="img-fluid">
+            <img src="{{ asset('public/front/assets/images/brand-logo-2.png') }}" class="img-fluid">
          </div>
          <div class="logos-col">
-            <img src="{{ asset('front/assets/images/brand-logo-3.png') }}" class="img-fluid">
+            <img src="{{ asset('public/front/assets/images/brand-logo-3.png') }}" class="img-fluid">
          </div>
          <div class="logos-col">
-            <img src="{{ asset('front/assets/images/brand-logo-4.png') }}" class="img-fluid">
+            <img src="{{ asset('public/front/assets/images/brand-logo-4.png') }}" class="img-fluid">
          </div>
          <div class="logos-col">
-            <img src="{{ asset('front/assets/images/brand-logo-5.png') }}" class="img-fluid">
+            <img src="{{ asset('public/front/assets/images/brand-logo-5.png') }}" class="img-fluid">
          </div>
          <div class="logos-col">
-            <img src="{{ asset('front/assets/images/brand-logo-6.png') }}" class="img-fluid">
+            <img src="{{ asset('public/front/assets/images/brand-logo-6.png') }}" class="img-fluid">
          </div>
          <div class="logos-col">
-            <img src="{{ asset('front/assets/images/brand-logo-7.png') }}" class="img-fluid">
+            <img src="{{ asset('public/front/assets/images/brand-logo-7.png') }}" class="img-fluid">
          </div>
          <div class="logos-col">
-            <img src="{{ asset('front/assets/images/brand-logo-8.png') }}" class="img-fluid">
+            <img src="{{ asset('public/front/assets/images/brand-logo-8.png') }}" class="img-fluid">
          </div>
          <div class="logos-col">
-            <img src="{{ asset('front/assets/images/brand-logo-9.png') }}" class="img-fluid">
+            <img src="{{ asset('public/front/assets/images/brand-logo-9.png') }}" class="img-fluid">
          </div>
          <div class="logos-col">
-            <img src="{{ asset('front/assets/images/brand-logo-10.png') }}" class="img-fluid">
+            <img src="{{ asset('public/front/assets/images/brand-logo-10.png') }}" class="img-fluid">
          </div>
       </div> -->
    </div>
@@ -97,7 +97,7 @@
 <!-- business-signup -->
 
 <!-- support-sec -->
-<!-- <div class="support-sec sec-padding overlay1" style="background-image: url({{ asset('front/assets/images/support-bg.jpg') }});">
+<!-- <div class="support-sec sec-padding overlay1" style="background-image: url({{ asset('public/front/assets/images/support-bg.jpg') }});">
    <div class="container">
       <div class="row">
          <div class="col-lg-6">
@@ -128,7 +128,7 @@
             <div class="testimonial-slider">
                <div class="item">
                   <div class="client-info">
-                     <div class="client-img"><img src="{{ asset('front/assets/images/client-img.jpg') }}"></div>
+                     <div class="client-img"><img src="{{ asset('public/front/assets/images/client-img.jpg') }}"></div>
                      <h4 class="client-title">Cody Marchant</h4>
                      <p>Company Client</p>
                   </div>
@@ -140,7 +140,7 @@
                </div>
                <div class="item">
                   <div class="client-info">
-                     <div class="client-img"><img src="{{ asset('front/assets/images/client-img.jpg') }}"></div>
+                     <div class="client-img"><img src="{{ asset('public/front/assets/images/client-img.jpg') }}"></div>
                      <h4 class="client-title">Cody Marchant</h4>
                      <p>Company Client</p>
                   </div>
@@ -152,7 +152,7 @@
                </div>
                <div class="item">
                   <div class="client-info">
-                     <div class="client-img"><img src="{{ asset('front/assets/images/client-img.jpg') }}"></div>
+                     <div class="client-img"><img src="{{ asset('public/front/assets/images/client-img.jpg') }}"></div>
                      <h4 class="client-title">Cody Marchant</h4>
                      <p>Company Client</p>
                   </div>

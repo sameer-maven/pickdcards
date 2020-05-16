@@ -140,7 +140,7 @@
       </div>
       <div class="col-md-3">
         <div class="form-group block-block text-center">
-            <img class="profile-user-img img-fluid img-circle" src="{{ asset('avatar/'.$users->avatar) }}" alt="User profile picture">
+            <img class="profile-user-img img-fluid img-circle" src="{{ asset('public/avatar/'.$users->avatar) }}" alt="User profile picture">
         </div>
         <!-- <a href="http://localhost/gostock/sameer" target="_blank" class="btn btn-lg btn-success btn-block margin-bottom-10">View <i class="fa fa-external-link-square"></i> </a> -->
         <ol class="list-group">
