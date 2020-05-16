@@ -159,9 +159,9 @@ class OrderController extends Controller
                 'b.business_name'
             )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')->where('u.id', $order->user_id)->first();
 
-            $filename = 'qrcode_order_'.$order_id.'_user_'.$user->business_name.'_'.time().str_random(10).'.png';
-
             $business_name = str_replace(' ', '', $user->business_name);
+
+            $filename = 'qrcode_order_'.$order_id.'_user_'.$business_name.'_'.time().str_random(10).'.png';
             
             QrCode::format('png')->size(300)->generate('GIFT CARD CODE: '.strtoupper($business_name).round($order->balance), public_path('qrcode/'.$filename));
 
