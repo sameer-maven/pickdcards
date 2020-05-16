@@ -34,6 +34,8 @@ Route::post('/user/store-change-password','UserController@storeChangePassword');
 Route::get('/user/manage-profile', 'UserController@manageProfile');
 Route::post('/user/store-manage-profile','UserController@storeManageProfile');
 
+Route::get('/user/orders', 'UserController@ordersList');
+
 //Admin Routes
 
 Route::group(['middleware' => 'admin'], function() {

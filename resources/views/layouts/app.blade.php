@@ -59,7 +59,7 @@
                 <?php if(Auth::user()->is_admin=='1'){ ?>
                 <a class="dropdown-item" href="{{ url('/admin/dashboard') }}"><span class="icon-account s7-icon"></span>Admin Panel</a>
                 <?php }else{?>
-                <a class="dropdown-item" href="#"><span class="icon-gear s7-icon"></span>Manage Order</a>
+                <a class="dropdown-item" href="{{ url('/user/orders') }}"><span class="icon-gear s7-icon"></span>Manage Order</a>
                 <a class="dropdown-item" href="{{ url('/user/manage-profile') }}"><span class="icon-account s7-icon"></span>Manage Profile</a>
                 <!-- <a class="dropdown-item" href="#"><span class="icon-vip-card s7-icon"></span>Manage Giftcard</a> -->
                 <a class="dropdown-item" href="{{ url('/user/change-password') }}"><span class="icon-key s7-icon"></span>Change Password </a>
@@ -165,8 +165,10 @@
 <script src="{{ asset('public/front/assets/js/jquery-migrate-1.2.1.min.js') }}"></script>
 <script src="{{ asset('public/front/assets/js/slick.min.js') }}"></script>
 <script src="{{ asset('public/front/assets/js/select2.min.js') }}"></script>
-<script src="{{ asset('public/front/assets/js/app.js') }}"></script>
 <script src="{{ asset('public/front/assets/js/form-validations.js') }}"></script>
+<script src="{{ asset('public/front/assets/js/moment.min.js') }}"></script>
+<script src="{{ asset('public/front/assets/js/daterangepicker.js') }}"></script>
+<script src="{{ asset('public/front/assets/js/app.js') }}"></script>
 
 @yield('javascript')
 </body>

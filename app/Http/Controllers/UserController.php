@@ -11,6 +11,7 @@ use Image;
 use App\Industry;
 use App\Type;
 use App\User;
+use App\Order;
 use App\Businessinfo;
 use Auth;
 use DB;
@@ -230,6 +231,24 @@ class UserController extends Controller
 
         \Session::flash('notification',"Details Updated Successfully.");
         return redirect('/user/manage-profile');
+    }
+
+    public function ordersList()
+    {
+        
+        $query = Input::get('q');
+        $datefilter = Input::get('datefilter');
+        $id    = Auth::user()->id;
+
+        if($query != '' && strlen( $query ) > 2 || $datefilter!= '' && !empty($datefilter )) {
+            $data = Order::where(['user_id'=>$id,'status'=>'1'])
+            ->where('customer_full_name', 'LIKE', '%'.$query.'%')
+            ->orderBy('id','desc')->paginate(2)->appends("name",$query);;
+        } else {
+            $data = Order::where(['user_id'=>$id,'status'=>'1'])->orderBy('id','desc')->paginate(2);
+        }
+        
+        return view('user_orders', ['data' => $data,'query' => $query]);
     }
 
 }
