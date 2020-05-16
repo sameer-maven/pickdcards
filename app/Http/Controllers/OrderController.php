@@ -28,32 +28,8 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {  
-        $order_id = 3;
-        $order = Order::find($order_id);
-            
-        $user = DB::table('users as u')->select(
-            'u.id',
-            'u.name',
-            'u.email',
-            'u.avatar',
-            'u.status',
-            'u.is_verify',
-            'b.business_name'
-        )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')->where('u.id', $order->user_id)->first();
-
-        $business_name = str_replace(' ', '', $user->business_name);
-        
-        $data = [
-                // 'avatar'=> asset('public/avatar/'.$user->avatar),
-                'avatar'=> "http://pickd.mavens.work/public/avatar/81589155192przgseaibz.png",
-                'customer_name'=> $order->customer_full_name,
-                'balance'=> round($order->balance),
-                //'qrcode'=> asset('public/qrcode/'.$filename) ,
-                'qrcode'=> "http://pickd.mavens.work/public/qrcode/qrcode-order-3-user-Jabong.png",
-            ];
-
-        Mail::to('sameer.ansari@mavencluster.com')->send(new SendEmail($data));
+    {
+        //  
     }
 
     /**
@@ -193,6 +169,7 @@ class OrderController extends Controller
     }
 
     public function thankYou($id){
+
         $order_id = base64_decode($id);
         $order = Order::find($order_id);
 
@@ -204,52 +181,8 @@ class OrderController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Order $order)
-    {
-        //
-    }
-
     public function fillOrderDetails ($id) {
+        
         $id = base64_decode($id);
 
         $data['users'] = DB::table('users as u')->select(

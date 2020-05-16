@@ -30,6 +30,6 @@ class SendEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('support@pickdcars.com')->subject('Gift Card')->view('email_gift_card')->with('data',$this->data);
+        return $this->from('support@pickdcars.com')->subject('Thanks for purchasing Gift Card!')->view('email_gift_card')->with('data',$this->data);
     }
 }

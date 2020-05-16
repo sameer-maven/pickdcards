@@ -27,17 +27,17 @@
                     </a>
                  </li>
                  <li class="nav-item">
-                    <a class="nav-link" href="#">How it Works </a>
-                 </li>
-                 <li class="nav-item">
-                    <a class="nav-link" href="#">FAQs</a>
-                 </li>
-                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url('page/how-it-works') }}">How it Works </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url('page/faq') }}">FAQs</a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link" href="{{ url('page/legal') }}">Legal</a>
-                 </li>
-                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact Us</a>
-                 </li>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url('page/contact-us') }}">Contact Us</a>
+                  </li>
                   @guest
                   @if (Route::has('register'))
                   <li class="nav-item px-2">
@@ -128,17 +128,17 @@
          <div class="col-lg-3">
             <div class="footer-col">
                <h3 class="footer-title">About Us</h3>
-               <p>Subscribe here to stay connected to our latest updates and offers.</p>
+               <p>Pickd Cards is a platform to assist small businesses. We are passionate individuals based out of San Diego, CA looking for a way to help small businesses everywhere thrive.</p>
             </div>
          </div>
          <div class="col-lg-3">
             <div class="footer-col">
                <h3 class="footer-title">Important</h3>
                <ul class="footer-list list-unstyled">
-                  <li><a href="JavaScript:(void)">Home</a></li>
-                  <li><a href="JavaScript:(void)">How it Works</a></li>
-                  <li><a href="JavaScript:(void)">FAQs</a></li>
-                  <li><a href="JavaScript:(void)">Contact US</a></li>
+                  <li><a href="{{ url('/') }}">Home</a></li>
+                  <li><a href="{{ url('page/how-it-works') }}">How it Works</a></li>
+                  <li><a href="{{ url('page/faq') }}">FAQs</a></li>
+                  <li><a href="{{ url('page/contact-us') }}">Contact US</a></li>
                </ul>
             </div>
          </div>
