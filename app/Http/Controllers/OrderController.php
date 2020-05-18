@@ -82,6 +82,7 @@ class OrderController extends Controller
         $order->trx_id                   = "";
         $order->qrcode                   = "";
         $order->balance                  = $input['card_amount'];
+        $order->used_amount              = 0;
         $order->recipient_name           = $input['recipient_name'];
         $order->recipient_email          = $input['recipient_email'];
         $order->recipient_notes          = $input['recipient_note'];
