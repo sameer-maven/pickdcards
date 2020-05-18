@@ -46,7 +46,7 @@
               <div class='col-lg-12'>
                 <div class='form-control total btn pickd-btn text-white rounded'>
                   Total:
-                  <span class='amount'>$ <?php echo round($amount); ?></span>
+                  <span class='amount'>$ <?php echo $amount; ?></span>
                 </div>
               </div>
             </div>
