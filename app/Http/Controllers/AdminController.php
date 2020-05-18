@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input as Input;
 use App\User;
+use App\Order;
 use App\Businessinfo;
 use App\Helper;
 use Auth;
@@ -236,6 +237,31 @@ class AdminController extends Controller
         
         \Session::flash('notification',"User Deleted Successfully.");
         return redirect('/admin/users-list');
+    }
+
+    public function ordersList()
+    {
+        
+        $query = Input::get('q');
+        
+        if( $query != '' && strlen( $query ) > 2 ) {
+            $custquery = DB::table('orders as o')->select('o.*','u.name');
+            $custquery->where('u.name', 'LIKE', '%'.$query.'%');
+            $custquery->orWhere('o.customer_full_name', 'LIKE', '%'.$query.'%');
+            $custquery->orWhere('o.customer_email', 'LIKE', '%'.$query.'%');
+            $data = $custquery->leftjoin('users as u', 'o.user_id', '=', 'u.id')->orderBy('id','desc')->paginate(10)->appends(["q" => $query]);
+         } else {
+            $data = DB::table('orders as o')->select('o.*','u.name')
+                    ->leftjoin('users as u', 'o.user_id', '=', 'u.id')->orderBy('id','desc')->paginate(10);
+         }
+        
+        return view('admin.orders-list', ['data' => $data,'query' => $query]);
+
+    }
+
+    public function orderDetail($id)
+    {
+        return view('admin.orders-view');   
     }
 
 }

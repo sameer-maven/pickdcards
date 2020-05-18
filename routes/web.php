@@ -65,5 +65,9 @@ Route::group(['middleware' => 'admin'], function() {
 	);
 	Route::get('/admin/pages/delete/{id}','PagesController@destroyPage')->where(array( 'id' => '[0-9]+'));
 
+	// Admin ordes management
+	Route::get('/admin/orders-list','AdminController@ordersList');
+	Route::get('/admin/order-detail/{id}','AdminController@orderDetail');
+
 });
 //<--- End Group Role
