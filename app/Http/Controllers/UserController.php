@@ -241,11 +241,24 @@ class UserController extends Controller
         $id    = Auth::user()->id;
 
         if($query != '' && strlen( $query ) > 2 || $datefilter!= '' && !empty($datefilter )) {
-            $data = Order::where(['user_id'=>$id,'status'=>'1'])
-            ->where('customer_full_name', 'LIKE', '%'.$query.'%')
-            ->orderBy('id','desc')->paginate(2)->appends("name",$query);;
+
+            $ordQuery = Order::where(['user_id'=>$id,'status'=>'1']);            
+
+            if($query != ''){
+                $ordQuery->where('customer_full_name', 'LIKE', '%'.$query.'%');
+            }
+
+            if($datefilter!= ''){
+                $explode = explode('/', $datefilter);
+                $from =  $explode[0];
+                $to =  $explode[1];
+                $ordQuery->whereBetween('created_at',[$from, $to]);
+            }
+
+            $data = $ordQuery->orderBy('id','desc')->paginate(15)->appends(["name"=>$query,"datefilter"=>$datefilter]);
+
         } else {
-            $data = Order::where(['user_id'=>$id,'status'=>'1'])->orderBy('id','desc')->paginate(2);
+            $data = Order::where(['user_id'=>$id,'status'=>'1'])->orderBy('id','desc')->paginate(15);
         }
         
         return view('user_orders', ['data' => $data,'query' => $query]);

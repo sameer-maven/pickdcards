@@ -81,6 +81,8 @@
                {{ $data->appends(['q' => $query])->links() }}
             </nav>
          </div>
+         <br>
+         <br>
    </div>
 </div>
 @endsection
