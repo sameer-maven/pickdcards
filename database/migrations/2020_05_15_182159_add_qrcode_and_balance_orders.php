@@ -15,7 +15,7 @@ class AddQrcodeAndBalanceOrders extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->string('qrcode')->after('status');
-            $table->decimal('balance',9,3)->after('qrcode');
+            $table->decimal('balance',9,2)->after('qrcode');
         });
     }
 

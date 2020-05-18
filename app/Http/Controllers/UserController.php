@@ -264,4 +264,16 @@ class UserController extends Controller
         return view('user_orders', ['data' => $data,'query' => $query]);
     }
 
+
+    public function orderDetail($id)
+    {
+        $data = Order::find($id);
+
+        if(!empty($data)){
+            return view('user_order_detail',['data' => $data]);
+        }else{
+            return redirect('/user/orders');
+        }
+    }
+
 }

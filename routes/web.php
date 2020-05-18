@@ -35,6 +35,7 @@ Route::get('/user/manage-profile', 'UserController@manageProfile');
 Route::post('/user/store-manage-profile','UserController@storeManageProfile');
 
 Route::get('/user/orders', 'UserController@ordersList');
+Route::get('/user/order-detail/{id}', 'UserController@orderDetail');
 
 //Admin Routes
 

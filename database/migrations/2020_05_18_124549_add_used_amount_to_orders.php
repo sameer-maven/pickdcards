@@ -14,7 +14,7 @@ class AddUsedAmountToOrders extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->decimal('used_amount',9,3)->after('amount');
+            $table->decimal('used_amount',9,2)->after('amount');
         });
     }
 

@@ -4,8 +4,8 @@
 <nav aria-label="breadcrumb" class="page-breadcrumb">
    <div class="container">
   <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Manage Account</li>
+    <li class="breadcrumb-item"><a href="{{ url('user') }}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Manage Orders</li>
   </ol>
 </div>
 </nav>
@@ -14,7 +14,7 @@
 <div class="order-detail-sec">
 <div class="container">
 <div class="result-heading-top d-flex flex-wrap align-items-center justify-content-between mb-4">
-            <h4 class="result-title mb-0">Order Details ({{$data->total()}})</h4>
+            <h4 class="result-title mb-0">Orders ({{$data->total()}})</h4>
             @if( $data->total() !=  0 )
             <div class="search-detail-col col-lg-6">
                <form role="search" autocomplete="off" action="{{ url('user/orders') }}" method="get">
