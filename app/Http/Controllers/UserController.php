@@ -96,7 +96,14 @@ class UserController extends Controller
 
     public function changePassword()
     {   
-        return view('user_change_password'); 
+        
+        $is_business_profile_complete = Auth::user()->is_business_profile_complete;
+
+        if($is_business_profile_complete == '0'){
+            return redirect('/user');  
+        }else{
+            return view('user_change_password');  
+        }
     }
 
     public function storeChangePassword(Request $request)
@@ -154,7 +161,15 @@ class UserController extends Controller
         $data['Industries']           = Industry::where('status','1')->orderBy('industry')->get();
         $data['Types']                = Type::where('status','1')->orderBy('type')->get();
 
-        return view('user_profile')->with($data);
+
+        $is_business_profile_complete = Auth::user()->is_business_profile_complete;
+
+        if($is_business_profile_complete == '0'){
+            return redirect('/user');  
+        }else{
+            return view('user_profile')->with($data);  
+        }
+
     }
 
     public function storeManageProfile(Request $request)
@@ -260,8 +275,14 @@ class UserController extends Controller
         } else {
             $data = Order::where(['user_id'=>$id,'status'=>'1'])->orderBy('id','desc')->paginate(15);
         }
+
+        $is_business_profile_complete = Auth::user()->is_business_profile_complete;
+        if($is_business_profile_complete == '0'){
+            return redirect('/user');  
+        }else{  
+            return view('user_orders', ['data' => $data,'query' => $query]);
+        }
         
-        return view('user_orders', ['data' => $data,'query' => $query]);
     }
 
 
@@ -269,10 +290,15 @@ class UserController extends Controller
     {
         $data = Order::find($id);
 
-        if(!empty($data)){
-            return view('user_order_detail',['data' => $data]);
-        }else{
-            return redirect('/user/orders');
+        $is_business_profile_complete = Auth::user()->is_business_profile_complete;
+        if($is_business_profile_complete == '0'){
+            return redirect('/user');  
+        }else{  
+            if(!empty($data)){
+                return view('user_order_detail',['data' => $data]);
+            }else{
+                return redirect('/user/orders');
+            }
         }
     }
 
