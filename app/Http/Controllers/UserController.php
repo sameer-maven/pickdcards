@@ -177,8 +177,8 @@ class UserController extends Controller
         $input = $request->all();
         $id    = Auth::user()->id;
 
-        $temp    = 'temp/';
-        $path    = 'avatar/'; 
+        $temp    = 'public/temp/';
+        $path    = 'public/avatar/'; 
         $imgOld  = $path.Auth::user()->avatar;
 
         //<--- HASFILE PHOTO
