@@ -86,7 +86,7 @@
          </div>
          <div class="sign-col">
             <div class="icon-2" style="background: #C55C87;"><span class="icon-deposit"></span></div>
-            <p>Get gift card sales deposited directly into your bank account within a few days.</p>
+            <p>Get gift card sales deposited directly into your bank account within a few days.Our gift card service is 100% FREE FOR LIFE for small businesses</p>
          </div>
       </div>
       <div class="btn-wrap text-center mt-5">
