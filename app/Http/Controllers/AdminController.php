@@ -52,8 +52,8 @@ class AdminController extends Controller
             'email' => 'required'
         ]);
 
-        $temp    = 'temp/';
-        $path    = 'avatar/'; 
+        $temp    = 'public/temp/';
+        $path    = 'public/avatar/'; 
         $imgOld  = $path.Auth::user()->avatar;
 
         //<--- HASFILE PHOTO
