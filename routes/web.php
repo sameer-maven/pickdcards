@@ -69,5 +69,9 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::get('/admin/orders-list','AdminController@ordersList');
 	Route::get('/admin/order-detail/{id}','AdminController@orderDetail');
 
+	Route::get('/admin/commission-settings','AdminController@commissionSettings');
+	Route::post('/admin/commission-settings/update','AdminController@updateCommissionSettings');
+	Route::get('/admin/profile-socials','AdminController@profileSocials');
+	Route::post('/admin/profile-socials/update','AdminController@updateSocialSettings');
 });
 //<--- End Group Role

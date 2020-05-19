@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input as Input;
 use App\User;
 use App\Order;
 use App\Businessinfo;
+use App\Generalsettings;
 use App\Helper;
 use Auth;
 use Image;
@@ -262,6 +263,49 @@ class AdminController extends Controller
     public function orderDetail($id)
     {
         return view('admin.orders-view');   
+    }
+
+    public function commissionSettings()
+    {
+        $data['settings'] = Generalsettings::find(1);
+        return view('admin.commission-settings')->with($data);   
+    }
+
+    public function updateCommissionSettings (Request $request) {
+        $input = $request->all();
+        
+        $validatedData = $request->validate([
+            'customer_charge'  => 'required',
+            'business_charge'  => 'required'
+        ]);
+
+        $Generalsettings = Generalsettings::find(1);
+
+        $Generalsettings->customer_charge = $input['customer_charge'];
+        $Generalsettings->business_charge = $input['business_charge'];
+        $Generalsettings->save();
+        \Session::flash('notification',"Settings Updated Successfully.");
+        return redirect('/admin/commission-settings');
+    }
+
+    public function profileSocials()
+    {
+        $data['settings'] = Generalsettings::find(1);
+        return view('admin.profile-socials')->with($data);
+    }
+
+    public function updateSocialSettings (Request $request) {
+        $input = $request->all();
+        $Generalsettings = Generalsettings::find(1);
+        $Generalsettings->facebook = $input['facebook'];
+        $Generalsettings->twitter = $input['twitter'];
+        $Generalsettings->linkedin = $input['linkedin'];
+        $Generalsettings->instagram = $input['instagram'];
+        $Generalsettings->youtube = $input['youtube'];
+        $Generalsettings->pinterest = $input['pinterest'];
+        $Generalsettings->save();
+        \Session::flash('notification',"Settings Updated Successfully.");
+        return redirect('/admin/profile-socials');
     }
 
 }

@@ -409,6 +409,7 @@ class ComposerStaticInitd4dd050b2ce4ecaba410f114ac9f8572
         'App\\Businessinfo' => __DIR__ . '/../..' . '/app/Businessinfo.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Generalsettings' => __DIR__ . '/../..' . '/app/Generalsettings.php',
         'App\\Helper' => __DIR__ . '/../..' . '/app/helper.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',

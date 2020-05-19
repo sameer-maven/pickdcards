@@ -89,7 +89,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview @if(Request::is('admin/users-list'))  menu-open @endif ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
@@ -98,15 +98,15 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{url('admin/users-list')}}" class="nav-link">
+              <li class="nav-item" >
+                <a href="{{url('admin/users-list')}}" class="nav-link @if(Request::is('admin/users-list')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Business Users</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview @if(Request::is('admin/orders-list'))  menu-open @endif ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-gift"></i>
               <p>
@@ -116,14 +116,14 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('admin/orders-list')}}" class="nav-link">
+                <a href="{{url('admin/orders-list')}}" class="nav-link @if(Request::is('admin/orders-list'))  active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Orders List</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview @if(Request::is('admin/pages')||Request::is('admin/pages/create'))  menu-open @endif ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
               <p>
@@ -133,13 +133,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('admin/pages')}}" class="nav-link">
+                <a href="{{url('admin/pages')}}" class="nav-link @if(Request::is('admin/pages')) active @endif ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pages List</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('admin/pages/create')}}" class="nav-link">
+                <a href="{{url('admin/pages/create')}}" class="nav-link @if(Request::is('admin/pages/create')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Page</p>
                 </a>
@@ -147,7 +147,13 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url('admin/change-password')}}"><i class="nav-icon fas fa-key"></i> Change Password</a>
+            <a class="nav-link @if(Request::is('admin/commission-settings'))  active @endif" href="{{url('admin/commission-settings')}}"><i class="nav-icon fas fa-cogs"></i> Commission Settings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link @if(Request::is('admin/profile-socials'))  active @endif" href="{{url('admin/profile-socials')}}"><i class="nav-icon fas fa-share-alt"></i> Profile Socials</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link @if(Request::is('admin/change-password'))  active @endif" href="{{url('admin/change-password')}}"><i class="nav-icon fas fa-key"></i> Change Password</a>
           </li>
           <li class="nav-item">
           	<a class="nav-link" href="{{ route('logout') }}"
@@ -231,6 +237,8 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('public/admin/dist/js/demo.js') }}"></script>
 <script src="{{ asset('public/admin/dist/js/form-validations.js') }}"></script>
+
+@yield('javascript')
 
 @if (Session::has('notification'))
 <script>
