@@ -1,3 +1,53 @@
 .error{
 	color:#CD1919;
 }
+.cstm-navbar button.navbar-toggler {
+    border-color: #59455f;
+    color: #59455f;
+    font-size: 21px;
+    width: 45px;
+    height: 40px;
+    outline: none;
+}
+.cstm-navbar button.navbar-toggler .navbar-toggler-icon{
+	display: flex;
+	align-items: center;
+	width: auto;
+    height: auto;
+	position: relative;
+}
+.cstm-navbar button.navbar-toggler span.navbar-toggler-icon:after {
+    position: absolute;
+    content: "\f0c9";
+    font-family: fontawesome;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+.sign-col p{
+	font-size: 16px;
+}
+.sign-col{
+	flex: 0 0 29%;
+	max-width: 29%;
+}
+@media(min-width: 768px){
+	.contact-frm-manage{
+		margin-left: 150px;
+	}
+}
+@media(min-width: 768px) and (max-width: 991px){
+	.business-signup-sec .container{
+		max-width: 940px;
+	}
+	.sign-detail-row .sign-col{
+		flex: 0 0 30%;
+    	max-width: 30%;
+	}
+}
+@media(max-width: 767px){
+	.sign-detail-row .sign-col{
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+}

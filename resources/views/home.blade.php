@@ -8,9 +8,7 @@
          <div class="col-lg-6">
             <div class="banner-content">
                <h1 class="banner-title">
-                  Gift Cards to 
-                  support small 
-                  businesses
+                  Gift Cards to Support Small Business
                </h1>
                <div class="btn-wrap banner-btn mt-3">
                   <a href="{{ url('/register') }}" class="btn pickd-btn picked-btn-white mr-3 mb-3">Sign Your Business Up</a>
@@ -71,26 +69,26 @@
    <div class="container">
       <div class="row">
          <div class="col-lg-8 text-center mx-auto">
-            <h2 class="sec-title">Here’s how to sign up your business</h2>
+            <h2 class="sec-title">Sign Up Your Business</h2>
             <!-- <p class="sec-subtitle">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..</p> -->
          </div>
       </div>
       <div class="sign-detail-row d-flex flex-wrap justify-content-center mt-5">
          <div class="sign-col">
             <div class="icon-2" style="background: #86C959;"><span class="icon-enter"></span></div>
-            <p>Create a free Pickd Cards account with your business information.</p>
+            <p>Create a free Pickd Cards account.</p>
          </div>
          <div class="sign-col">
             <div class="icon-2" style="background: #D9D54E;"><span class="icon-gift"></span></div>
-            <p>Offer online gift cards with a unique URL you can share with your consumers. Your business will be searchable here using the name, location, and industry.</p>
+            <p>Offer digital gift cards with a unique URL you can share with your customers. Your business will be searchable within the Pickd platform using name, location and industry.</p>
          </div>
          <div class="sign-col">
             <div class="icon-2" style="background: #C55C87;"><span class="icon-deposit"></span></div>
-            <p>Get gift card sales deposited directly into your bank account within a few days.Our gift card service is 100% FREE FOR LIFE for small businesses</p>
+            <p>Get gift card sales deposited directly into your bank account within a few days. Our gift card service is <span style="font-weight: 700;">100% FREE FOR LIFE</span> for small businesses. <br> * Please see our Terms and Conditions. <br> </p>
          </div>
       </div>
       <div class="btn-wrap text-center mt-5">
-         <a href="{{ url('/register') }}" class="btn pickd-btn text-white">Sign Your Business Up</a>
+         <a href="{{ url('/register') }}" class="btn pickd-btn text-white">Sign Up Your Business</a>
       </div>
    </div>
 </div>
@@ -172,13 +170,14 @@
       <div class="row">
          <div class="col-lg-6">
             <div class="d-flex flex-wrap align-items-center">
-               <a href="JavaScript:(void)" class="btn pickd-btn picked-btn-white">Get Started</a>
+               <a href="{{ url('/register') }}" class="btn pickd-btn picked-btn-white">Get Started</a>
                <ul class="social-icons d-flex flex-wrap list-unstyled mb-0">
-                  <li><a href="#"><span class="icon-facebook-1"></span></a></li>
-                  <li><a href="#"><span class="icon-twitter-black-shape"></span></a></li>
-                  <li><a href="#"><span class="icon-linkedin"></span></a></li>
-                  <li><a href="#"><span class="icon-instagram"></span></a></li>
-                  <li><a href="#"><span class="icon-youtube-1"></span></a></li>
+                  <li><a href="https://www.facebook.com/pickdcards" target="__blank"><span class="icon-facebook-1"></span></a></li>
+                  <li><a href="https://twitter.com/pickdcards" target="__blank"><span class="icon-twitter-black-shape"></span></a></li>
+                  <li><a href="https://www.linkedin.com/company/pickd-cards" target="__blank"><span class="icon-linkedin"></span></a></li>
+                  <li><a href="https://www.instagram.com/pickdcards" target="__blank"><span class="icon-instagram"></span></a></li>
+                  <li><a href="https://www.pinterest.com/pickdcards" target="__blank"><span class="icon-pinterest"></span></a></li>
+                  <!-- <li><a href="#"><span class="icon-youtube-1"></span></a></li> -->
                </ul>
             </div>
          </div>

@@ -13,6 +13,7 @@ use Image;
 use DB;
 use App\Industry;
 use App\Type;
+use App\State;
 
 class HomeController extends Controller
 {
@@ -30,13 +31,14 @@ class HomeController extends Controller
     public function getSearch()
     {
         
-		$query       = Input::get('name');
-		$industryInp = Input::get('industry');
-		$typeInp     = Input::get('type');
-		$zipcodeInp  = Input::get('zipcode');
+        $query      = Input::get('name');
+        $cityInp    = Input::get('city');
+        $stateInp   = Input::get('state');
+        $zipcodeInp = Input::get('zipcode');
 
         $Industries = Industry::where('status','1')->orderBy('industry')->get();
-		$Types = Type::where('status','1')->orderBy('type')->get();
+        $Types      = Type::where('status','1')->orderBy('type')->get();
+        $States     = State::where('status','1')->orderBy('state_name')->get();
 
         if($query != '' && strlen($query) > 2) {
            
@@ -52,7 +54,7 @@ class HomeController extends Controller
             ->orderBy('id','desc')
             ->paginate(16)->appends("name",$query);
 
-         }elseif ($industryInp != '' || $typeInp != '' || $zipcodeInp != '') {
+         }elseif ($cityInp != '' || $stateInp != '' || $zipcodeInp != '') {
 
          	$cusQuery = DB::table('users as u')->select(
                 'u.id',
@@ -63,19 +65,19 @@ class HomeController extends Controller
             ->where('u.is_admin','=',null)
             ->where('u.status','=',1);
 
-			if ($industryInp != ""){
-			    $cusQuery->where('b.industry_id', '=', $industryInp);
+			if ($cityInp != ""){
+			    $cusQuery->where('b.city', 'LIKE', '%'.$cityInp.'%');
 			}
 
-			if ($typeInp != ""){
-			    $cusQuery->where('b.type_id', '=', $typeInp);
+			if ($stateInp != ""){
+			    $cusQuery->where('b.state', 'LIKE', '%'.$stateInp.'%');
 			}
 
             if ($zipcodeInp != ""){
-                $cusQuery->where('b.address','LIKE', '%'.$zipcodeInp.'%');
+                $cusQuery->where('b.pincode','=',$zipcodeInp);
             }
 
-			$data = $cusQuery->orderBy('id','desc')->paginate(16)->appends(['industry'=>$industryInp,'type'=>$typeInp,'zipcode'=>$zipcodeInp]);
+			$data = $cusQuery->orderBy('id','desc')->paginate(16)->appends(['city'=>$cityInp,'state'=>$stateInp,'zipcode'=>$zipcodeInp]);
          } 
          else {
             $data = DB::table('users as u')->select(
@@ -90,7 +92,7 @@ class HomeController extends Controller
             ->paginate(16);
          }
         
-        return view('search', ['data' => $data,'query' => $query,'Industries'=>$Industries,'Types'=>$Types]);
+        return view('search', ['data' => $data,'query' => $query,'Industries'=>$Industries,'Types'=>$Types,'States'=>$States]);
 
     }
 }

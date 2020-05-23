@@ -10,6 +10,7 @@ use App\Helper;
 use Image;
 use App\Industry;
 use App\Type;
+use App\State;
 use App\User;
 use App\Order;
 use App\Businessinfo;
@@ -38,8 +39,9 @@ class UserController extends Controller
 
         $is_business_profile_complete = Auth::user()->is_business_profile_complete;
         
-        $data['Industries']           = Industry::where('status','1')->orderBy('industry')->get();
-        $data['Types']                = Type::where('status','1')->orderBy('type')->get();
+        $data['Industries'] = Industry::where('status','1')->orderBy('industry')->get();
+        $data['Types']      = Type::where('status','1')->orderBy('type')->get();
+        $data['States']     = State::where('status','1')->orderBy('state_name')->get();
 
         if($is_business_profile_complete == '0'){
             return view('user_business_profile')->with($data);  
@@ -56,24 +58,30 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'business_name'     => 'required',
             'address'           => 'required',
+            'city'              => 'required',
+            'state'             => 'required',
+            'pincode'           => 'required',
             'phone_number'      => 'required',
             'email'             => 'required',
             'business_industry' => 'required',
             'business_type'     => 'required',
-            'tax_id_number'     => 'required',
+            'tax_id_number'     => 'required'
         ]);
 
-        $sql                      = New Businessinfo;
-        $sql->business_name       = trim($input['business_name']);
-        $sql->user_id             = $id;
-        $sql->address             = $input['address'];
-        $sql->phone_number        = $input['phone_number'];
-        $sql->business_email      = $input['email'];
+        $sql                 = New Businessinfo;
+        $sql->business_name  = trim($input['business_name']);
+        $sql->user_id        = $id;
+        $sql->address        = $input['address'];
+        $sql->city           = $input['city'];
+        $sql->state          = $input['state'];
+        $sql->pincode        = $input['pincode'];
+        $sql->phone_number   = $input['phone_number'];
+        $sql->business_email = $input['email'];
 
         if(isset($input['business_url']) && !empty($input['business_url'])){
             $sql->url             = $input['business_url'];
         }else{
-           $sql->url             = ""; 
+            $sql->url             = ""; 
         }
 
         $sql->industry_id         = $input['business_industry'];
@@ -144,6 +152,9 @@ class UserController extends Controller
                 'u.created_at',
                 'b.business_name',
                 'b.address',
+                'b.city',
+                'b.state',
+                'b.pincode',
                 'b.phone_number',
                 'b.business_email',
                 'b.url',
@@ -153,14 +164,13 @@ class UserController extends Controller
                 'b.bank_name',
                 'b.bank_routing_number',
                 'b.bank_account_number'
-
             )
          ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
          ->where('u.id', Auth::user()->id)->first();
 
-        $data['Industries']           = Industry::where('status','1')->orderBy('industry')->get();
-        $data['Types']                = Type::where('status','1')->orderBy('type')->get();
-
+        $data['Industries'] = Industry::where('status','1')->orderBy('industry')->get();
+        $data['Types']      = Type::where('status','1')->orderBy('type')->get();
+        $data['States']     = State::where('status','1')->orderBy('state_name')->get();
 
         $is_business_profile_complete = Auth::user()->is_business_profile_complete;
 
@@ -220,10 +230,13 @@ class UserController extends Controller
             $usersBusInfo = new Businessinfo; 
         }
 
-        $usersBusInfo->business_name       = $input['business_name'];
-        $usersBusInfo->address             = $input['address'];
-        $usersBusInfo->phone_number        = $input['phone_number'];
-        $usersBusInfo->business_email      = $input['business_email'];
+        $usersBusInfo->business_name  = $input['business_name'];
+        $usersBusInfo->address        = $input['address'];
+        $usersBusInfo->city           = $input['city'];
+        $usersBusInfo->state          = $input['state'];
+        $usersBusInfo->pincode        = $input['pincode'];
+        $usersBusInfo->phone_number   = $input['phone_number'];
+        $usersBusInfo->business_email = $input['business_email'];
         
         if(isset($input['url']) && !empty($input['url'])){
             $usersBusInfo->url             = $input['url'];
@@ -239,6 +252,7 @@ class UserController extends Controller
         if(isset($input['bank_routing_number']) && !empty($input['bank_routing_number'])){
             $usersBusInfo->bank_routing_number           = $input['bank_routing_number'];
         }
+
         $usersBusInfo->tax_id_number       = $input['tax_id_number'];
         $usersBusInfo->industry_id         = $input['business_industry'];
         $usersBusInfo->type_id             = $input['business_type'];

@@ -54,6 +54,18 @@
                            <td>{{$users->address}}</td>
                         </tr>
                         <tr>
+                           <td>City</td>
+                           <td>{{$users->city}}</td>
+                        </tr>
+                        <tr>
+                           <td>State</td>
+                           <td>{{$users->state}}</td>
+                        </tr>
+                        <tr>
+                           <td>Pincode</td>
+                           <td>{{$users->pincode}}</td>
+                        </tr>
+                        <tr>
                            <td>Business Phone Number</td>
                            <td>{{$users->phone_number}}</td>
                         </tr>
@@ -77,15 +89,15 @@
                            <td>Tax ID number</td>
                            <td>{{$users->tax_id_number}}</td>
                         </tr>
-                        <tr>
+                        <tr style="display: none">
                            <td>Bank Name</td>
                            <td>{{$users->bank_name}}</td>
                         </tr>
-                        <tr>
+                        <tr style="display: none">
                            <td>Bank Account Number</td>
                            <td>{{$users->bank_account_number}}</td>
                         </tr>
-                        <tr>
+                        <tr style="display: none">
                            <td>Bank Routing Number</td>
                            <td>{{$users->bank_routing_number}}</td>
                         </tr>
@@ -115,8 +127,27 @@
                            <div class="col-lg-7"><input type="text" name="address" class="form-control" placeholder="Business Address" value="{{$users->address}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
+                           <div class="col-lg-5"> <label class="mb-0 label-1">City</label></div>
+                           <div class="col-lg-7"><input type="text" name="city" class="form-control" placeholder="City" value="{{$users->city}}"></div>
+                        </div>
+                        <div class="form-group profile-form-group d-flex align-items-center">
+                           <div class="col-lg-5"> <label class="mb-0 label-1">State</label></div>
+                           <div class="col-lg-7">
+                              <select class="form-control" name="state" id="state">
+                                <option value="">Select State</option>
+                                @foreach($States as $state)
+                                <option @if( $state['state_name'] == $users->state) selected="selected" @endif value="{{ $state['state_name'] }}">{{ $state['state_name'] }}</option>
+                                @endforeach
+                              </select>
+                           </div>
+                        </div>
+                        <div class="form-group profile-form-group d-flex align-items-center">
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Pincode</label></div>
+                           <div class="col-lg-7"><input type="text" name="pincode" class="form-control" placeholder="Pincode" value="{{$users->pincode}}"></div>
+                        </div>
+                        <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Business Phone Number</label></div>
-                           <div class="col-lg-7"><input type="number" name="phone_number" class="form-control" placeholder="Business Phone Number" value="{{$users->phone_number}}"></div>
+                           <div class="col-lg-7"><input type="tel" name="phone_number" class="form-control" placeholder="Enter Phone No in formate like: (123) 456-7890" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}" value="{{$users->phone_number}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"><label class="mb-0 label-1">Business Email</label></div>
@@ -150,23 +181,23 @@
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Tax ID number</label></div>
-                           <div class="col-lg-7"><input type="text" name="tax_id_number" class="form-control" placeholder="Tax ID number" value="{{$users->tax_id_number}}"></div>
+                           <div class="col-lg-7"><input type="tel" name="tax_id_number" class="form-control" placeholder="Enter Tax ID in formate like: 12-3456789" pattern="[0-9]{2}-[0-9]{7}" value="{{$users->tax_id_number}}"></div>
                         </div>
 
-                        <div class="form-group profile-form-group d-flex align-items-center">
+                        <!-- <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Bank Name</label></div>
                            <div class="col-lg-7"><input type="text" name="bank_name" class="form-control" placeholder="Enter Bank Name" value="{{$users->bank_name}}"></div>
-                        </div>
+                        </div> -->
 
-                        <div class="form-group profile-form-group d-flex align-items-center">
+                        <!-- <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Bank Account Number</label></div>
                            <div class="col-lg-7"><input type="text" name="bank_account_number" class="form-control" placeholder="Bank Account Number" value="{{$users->bank_account_number}}"></div>
-                        </div>
+                        </div> -->
 
-                        <div class="form-group profile-form-group d-flex align-items-center">
+                        <!-- <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Bank Routing Number</label></div>
                            <div class="col-lg-7"><input type="text" name="bank_routing_number" class="form-control" placeholder="Enter Bank Routing Number" value="{{$users->bank_routing_number}}"></div>
-                        </div>
+                        </div> -->
 
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Brand Identity</label></div>

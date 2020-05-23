@@ -32,18 +32,13 @@
             <form role="search" autocomplete="off" action="{{ url('search') }}" method="get">
                <div class="form-row align-items-center">
                   <div class="col-lg-3 form-group search-select-group">
-                     <select class="cstm-select search-select" name="industry">
-                        <option value="">Business Industry</option>
-                        @foreach($Industries as $industry)
-                        <option @if( $industry['id'] == Request::get('industry')) selected="selected" @endif value="{{ $industry['id'] }}">{{ $industry['industry'] }}</option>
-                        @endforeach
-                     </select>
+                     <input type="text" class="form-control flex-grow-1" id="" name="city" placeholder="City" style="margin-left: 10px;" value="{{ Request::get('city') }}">
                   </div>
                   <div class="col-lg-3 form-group search-select-group">
-                     <select class="cstm-select search-select" name="type">
-                        <option value="">Type of Business</option>
-                        @foreach($Types as $type)
-                        <option @if( $type['id'] == Request::get('type')) selected="selected" @endif value="{{ $type['id'] }}">{{ $type['type'] }}</option>
+                     <select class="cstm-select search-select" name="state">
+                        <option value="">Select State</option>
+                        @foreach($States as $state)
+                        <option @if( $state['state_name'] == Request::get('state')) selected="selected" @endif value="{{ $state['state_name'] }}">{{ $state['state_name'] }}</option>
                         @endforeach
                      </select>
                   </div>
@@ -73,7 +68,7 @@
       <div class="search-result-wrap mt-5">
          <div class="result-heading-top d-flex flex-wrap align-items-center justify-content-between mb-4">
             <h4 class="result-title">{{$data->total()}} Results</h4>
-            @if(!empty(Request::get('name')) || !empty(Request::get('industry')) || !empty(Request::get('type')) || !empty(Request::get('zipcode')) || !empty(Request::get('page')) )
+            @if(!empty(Request::get('name')) || !empty(Request::get('city')) || !empty(Request::get('state')) || !empty(Request::get('zipcode')) || !empty(Request::get('page')) )
             <a href="{{ url('/search') }}" class="btn btn-danger" >Reset</a>
             @endif
             

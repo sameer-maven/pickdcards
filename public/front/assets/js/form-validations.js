@@ -10,6 +10,15 @@ $(document).ready(function() {
                 address: {
                     required: true
                 },
+                city: {
+                    required: true
+                },
+                state: {
+                    required: true
+                },
+                pincode: {
+                    required: true
+                },
                 phone_number: {
                     required: true,
                     minlength : 8

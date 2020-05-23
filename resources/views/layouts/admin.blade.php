@@ -6,6 +6,7 @@
   <title>Pickd Cards - Admin | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/png" href="{{ asset('public/front/assets/images/Favicon.png') }}" />
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('public/admin/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Ionicons -->

@@ -440,6 +440,7 @@ class ComposerStaticInitd4dd050b2ce4ecaba410f114ac9f8572
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\State' => __DIR__ . '/../..' . '/app/State.php',
         'App\\Type' => __DIR__ . '/../..' . '/app/Type.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'BaconQrCode\\Common\\AbstractEnum' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/BaconQrCode/Common/AbstractEnum.php',

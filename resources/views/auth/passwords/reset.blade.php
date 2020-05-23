@@ -4,6 +4,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" type="image/png" href="http://www.pickdcards.com/public/front/assets/images/Favicon.png" />
   <!-- CSS -->
   <link rel="stylesheet" href="{{ asset('public/front/assets/css/style.min.css') }}">
   <link rel="stylesheet" href="{{ asset('public/front/assets/css/custom-style.css') }}">
@@ -110,7 +111,7 @@
          <div class="col-lg-3">
             <div class="footer-col">
                <h3 class="footer-title">About Us</h3>
-               <p>Pickd Cards is a platform to assist small businesses. We are passionate individuals based out of San Diego, CA looking for a way to help small businesses everywhere thrive. </p>
+               <p>Pickd Cards is a platform dedicated to assisting small businesses. Our team is passionate about helping small businesses thrive.</p>
             </div>
          </div>
          <div class="col-lg-3">
@@ -120,7 +121,7 @@
                   <li><a href="{{ url('/') }}">Home</a></li>
                   <li><a href="{{ url('page/how-it-works') }}">How it Works</a></li>
                   <li><a href="{{ url('page/faq') }}">FAQs</a></li>
-                  <li><a href="{{ url('page/contact-us') }}">Contact US</a></li>
+                  <li><a href="{{ url('page/contact-us') }}">Contact Us</a></li>
                </ul>
             </div>
          </div>
@@ -128,7 +129,8 @@
             <div class="footer-col">
                <h3 class="footer-title">Support</h3>
                <ul class="footer-list list-unstyled">
-                  <li><a href="JavaScript:(void)">support@pickdcars.com</a></li>
+                  <li><a href="{{ url('page/contact-us') }}">support@pickdcards.com</a></li>
+                  <li><span id="siteseal"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=kgHwdN6X4oCHNXxZxVSaQBL2o5Ffp4MitktIxjJgqQ6XyQSqSPBsAbIkPSJR"></script></span></li>
                   <!-- <li><a href="JavaScript:(void)">media@pickdcars.com</a></li> -->
                   <!-- <li><a href="JavaScript:(void)">partnerships@pickdcars.com</a></li> -->
                </ul>
@@ -137,9 +139,7 @@
          <div class="col-lg-3">
             <div class="footer-col">
                <h3 class="footer-title">Newsletter</h3>
-               <p>Subscribe here to Stay Connected with us and to get more
-                  information about our new offer
-               </p>
+               <p>Connect below for our latest updates and offers</p>
                <form class="">
                   <div class="form-group mb-3">
                      <div class="custom-file" style="min-height: 46px;">
