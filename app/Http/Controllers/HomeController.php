@@ -52,6 +52,7 @@ class HomeController extends Controller
             )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
             ->where('u.is_admin','=',null)
             ->where('b.business_name','LIKE', '%'.$query.'%')
+            ->where('u.is_business_profile_complete','=',1)
             ->where('u.status','=',1)
             ->orderBy('id','desc')
             ->paginate(16)->appends("name",$query);
@@ -67,6 +68,7 @@ class HomeController extends Controller
                 'b.state'
             )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
             ->where('u.is_admin','=',null)
+            ->where('u.is_business_profile_complete','=',1)
             ->where('u.status','=',1);
 
 			if ($cityInp != ""){
@@ -93,6 +95,7 @@ class HomeController extends Controller
                 'b.state'
             )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
             ->where('u.is_admin','=',null)
+            ->where('u.is_business_profile_complete','=',1)
             ->where('u.status','=',1)
             ->orderBy('id','desc')
             ->paginate(16);
