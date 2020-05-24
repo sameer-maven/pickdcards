@@ -119,7 +119,7 @@
                   <div class="consumer-head">
                      Profile
                   </div>
-                  <form class="flex-grow-1 py-5" method="POST" action="{{ url('/user/store-manage-profile') }}" enctype="multipart/form-data">
+                  <form class="flex-grow-1 py-5" method="POST" id="userProfile" action="{{ url('/user/store-manage-profile') }}" enctype="multipart/form-data">
                     @csrf
                      <div class="col-lg-8">
                         <div class="form-group profile-form-group d-flex align-items-center">
@@ -151,7 +151,7 @@
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Business Phone Number</label></div>
-                           <div class="col-lg-7"><input type="tel" name="phone_number" class="form-control" placeholder="Enter Phone No in formate like: (123) 456-7890" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}" value="{{$users->phone_number}}" required></div>
+                           <div class="col-lg-7"><input type="tel" id="phone_number" name="phone_number" class="form-control" placeholder="Enter Phone No in formate like: (123) 456-7890" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}" value="{{$users->phone_number}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"><label class="mb-0 label-1">Business Email</label></div>
@@ -246,5 +246,49 @@
     $("#businessIndustryText").text($("#business_industry option:selected" ).text());
     $("#businessTypeText").text($("#business_type option:selected" ).text());
   });
+
+  $(".signin-btn").click(function(e){
+     $('#userProfile').validate({ // initialize the plugin
+         rules: {
+             business_name: {
+                 required: true
+             },
+             address: {
+                 required: true
+             },
+             city: {
+                 required: true
+             },
+             state: {
+                 required: true
+             },
+             pincode: {
+                 required: true
+             },
+             phone_number: {
+                 required: true,
+                 minlength : 8
+             },
+             business_email: {
+                 required: true,
+                 email: true
+             },
+             business_industry: {
+                 required: true,
+             },
+             business_type: {
+                 required: true
+             },
+             tax_id_number: {
+                 required: true
+             },
+             about_business: {
+                 required: true
+             }
+         }
+     });
+ });
 </script>
 @endsection
+
+

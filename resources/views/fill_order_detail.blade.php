@@ -18,7 +18,7 @@
                <input type="email" class="form-control" id="email" name="email" aria-describedby="" placeholder="Email Address">
             </div>
             <div class="form-group">
-               <input type="number" class="form-control" id="phone_number" name="phone_number" aria-describedby="" placeholder="Phone No.">
+               <input type="tel" class="form-control" id="phone_number" name="phone_number"  placeholder="Enter Phone No in formate like: (123) 456-7890" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}">
             </div>
             <!-- <div class="form-group">
                <input type="email" class="form-control" id="business_email" name="business_email" aria-describedby="" placeholder="Business Email">
@@ -61,6 +61,8 @@
                 },
                 card_amount: {
                     required: true,
+                    min:15,
+                    max:500
                 },
                 recipient_name: {
                     required: true
@@ -72,8 +74,13 @@
                 recipient_note: {
                     required: true
                 }
-
-            }
+            },
+            messages: {
+              card_amount: {
+                min: "Please enter amount value between or equal to 15 and 500",
+                max: "Please enter amount value between or equal to 15 and 500",
+              }
+            }  
         });
     });
 </script>
