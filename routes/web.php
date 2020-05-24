@@ -16,6 +16,7 @@ Route::get('home', function(){
 });
 
 Route::get('/search', 'HomeController@getSearch');
+Route::get('/store-detail/{id}', 'OrderController@storeDetail');
 Route::get('/fill-order-details/{id}', 'OrderController@fillOrderDetails');
 Route::post('/order/add', 'OrderController@store');
 Route::get('/order/make-payment/{id}', 'OrderController@makePayment');

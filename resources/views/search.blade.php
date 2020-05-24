@@ -91,7 +91,7 @@
             @foreach( $data as $user )
             <div class="col-md-6 col-lg-4 col-xl-3">
                <div class="search-result-col">
-                  <h5 class="result-col-title">{{ $user->business_name }}</h5>
+                  <h5 class="result-col-title"><a href="{{ url('/store-detail') }}<?php echo "/".base64_encode($user->id); ?>" style="color: #3e3e3e;font-size: 17px;font-weight: 700;">{{ $user->business_name }}</a></h5>
                   <p class="result-col-subtitle">{{ $user->address }}, {{ $user->city }}, {{ $user->state }}</p>
                   <a href="{{ url('/fill-order-details') }}<?php echo "/".base64_encode($user->id); ?>" class="btn pickd-btn text-white btn-green">Purchase Gift Card</a>
                </div>

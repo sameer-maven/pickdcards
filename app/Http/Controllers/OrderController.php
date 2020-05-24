@@ -211,4 +211,35 @@ class OrderController extends Controller
 
         return view('fill_order_detail')->with($data);
     }
+
+    public function storeDetail($id) {
+        
+        $id = base64_decode($id);
+
+        $data['users'] = DB::table('users as u')->select(
+                'u.id',
+                'u.name',
+                'u.email',
+                'u.avatar',
+                'u.status',
+                'u.is_verify',
+                'u.created_at',
+                'b.business_name',
+                'b.address',
+                'b.city',
+                'b.state',
+                'b.about_business',
+                'b.phone_number',
+                'b.business_email',
+                'b.url',
+                'b.industry_id',
+                'b.type_id',
+                'b.tax_id_number'
+            )
+         ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
+         ->where('u.id', $id)->first();
+
+        return view('store_detail')->with($data);
+    }
+
 }
