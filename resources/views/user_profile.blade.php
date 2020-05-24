@@ -151,7 +151,7 @@
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Business Phone Number</label></div>
-                           <div class="col-lg-7"><input type="tel" name="phone_number" class="form-control" placeholder="Enter Phone No in formate like: (123) 456-7890" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}" value="{{$users->phone_number}}"></div>
+                           <div class="col-lg-7"><input type="tel" name="phone_number" class="form-control" placeholder="Enter Phone No in formate like: (123) 456-7890" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}" value="{{$users->phone_number}}" required></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"><label class="mb-0 label-1">Business Email</label></div>
