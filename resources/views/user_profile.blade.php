@@ -89,6 +89,10 @@
                            <td>Tax ID number</td>
                            <td>{{$users->tax_id_number}}</td>
                         </tr>
+                        <tr>
+                           <td>About Business</td>
+                           <td>{{$users->about_business}}</td>
+                        </tr>
                         <tr style="display: none">
                            <td>Bank Name</td>
                            <td>{{$users->bank_name}}</td>
@@ -182,6 +186,11 @@
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Tax ID number</label></div>
                            <div class="col-lg-7"><input type="tel" name="tax_id_number" class="form-control" placeholder="Enter Tax ID in formate like: 12-3456789" pattern="[0-9]{2}-[0-9]{7}" value="{{$users->tax_id_number}}"></div>
+                        </div>
+
+                        <div class="form-group profile-form-group d-flex align-items-center">
+                           <div class="col-lg-5"> <label class="mb-0 label-1">About Business</label></div>
+                           <div class="col-lg-7"><textarea class="form-control" id="about_business" name="about_business" rows="4" placeholder="About Your Business">{{$users->about_business}}</textarea></div>
                         </div>
 
                         <!-- <div class="form-group profile-form-group d-flex align-items-center">

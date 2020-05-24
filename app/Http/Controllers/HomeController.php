@@ -46,7 +46,9 @@ class HomeController extends Controller
                 'u.id',
                 'u.name',
                 'b.business_name',
-                'b.address'
+                'b.address',
+                'b.city',
+                'b.state'
             )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
             ->where('u.is_admin','=',null)
             ->where('b.business_name','LIKE', '%'.$query.'%')
@@ -60,7 +62,9 @@ class HomeController extends Controller
                 'u.id',
                 'u.name',
                 'b.business_name',
-                'b.address'
+                'b.address',
+                'b.city',
+                'b.state'
             )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
             ->where('u.is_admin','=',null)
             ->where('u.status','=',1);
@@ -84,7 +88,9 @@ class HomeController extends Controller
                 'u.id',
                 'u.name',
                 'b.business_name',
-                'b.address'
+                'b.address',
+                'b.city',
+                'b.state'
             )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
             ->where('u.is_admin','=',null)
             ->where('u.status','=',1)

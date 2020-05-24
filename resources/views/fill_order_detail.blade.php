@@ -4,9 +4,9 @@
 <div class="bg-contact overlay-2" style="background-image: url({{ asset('public/front/assets/images/sign-in-bg.jpg') }});">
    <div class="container-contact">
       <div class="wrap-contact" style="max-width: 500px;margin-top: 50px;">
-        <img src="{{ asset('public/avatar/'.$users->avatar) }}" class="img-fluid d-block mx-auto" width="100" height="100">
+        <img src="{{ asset('public/avatar/'.$users->avatar) }}" class="img-fluid d-block mx-auto" width="100" height="100"><br>
          <h2 class="contact-title text-center">{{ $users->business_name }}</h2>
-         <p class="contact-subtitle">Purchasing a gift certificate allows you to receive a certificate that you can redeem with 11B Inc. at a later date.
+         <p class="contact-subtitle">Purchasing a gift certificate allows you to receive a certificate that you can redeem with <b>{{ $users->business_name }}</b> at a later date.
          </p>
          <form class="mt-4" id="addOrderFrm" method="POST" action="{{ url('/order/add') }}" enctype="multipart/form-data">
             @csrf
@@ -20,9 +20,9 @@
             <div class="form-group">
                <input type="number" class="form-control" id="phone_number" name="phone_number" aria-describedby="" placeholder="Phone No.">
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                <input type="email" class="form-control" id="business_email" name="business_email" aria-describedby="" placeholder="Business Email">
-            </div>
+            </div> -->
             <div class="form-group">
                <input type="number" class="form-control" id="card_amount" name="card_amount" aria-describedby="" placeholder="Gift Card Amount">
             </div>
@@ -58,10 +58,6 @@
                 },
                 phone_number: {
                     required: true
-                },
-                business_email: {
-                    required: true,
-                    email: true
                 },
                 card_amount: {
                     required: true,

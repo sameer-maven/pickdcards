@@ -54,12 +54,12 @@ class OrderController extends Controller
         $id           = base64_decode($input['user_id']);
         //$input['business_name'];
         $validatedData = $request->validate([
-            'name'  => 'required',
-            'email' => 'required',
-            'phone_number' => 'required',
-            'card_amount' => 'required',
+            'name'            => 'required',
+            'email'           => 'required',
+            'phone_number'    => 'required',
+            'card_amount'     => 'required',
             'recipient_email' => 'required',
-            'recipient_note' => 'required',
+            'recipient_note'  => 'required'
         ]);
 
         $order = new Order;
@@ -108,18 +108,18 @@ class OrderController extends Controller
 
     public function storePayment(Request $request){
         
-        $input = $request->all();
-
+        $input    = $request->all();
+        
         $order_id = base64_decode($input['order_id']);
-        $amount = $input['amount'];
+        $amount   = $input['amount'];
 
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $response = Stripe\Charge::create ([
-                "amount" => $amount * 100,
-                "currency" => "usd",
-                "source" => $input['stripeToken'],
-                "description" => "Order ".$order_id 
+            "amount"      => $amount * 100,
+            "currency"    => "usd",
+            "source"      => $input['stripeToken'],
+            "description" => "Order ".$order_id
         ]);
 
         if($response->paid==1){
@@ -151,13 +151,13 @@ class OrderController extends Controller
 
             $order = Order::find($order_id);
             $data  = [
-                        'avatar'=> asset('public/avatar/'.$user->avatar),
-                        'customer_name'=> $order->customer_full_name,
-                        'balance'=> round($order->balance),
-                        'qrcode'=> asset('public/qrcode/'.$order->qrcode),
-                        'bgImg'=> asset('public/front-email-template/img/bg.jpg'),
-                        'mainbgImg'=> asset('public/front-email-template/img/main-bg.jpg'),
-                        'footerLogoImg'=> asset('public/front-email-template/img/logo.png')
+                        'avatar'        => asset('public/avatar/'.$user->avatar),
+                        'customer_name' => $order->customer_full_name,
+                        'balance'       => round($order->balance),
+                        'qrcode'        => asset('public/qrcode/'.$order->qrcode),
+                        'bgImg'         => asset('public/front-email-template/img/bg.jpg'),
+                        'mainbgImg'     => asset('public/front-email-template/img/main-bg.jpg'),
+                        'footerLogoImg' => asset('public/front-email-template/img/logo.png')
                     ];
 
             Mail::to($order->customer_email)->send(new SendEmail($data));
@@ -172,7 +172,7 @@ class OrderController extends Controller
     public function thankYou($id){
 
         $order_id = base64_decode($id);
-        $order = Order::find($order_id);
+        $order    = Order::find($order_id);
 
         if ($order) { 
             $data['qrimage'] = $order->qrcode;
@@ -196,15 +196,15 @@ class OrderController extends Controller
                 'u.created_at',
                 'b.business_name',
                 'b.address',
+                'b.city',
+                'b.state',
+                'b.about_business',
                 'b.phone_number',
                 'b.business_email',
                 'b.url',
                 'b.industry_id',
                 'b.type_id',
-                'b.tax_id_number',
-                'b.bank_name',
-                'b.bank_routing_number',
-                'b.bank_account_number'
+                'b.tax_id_number'
             )
          ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
          ->where('u.id', $id)->first();

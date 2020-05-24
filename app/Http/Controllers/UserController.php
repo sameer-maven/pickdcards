@@ -65,7 +65,8 @@ class UserController extends Controller
             'email'             => 'required',
             'business_industry' => 'required',
             'business_type'     => 'required',
-            'tax_id_number'     => 'required'
+            'tax_id_number'     => 'required',
+            'about_business'    => 'required'
         ]);
 
         $sql                 = New Businessinfo;
@@ -87,6 +88,7 @@ class UserController extends Controller
         $sql->industry_id         = $input['business_industry'];
         $sql->type_id             = $input['business_type'];
         $sql->tax_id_number       = $input['tax_id_number'];
+        $sql->about_business      = $input['about_business'];
         $sql->bank_name           = "";
         $sql->bank_routing_number = "";
         $sql->bank_account_number = "";
@@ -155,6 +157,7 @@ class UserController extends Controller
                 'b.city',
                 'b.state',
                 'b.pincode',
+                'b.about_business',
                 'b.phone_number',
                 'b.business_email',
                 'b.url',
@@ -235,6 +238,7 @@ class UserController extends Controller
         $usersBusInfo->city           = $input['city'];
         $usersBusInfo->state          = $input['state'];
         $usersBusInfo->pincode        = $input['pincode'];
+        $usersBusInfo->about_business = $input['about_business'];
         $usersBusInfo->phone_number   = $input['phone_number'];
         $usersBusInfo->business_email = $input['business_email'];
         

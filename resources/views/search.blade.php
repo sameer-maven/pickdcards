@@ -23,7 +23,7 @@
    <div class="container">
       <nav>
          <div class="nav nav-tabs cstm-nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link @if(empty(Request::get('name'))) active @endif" id="search-city-tab" data-toggle="tab" href="#search-city" role="tab" aria-controls="nav-home" aria-selected="true">Search by Business Industry, Type, Zip Code</a>
+            <a class="nav-item nav-link @if(empty(Request::get('name'))) active @endif" id="search-city-tab" data-toggle="tab" href="#search-city" role="tab" aria-controls="nav-home" aria-selected="true">Search by City, State, Zip Code</a>
             <a class="nav-item nav-link @if(!empty(Request::get('name'))) active @endif" id="search-business-tab" data-toggle="tab" href="#search-business" role="tab" aria-controls="nav-profile" aria-selected="false">Search by Business Name</a>
          </div>
       </nav>
@@ -92,7 +92,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3">
                <div class="search-result-col">
                   <h5 class="result-col-title">{{ $user->business_name }}</h5>
-                  <p class="result-col-subtitle">{{ $user->address }}</p>
+                  <p class="result-col-subtitle">{{ $user->address }}, {{ $user->city }}, {{ $user->state }}</p>
                   <a href="{{ url('/fill-order-details') }}<?php echo "/".base64_encode($user->id); ?>" class="btn pickd-btn text-white btn-green">Purchase Gift Card</a>
                </div>
             </div>

@@ -71,6 +71,9 @@
                <div class="col-lg-12 form-group">
                   <input type="tel" class="form-control" id="tax_id_number" name="tax_id_number" placeholder="Enter Tax ID in formate like: 12-3456789" pattern="[0-9]{2}-[0-9]{7}">
                </div>
+               <div class="col-lg-12 form-group">
+                  <textarea class="form-control" id="about_business" name="about_business" rows="4" placeholder="About Your Business"></textarea>
+               </div>
             </div>
             <div class="mt-4 text-center">
               <button type="submit" class="btn btn-primary bus-profile-btn">Confirm</button>

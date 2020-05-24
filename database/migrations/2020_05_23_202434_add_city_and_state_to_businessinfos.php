@@ -17,6 +17,7 @@ class AddCityAndStateToBusinessinfos extends Migration
             $table->string('city')->after('address')->nullable();
             $table->string('state')->after('city')->nullable();
             $table->string('pincode')->after('state')->nullable();
+            $table->text('about_business')->after('pincode')->nullable();
         });
     }
 
@@ -31,6 +32,7 @@ class AddCityAndStateToBusinessinfos extends Migration
             $table->dropColumn('city');
             $table->dropColumn('state');
             $table->dropColumn('pincode');
+            $table->dropColumn('about_business');
         });
     }
 }

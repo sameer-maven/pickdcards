@@ -35,6 +35,9 @@ $(document).ready(function() {
                 },
                 tax_id_number: {
                     required: true
+                },
+                about_business: {
+                    required: true
                 }
             }
         });
