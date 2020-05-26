@@ -89,7 +89,7 @@
                 @enderror
             </div>
             <div class="form-group">
-               <input id="password" type="password" placeholder="{{ __('Password') }}" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+               <input id="password" type="password" placeholder="{{ __('Password') }}" class="form-control @error('password') is-invalid @enderror" name="password" id="password" required autocomplete="new-password">
                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password" onclick="showPass();"></span>
                 @error('password')
                     <span class="invalid-feedback" role="alert">
@@ -98,7 +98,7 @@
                 @enderror
             </div>
             <div class="form-group">
-               <input id="password-confirm" type="password" placeholder="{{ __('Confirm Password') }}" class="form-control" name="password_confirmation" required autocomplete="new-password">
+               <input id="password-confirm" type="password" placeholder="{{ __('Confirm Password') }}" class="form-control" name="password_confirmation" id="password_confirmation" required autocomplete="new-password">
                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password" onclick="showConPass();"></span>
                @error('password')
                     <span class="invalid-feedback" role="alert">
@@ -192,17 +192,11 @@
 <script>
     $(document).ready(function(){
         $(".signin-btn").click(function(e){
-            /*var pass = $.trim($('#password').val());
-            regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-            if (regex.exec(pass) == null) {
-              // alert('invalid password!')
-            } else {
-              // console.log("valid");
-            }*/
+
             $.validator.addMethod("pwcheck", function (value) {
-                // return /[\@\#\$\%\^\&\*\(\)\_\+\!]/.test(value) && /[a-z]/.test(value) && /[0-9]/.test(value) && /[A-Z]/.test(value)
                 return /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(value)
             });
+
             $('#reg-form').validate({ // initialize the plugin
                 rules: {
                     name: {
@@ -214,12 +208,12 @@
                     },
                     password: {
                         required: true,
-                        // minlength : 8,
+                        minlength : 8,
                         pwcheck :true
                     },
                     password_confirmation: {
                         required: true,
-                        // minlength : 8,
+                        minlength : 8,
                         equalTo : "#password"
                     },
                     agree_terms: {
@@ -234,13 +228,13 @@
                         required: "Please enter email Id"
                     },
                     password: {
-                        required: "Please enter password",
+                        required: "Please enter a valid password.",
                         // minlength :"Password must be contains atleast 8 Letters, 1 upper case, 1 special character & 1 number",
                         pwcheck :"Password must be contains atleast 8 Letters, 1 upper case, 1 special character & 1 number"
                     },
                     password_confirmation: {
-                        required: "Please enter password confirmation",
-                        equalTo: "Confirm password does not match with password"
+                        required: "Please enter a valid password.",
+                        equalTo: "Please enter a valid password. As like password"
                     },
                     agree_terms: {
                         required: "You must agree Terms & Conditions."
