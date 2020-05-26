@@ -58,7 +58,7 @@ class HomeController extends Controller
             ->orderBy('id','desc')
             ->paginate(16)->appends("name",$query);
 
-         }elseif ($cityInp != '' || $stateInp != '' || $zipcodeInp != '') {
+         }elseif ($cityInp != '' || $stateInp != '' || $zipcodeInp != '' || $industyInp !='') {
 
          	$cusQuery = DB::table('users as u')->select(
                 'u.id',
@@ -84,23 +84,11 @@ class HomeController extends Controller
                 $cusQuery->where('b.pincode','=',$zipcodeInp);
             }
 
-			$data = $cusQuery->orderBy('id','desc')->paginate(16)->appends(['city'=>$cityInp,'state'=>$stateInp,'zipcode'=>$zipcodeInp]);
-         }elseif (!empty($industyInp)) {
-            $data = DB::table('users as u')->select(
-                'u.id',
-                'u.name',
-                'b.business_name',
-                'b.address',
-                'b.city',
-                'b.state'
-            )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
-            ->where('u.is_admin','=',null)
-            ->where('b.industry_id','=', $industyInp)
-            ->where('u.is_business_profile_complete','=',1)
-            ->where('u.status','=',1)
-            ->orderBy('id','desc')
-            ->paginate(16)->appends("name",$query);
-         } else {
+            if ($industyInp != ""){
+                $cusQuery->where('b.industry_id','=',$industyInp);
+            }
+			$data = $cusQuery->orderBy('id','desc')->paginate(16)->appends(['city'=>$cityInp,'state'=>$stateInp,'zipcode'=>$zipcodeInp,'industry'=>$zipcodeInp]);
+         }else {
             $data = DB::table('users as u')->select(
                 'u.id',
                 'u.name',

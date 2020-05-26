@@ -85,7 +85,7 @@
                 @enderror
             </div>
             <div class="form-group">
-               <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+               <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" autofocus>
                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password" onclick="showPass()"></span>
                 @error('password')
                     <span class="invalid-feedback" role="alert">

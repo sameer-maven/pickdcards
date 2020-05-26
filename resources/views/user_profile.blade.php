@@ -50,7 +50,7 @@
                            <td>{{$users->business_name}}</td>
                         </tr>
                         <tr>
-                           <td>Business Address</td>
+                           <td>Street Address</td>
                            <td>{{$users->address}}</td>
                         </tr>
                         <tr>
@@ -62,7 +62,7 @@
                            <td>{{$users->state}}</td>
                         </tr>
                         <tr>
-                           <td>Pincode</td>
+                           <td>Zipcode</td>
                            <td>{{$users->pincode}}</td>
                         </tr>
                         <tr>
@@ -127,7 +127,7 @@
                            <div class="col-lg-7"> <input type="text" name="business_name" class="form-control" placeholder="Business Name" value="{{$users->business_name}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Business Address</label></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Street Address</label></div>
                            <div class="col-lg-7"><input type="text" name="address" class="form-control" placeholder="Business Address" value="{{$users->address}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
@@ -146,8 +146,8 @@
                            </div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Pincode</label></div>
-                           <div class="col-lg-7"><input type="text" name="pincode" class="form-control" placeholder="Pincode" value="{{$users->pincode}}"></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Zipcode</label></div>
+                           <div class="col-lg-7"><input type="text" name="pincode" class="form-control" placeholder="Zipcode" value="{{$users->pincode}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Business Phone Number</label></div>
@@ -219,7 +219,7 @@
                                     </label>
                                     <label class="label-uploader">
                                     <span class="form-control-wrap file-514">
-                                    <input type="file" name="photo" size="40" class="wpcf7-form-control image-file input-image-preview upload-input-file" id="file_upload_image" accept=".jpg,.jpeg,.png" aria-invalid="false">
+                                    <input type="file" name="photo" size="40" class="wpcf7-form-control image-file input-image-preview upload-input-file" id="file_upload_image" accept="image/*">
                                     </span>
                                     </label>
                                  </div>
@@ -283,9 +283,6 @@
                  required: true
              },
              tax_id_number: {
-                 required: true
-             },
-             about_business: {
                  required: true
              }
          }

@@ -59,6 +59,7 @@
                 <?php if(Auth::user()->is_admin=='1'){ ?>
                 <a class="dropdown-item" href="{{ url('/admin/dashboard') }}"><span class="icon-account s7-icon"></span>Admin Panel</a>
                 <?php }else{?>
+                <a class="dropdown-item" href="{{ url('/') }}"><span class="icon-account s7-icon"></span>Dashboard</a>
                 <a class="dropdown-item" href="{{ url('/user/orders') }}"><span class="icon-gear s7-icon"></span>Manage Order</a>
                 <a class="dropdown-item" href="{{ url('/user/manage-profile') }}"><span class="icon-account s7-icon"></span>Manage Profile</a>
                 <!-- <a class="dropdown-item" href="#"><span class="icon-vip-card s7-icon"></span>Manage Giftcard</a> -->
