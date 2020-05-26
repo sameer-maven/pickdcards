@@ -35,6 +35,7 @@ class HomeController extends Controller
         $cityInp    = Input::get('city');
         $stateInp   = Input::get('state');
         $zipcodeInp = Input::get('zipcode');
+        $industyInp = Input::get('industry');
 
         $Industries = Industry::where('status','1')->orderBy('industry')->get();
         $Types      = Type::where('status','1')->orderBy('type')->get();
@@ -84,8 +85,22 @@ class HomeController extends Controller
             }
 
 			$data = $cusQuery->orderBy('id','desc')->paginate(16)->appends(['city'=>$cityInp,'state'=>$stateInp,'zipcode'=>$zipcodeInp]);
-         } 
-         else {
+         }elseif (!empty($industyInp)) {
+            $data = DB::table('users as u')->select(
+                'u.id',
+                'u.name',
+                'b.business_name',
+                'b.address',
+                'b.city',
+                'b.state'
+            )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
+            ->where('u.is_admin','=',null)
+            ->where('b.industry_id','=', $industyInp)
+            ->where('u.is_business_profile_complete','=',1)
+            ->where('u.status','=',1)
+            ->orderBy('id','desc')
+            ->paginate(16)->appends("name",$query);
+         } else {
             $data = DB::table('users as u')->select(
                 'u.id',
                 'u.name',

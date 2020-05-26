@@ -192,7 +192,17 @@
 <script>
     $(document).ready(function(){
         $(".signin-btn").click(function(e){
-
+            /*var pass = $.trim($('#password').val());
+            regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if (regex.exec(pass) == null) {
+              // alert('invalid password!')
+            } else {
+              // console.log("valid");
+            }*/
+            $.validator.addMethod("pwcheck", function (value) {
+                // return /[\@\#\$\%\^\&\*\(\)\_\+\!]/.test(value) && /[a-z]/.test(value) && /[0-9]/.test(value) && /[A-Z]/.test(value)
+                return /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(value)
+            });
             $('#reg-form').validate({ // initialize the plugin
                 rules: {
                     name: {
@@ -204,11 +214,12 @@
                     },
                     password: {
                         required: true,
-                        minlength : 8
+                        // minlength : 8,
+                        pwcheck :true
                     },
                     password_confirmation: {
                         required: true,
-                        minlength : 8,
+                        // minlength : 8,
                         equalTo : "#password"
                     },
                     agree_terms: {
@@ -223,7 +234,9 @@
                         required: "Please enter email Id"
                     },
                     password: {
-                        required: "Please enter password"
+                        required: "Please enter password",
+                        // minlength :"Password must be contains atleast 8 Letters, 1 upper case, 1 special character & 1 number",
+                        pwcheck :"Password must be contains atleast 8 Letters, 1 upper case, 1 special character & 1 number"
                     },
                     password_confirmation: {
                         required: "Please enter password confirmation",

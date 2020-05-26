@@ -56,7 +56,7 @@ class OrderController extends Controller
         $validatedData = $request->validate([
             'name'            => 'required',
             'email'           => 'required',
-            'phone_number'    => 'required',
+            // 'phone_number'    => 'required',
             'card_amount'     => 'required',
             'recipient_email' => 'required',
             'recipient_note'  => 'required'
@@ -66,7 +66,7 @@ class OrderController extends Controller
         $order->user_id                  = $id;
         $order->customer_full_name       = $input['name'];
         $order->customer_email           = $input['email'];
-        $order->customer_phone           = $input['phone_number'];
+        // $order->customer_phone           = $input['phone_number'];
 
         if(isset($input['business_email']) && !empty($input['business_email'])){
             $order->customer_bussiness_email = $input['business_email'];
@@ -175,7 +175,11 @@ class OrderController extends Controller
         $order    = Order::find($order_id);
 
         if ($order) { 
+            $businessinfo    = Businessinfo::where('user_id', $order->user_id)->first();
             $data['qrimage'] = $order->qrcode;
+            $data['orderInfo'] = $order;
+            $data['businessinfo'] = $businessinfo;
+            // echo "<pre>"; print_r($data); die;
             return view('thank_you')->with($data);
         }else{
             return redirect('/search');

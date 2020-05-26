@@ -27,7 +27,7 @@
                   <input type="text" class="form-control" id="business_name" name="business_name" placeholder="Business Name">
                </div>
                <div class="col-lg-12 form-group">
-                  <input type="text" class="form-control" id="address" name="address" placeholder="Business Street Address">
+                  <input type="text" class="form-control" id="address" name="address" placeholder="Street Address">
                </div>
                <div class="col-lg-12 form-group">
                   <input type="text" class="form-control" id="city" name="city" placeholder="City">
@@ -41,10 +41,10 @@
                   </select>
                </div>
                <div class="col-lg-12 form-group">
-                  <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Pincode">
+                  <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Zipcode">
                </div>
                <div class="col-lg-12 form-group">
-                  <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="Enter Phone No in formate like: (123) 456-7890" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}">
+                  <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="Phone No (XXX) XXX-XXXX" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}">
                </div>
                <div class="col-lg-12 form-group">
                   <input type="email" class="form-control" id="email" name="email" placeholder="Business Email">
@@ -69,7 +69,7 @@
                   </select>
                </div>
                <div class="col-lg-12 form-group">
-                  <input type="tel" class="form-control" id="tax_id_number" name="tax_id_number" placeholder="Enter Tax ID in formate like: 12-3456789" pattern="[0-9]{2}-[0-9]{7}">
+                  <input type="tel" class="form-control" id="tax_id_number" name="tax_id_number" placeholder="Tax ID XX-XXXXXXX" pattern="[0-9]{2}-[0-9]{7}">
                </div>
                <div class="col-lg-12 form-group">
                   <textarea class="form-control" id="about_business" name="about_business" rows="4" placeholder="About Your Business"></textarea>

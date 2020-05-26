@@ -14,6 +14,9 @@ use App\State;
 use App\User;
 use App\Order;
 use App\Businessinfo;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendEmailAdmin;
+use App\Mail\SendEmailUser;
 use Auth;
 use DB;
 
@@ -65,8 +68,7 @@ class UserController extends Controller
             'email'             => 'required',
             'business_industry' => 'required',
             'business_type'     => 'required',
-            'tax_id_number'     => 'required',
-            'about_business'    => 'required'
+            'tax_id_number'     => 'required'
         ]);
 
         $sql                 = New Businessinfo;
@@ -98,6 +100,11 @@ class UserController extends Controller
             $user  = User::find($id);
             $user->is_business_profile_complete = '1';
             $user->save();
+
+            Mail::to($user->email)->send(new SendEmailUser($user));
+            $user->business_name = trim($input['business_name']);
+            Mail::to("hello@pickdcards.com")->send(new SendEmailAdmin($user));
+            // Mail::to("prateek.vora@mavencluster.com")->send(new SendEmailAdmin($user));
         }
 
         \Session::flash('notification',"Business Information Added Successfully");

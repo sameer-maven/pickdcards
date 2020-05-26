@@ -17,9 +17,9 @@
             <div class="form-group">
                <input type="email" class="form-control" id="email" name="email" aria-describedby="" placeholder="Email Address">
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                <input type="tel" class="form-control" id="phone_number" name="phone_number"  placeholder="Enter Phone No in formate like: (123) 456-7890" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}">
-            </div>
+            </div> -->
             <!-- <div class="form-group">
                <input type="email" class="form-control" id="business_email" name="business_email" aria-describedby="" placeholder="Business Email">
             </div> -->
@@ -54,9 +54,6 @@
                     required: true
                 },
                 email: {
-                    required: true
-                },
-                phone_number: {
                     required: true
                 },
                 card_amount: {

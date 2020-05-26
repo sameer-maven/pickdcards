@@ -219,9 +219,12 @@
                                     </label>
                                     <label class="label-uploader">
                                     <span class="form-control-wrap file-514">
-                                    <input type="file" name="photo" size="40" class="wpcf7-form-control image-file upload-input-file" id="file_upload_image" accept=".jpg,.jpeg,.png" aria-invalid="false">
+                                    <input type="file" name="photo" size="40" class="wpcf7-form-control image-file input-image-preview upload-input-file" id="file_upload_image" accept=".jpg,.jpeg,.png" aria-invalid="false">
                                     </span>
                                     </label>
+                                 </div>
+                                 <div class="photo-preview">
+                                    <img src="" alt="Image Preview" id="img-preview" class="img-responsive" style="display: none; width: 100px; height: 100px">
                                  </div>
                               </div>
                            </div>
@@ -288,6 +291,21 @@
          }
      });
  });
+</script>
+<script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $('#img-preview').attr('src', e.target.result);
+        $('#img-preview').show();
+      }
+      reader.readAsDataURL(input.files[0]); // convert to base64 string
+    }
+  }
+  $(".input-image-preview").change(function(){
+    readURL(this);
+  });
 </script>
 @endsection
 

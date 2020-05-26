@@ -37,7 +37,7 @@ $(document).ready(function() {
                     required: true
                 },
                 about_business: {
-                    required: true
+                    required: false
                 }
             }
         });
