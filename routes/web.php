@@ -38,6 +38,9 @@ Route::post('/user/store-manage-profile','UserController@storeManageProfile');
 Route::get('/user/orders', 'UserController@ordersList');
 Route::get('/user/order-detail/{id}', 'UserController@orderDetail');
 
+Route::get('/user/stripe-authorization', 'UserController@stripeAuthorization');
+Route::get('/user/stripe-deauthorization', 'UserController@stripeDeauthorization');
+
 //Admin Routes
 
 Route::group(['middleware' => 'admin'], function() {

@@ -31,6 +31,33 @@
 	flex: 0 0 29%;
 	max-width: 29%;
 }
+
+a.connect-button:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.connect-button {
+    margin-bottom: 1px;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#28a0e5),to(#015e94));
+    background-image: linear-gradient(#28a0e5,#015e94);
+    -webkit-font-smoothing: antialiased;
+    border: 0;
+    padding: 4px;
+    height: 35px;
+    text-decoration: none;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.2);
+    box-shadow: 0 1px 0 rgba(0,0,0,.2);
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-decoration: none!important;
+    color:white; 
+}
+
 @media(min-width: 768px){
 	.contact-frm-manage{
 		margin-left: 150px;

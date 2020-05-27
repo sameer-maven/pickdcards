@@ -147,9 +147,9 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link @if(Request::is('admin/commission-settings'))  active @endif" href="{{url('admin/commission-settings')}}"><i class="nav-icon fas fa-cogs"></i> Commission Settings</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link @if(Request::is('admin/profile-socials'))  active @endif" href="{{url('admin/profile-socials')}}"><i class="nav-icon fas fa-share-alt"></i> Profile Socials</a>
           </li>

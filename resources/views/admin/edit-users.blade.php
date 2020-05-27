@@ -71,7 +71,7 @@
               <div class="form-group">
                 <label>Business Industry</label>
                 <select class="custom-select" name="business_industry">
-                  <option value="">Business Industry</option>
+                  <option value="">Please Select</option>
                   @foreach($Industries as $industry)
                   <option @if( $industry['id'] == $users->industry_id) selected="selected" @endif value="{{ $industry['id'] }}">{{ $industry['industry'] }}</option>
                   @endforeach
@@ -80,7 +80,7 @@
               <div class="form-group">
                 <label>Type of Business</label>
                 <select class="custom-select" name="business_type">
-                  <option value="">Type of Business</option>
+                  <option value="">Please Select</option>
                   @foreach($Types as $type)
                   <option @if( $type['id'] == $users->type_id) selected="selected" @endif value="{{ $type['id'] }}">{{ $type['type'] }}</option>
                   @endforeach
@@ -96,21 +96,18 @@
               </div>
               <h5 class="mt-4 mb-2">Account Information</h5>
               <hr>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Bank Name</label>
-                <input type="text" class="form-control" name="bank_name" placeholder="Enter Bank Name" value="{{$users->bank_name}}">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Bank Account Number</label>
-                <input type="text" class="form-control" name="bank_account_number" placeholder="Bank Account Number" value="{{$users->bank_account_number}}">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Bank Routing Number</label>
-                <input type="text" class="form-control" name="bank_routing_number" placeholder="Enter Bank Routing Number" value="{{$users->bank_routing_number}}">
-              </div>
+              
               <div class="form-group">
                 <label for="exampleInputEmail1">Tax Id Number</label>
                 <input type="text" class="form-control" name="tax_id_number" placeholder="Enter tax id number" value="{{$users->tax_id_number}}">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Customer user will charge (%)</label>
+                <input type="number" class="form-control" id="customer_charge" name="customer_charge" placeholder="Enter charge" value="{{$users->customer_charge}}">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Business user will charge (%)</label>
+                <input type="number" class="form-control" id="business_charge" name="business_charge" placeholder="Enter charge" value="{{$users->business_charge}}">
               </div>
               <div class="form-group">
                 <label>Status</label>

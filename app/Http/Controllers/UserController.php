@@ -19,6 +19,8 @@ use App\Mail\SendEmailAdmin;
 use App\Mail\SendEmailUser;
 use Auth;
 use DB;
+use Session;
+use Stripe;
 
 class UserController extends Controller
 {
@@ -173,7 +175,8 @@ class UserController extends Controller
                 'b.tax_id_number',
                 'b.bank_name',
                 'b.bank_routing_number',
-                'b.bank_account_number'
+                'b.bank_account_number',
+                'b.connected_stripe_account_id'
             )
          ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
          ->where('u.id', Auth::user()->id)->first();
@@ -240,7 +243,7 @@ class UserController extends Controller
             $usersBusInfo = new Businessinfo; 
         }
 
-        $usersBusInfo->business_name  = $input['business_name'];
+        $usersBusInfo->business_name  = ucwords($input['business_name']);
         $usersBusInfo->address        = $input['address'];
         $usersBusInfo->city           = $input['city'];
         $usersBusInfo->state          = $input['state'];
@@ -250,18 +253,18 @@ class UserController extends Controller
         $usersBusInfo->business_email = $input['business_email'];
         
         if(isset($input['url']) && !empty($input['url'])){
-            $usersBusInfo->url             = $input['url'];
+            $usersBusInfo->url = $input['url'];
         }
         
         if(isset($input['bank_name']) && !empty($input['bank_name'])){
-            $usersBusInfo->bank_name           = $input['bank_name'];
+            $usersBusInfo->bank_name = $input['bank_name'];
         }
         if(isset($input['bank_account_number']) && !empty($input['bank_account_number'])){
-            $usersBusInfo->bank_account_number           = $input['bank_account_number'];
+            $usersBusInfo->bank_account_number = $input['bank_account_number'];
         }
 
         if(isset($input['bank_routing_number']) && !empty($input['bank_routing_number'])){
-            $usersBusInfo->bank_routing_number           = $input['bank_routing_number'];
+            $usersBusInfo->bank_routing_number = $input['bank_routing_number'];
         }
 
         $usersBusInfo->tax_id_number       = $input['tax_id_number'];
@@ -325,6 +328,66 @@ class UserController extends Controller
                 return redirect('/user/orders');
             }
         }
+    }
+
+    public function stripeAuthorization(Request $request)
+    {
+        $input   = $request->all();
+        $user_id = Auth::user()->id;
+
+        if (!isset($input['code']) || isset($input['error'])) {
+
+            if($input['error'] == "access_denied"){
+                \Session::flash('error',$input['error_description']);
+                return redirect('/user/manage-profile');
+            }
+
+        }else{
+            
+            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+            $response = \Stripe\OAuth::token([
+              'grant_type' => 'authorization_code',
+              'code'       => $input['code']
+            ]);
+
+            $connected_stripe_account_id = $response->stripe_user_id;
+
+            $userBusinessInfo = DB::table('businessinfos')->where('user_id',$user_id)->first();
+            if ($userBusinessInfo !== null) {
+                $usersBusInfo = Businessinfo::find($userBusinessInfo->id);   
+            }
+            // Store connected_stripe_account_id in database.
+            $usersBusInfo->connected_stripe_account_id = $response->stripe_user_id;
+            $usersBusInfo->save();
+
+            \Session::flash('notification',"Stripe account connected successfully.");
+            return redirect('/user/manage-profile');
+        }
+
+    }
+
+    public function stripeDeauthorization(Request $request)
+    {
+        $user_id          = Auth::user()->id;
+        $userBusinessInfo = DB::table('businessinfos')->where('user_id',$user_id)->first();
+
+        if ($userBusinessInfo !== null) {
+            $usersBusInfo = Businessinfo::find($userBusinessInfo->id);   
+        }
+        
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $response = \Stripe\OAuth::deauthorize([
+          'client_id'      => env('STRIPE_CLIENT_ID'),
+          'stripe_user_id' => $usersBusInfo->connected_stripe_account_id
+        ]);
+
+        $usersBusInfo->connected_stripe_account_id = NULL;
+        $usersBusInfo->save();
+
+        \Session::flash('notification',"Stripe account disconnected successfully.");
+        return redirect('/user/manage-profile');
     }
 
 }

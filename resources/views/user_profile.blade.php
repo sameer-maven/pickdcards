@@ -24,6 +24,18 @@
             </div>
         </div>
         @endif
+
+        @if (Session::has('error'))
+        <div class="row">
+            <div class="col-lg-12">
+              <div class="alert alert-danger btn-sm alert-fonts" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  {{ Session::get('error') }}
+              </div>
+              
+            </div>
+        </div>
+        @endif
          <div class="row">
             <div class="col-lg-12">
                <div class="table-responsive profile-info-detail">
@@ -93,6 +105,18 @@
                            <td>About Business</td>
                            <td>{{$users->about_business}}</td>
                         </tr>
+                        <?php if(empty($users->connected_stripe_account_id)){ ?>
+                        <tr>
+                           <td>Payment Option</td>
+                           <td><a href="https://connect.stripe.com/oauth/authorize?response_type=code&amp;client_id={{env('STRIPE_CLIENT_ID')}}&amp;scope=read_write" class="btn btn-primary" id="connect-stripe"><span> <span class="icon-gear s7-icon"></span>&nbsp; Connect with stripe</span></a></td>
+                        </tr>
+                        <?php }else{ ?>
+                        <tr>
+                           <td>Payment Option</td>
+                           <td><a href="javascript:void(0);" class="btn btn-danger" id="disconnect-stripe"><span class="icon-key s7-icon"></span>&nbsp;Disconnect stripe account</a></td>
+                        </tr>
+                        <?php } ?>
+
                         <tr style="display: none">
                            <td>Bank Name</td>
                            <td>{{$users->bank_name}}</td>
@@ -248,6 +272,14 @@
   $(document).ready(function(){
     $("#businessIndustryText").text($("#business_industry option:selected" ).text());
     $("#businessTypeText").text($("#business_type option:selected" ).text());
+
+    $("#disconnect-stripe").click(function(){
+      var result = confirm("Are you sure want to disconnect? All the data will be lost");
+      if (result) {
+        window.location.href ="{{ url('/user/stripe-deauthorization') }}";
+      }
+    });
+    
   });
 
   $(".signin-btn").click(function(e){

@@ -155,9 +155,8 @@ class AdminController extends Controller
                 'b.industry_id',
                 'b.type_id',
                 'b.tax_id_number',
-                'b.bank_name',
-                'b.bank_routing_number',
-                'b.bank_account_number'
+                'b.customer_charge',
+                'b.business_charge'
 
             )
          ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
@@ -181,26 +180,42 @@ class AdminController extends Controller
 
         $userBusinessInfo = DB::table('businessinfos')->where('user_id',$id)->first();
         if ($userBusinessInfo !== null) {
-            $usersBusInfo                      = Businessinfo::find($userBusinessInfo->id);
-            $usersBusInfo->business_name       = $input['business_name'];
-            $usersBusInfo->address             = $input['address'];
-            $usersBusInfo->phone_number        = $input['phone_number'];
-            $usersBusInfo->business_email      = $input['business_email'];
-            $usersBusInfo->url                 = $input['url'];
-            
-            if(isset($input['bank_name']) && !empty($input['bank_name'])){
-                $usersBusInfo->bank_name           = $input['bank_name'];
-            }
-            if(isset($input['bank_account_number']) && !empty($input['bank_account_number'])){
-                $usersBusInfo->bank_account_number           = $input['bank_account_number'];
+            $usersBusInfo                  = Businessinfo::find($userBusinessInfo->id);
+
+            if(!empty($input['business_name'])){
+                $usersBusInfo->business_name   = $input['business_name'];
             }
 
-            if(isset($input['bank_routing_number']) && !empty($input['bank_routing_number'])){
-                $usersBusInfo->bank_routing_number           = $input['bank_routing_number'];
+            if(!empty($input['address'])){
+                $usersBusInfo->address         = $input['address'];
             }
-            $usersBusInfo->tax_id_number       = $input['tax_id_number'];
-            $usersBusInfo->industry_id         = $input['business_industry'];
-            $usersBusInfo->type_id             = $input['business_type'];
+
+            if(!empty($input['phone_number'])){
+                $usersBusInfo->phone_number    = $input['phone_number'];
+            }
+
+            if(!empty($input['business_email'])){
+                $usersBusInfo->business_email  = $input['business_email'];
+            }
+
+            if(!empty($input['url'])){
+                $usersBusInfo->url = $input['url'];
+            }
+
+            if(!empty($input['tax_id_number'])){
+                $usersBusInfo->tax_id_number   = $input['tax_id_number'];
+            }
+
+            if(!empty($input['business_industry'])){
+                $usersBusInfo->industry_id     = $input['business_industry'];
+            }
+
+            if(!empty($input['business_type'])){
+                $usersBusInfo->type_id         = $input['business_type'];
+            }
+
+            $usersBusInfo->customer_charge = $input['customer_charge'];
+            $usersBusInfo->business_charge = $input['business_charge'];
             $usersBusInfo->save();
         }
 
@@ -267,6 +282,7 @@ class AdminController extends Controller
 
     public function commissionSettings()
     {
+        return redirect('/admin/dashboard');
         $data['settings'] = Generalsettings::find(1);
         return view('admin.commission-settings')->with($data);   
     }
