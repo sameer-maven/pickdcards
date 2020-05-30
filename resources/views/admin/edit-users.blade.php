@@ -102,12 +102,28 @@
                 <input type="text" class="form-control" name="tax_id_number" placeholder="Enter tax id number" value="{{$users->tax_id_number}}">
               </div>
               <div class="form-group">
-                <label for="exampleInputEmail1">Customer user will charge (%)</label>
-                <input type="number" class="form-control" id="customer_charge" name="customer_charge" placeholder="Enter charge" value="{{$users->customer_charge}}">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="exampleInputEmail1">Customer user will charge (%)</label>
+                    <input type="number" class="form-control" id="customer_charge" name="customer_charge" placeholder="Enter charge" value="{{$users->customer_charge}}">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="exampleInputEmail1">+ ($)</label>
+                    <input type="number" class="form-control" id="customer_cent_charge" name="customer_cent_charge" placeholder="Enter charge" value="{{$users->customer_cent_charge}}">
+                  </div>
+                </div>
               </div>
               <div class="form-group">
-                <label for="exampleInputEmail1">Business user will charge (%)</label>
-                <input type="number" class="form-control" id="business_charge" name="business_charge" placeholder="Enter charge" value="{{$users->business_charge}}">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="exampleInputEmail1">Business user will charge (%)</label>
+                    <input type="number" class="form-control" id="business_charge" name="business_charge" placeholder="Enter charge" value="{{$users->business_charge}}">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="exampleInputEmail1">+ ($)</label>
+                    <input type="number" class="form-control" id="business_cent_charge" name="business_cent_charge" placeholder="Enter charge" value="{{$users->business_cent_charge}}">
+                  </div>
+                </div>
               </div>
               <div class="form-group">
                 <label>Status</label>

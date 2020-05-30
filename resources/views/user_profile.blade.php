@@ -108,7 +108,7 @@
                         <?php if(empty($users->connected_stripe_account_id)){ ?>
                         <tr>
                            <td>Payment Option</td>
-                           <td><a href="https://connect.stripe.com/oauth/authorize?response_type=code&amp;client_id={{env('STRIPE_CLIENT_ID')}}&amp;scope=read_write" class="btn btn-primary" id="connect-stripe"><span> <span class="icon-gear s7-icon"></span>&nbsp; Connect with stripe</span></a></td>
+                           <td><a href="https://dashboard.stripe.com/oauth/authorize?response_type=code&client_id={{env('STRIPE_CLIENT_ID')}}&scope=read_write" class="btn btn-primary" id="connect-stripe"><span> <span class="icon-gear s7-icon"></span>&nbsp; Connect with stripe</span></a></td>
                         </tr>
                         <?php }else{ ?>
                         <tr>

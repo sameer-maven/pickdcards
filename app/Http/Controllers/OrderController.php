@@ -66,7 +66,7 @@ class OrderController extends Controller
         $order->user_id                  = $id;
         $order->customer_full_name       = $input['name'];
         $order->customer_email           = $input['email'];
-        // $order->customer_phone           = $input['phone_number'];
+        $order->customer_phone           = "";
 
         if(isset($input['business_email']) && !empty($input['business_email'])){
             $order->customer_bussiness_email = $input['business_email'];
@@ -74,23 +74,67 @@ class OrderController extends Controller
             $order->customer_bussiness_email = "";
         }
 
-        $adminCommision = Helper::getPercentOfNumber($input['card_amount'],3);
+        $user = DB::table('users as u')->select(
+                'u.id',
+                'u.name',
+                'u.email',
+                'u.avatar',
+                'u.status',
+                'u.is_verify',
+                'u.created_at',
+                'b.business_name',
+                'b.connected_stripe_account_id',
+                'b.customer_charge',
+                'b.customer_cent_charge',
+                'b.business_charge',
+                'b.business_cent_charge')
+         ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
+         ->where('u.id', $id)->first();
 
-        $actualAmount = $input['card_amount'] + $adminCommision;
+        $customer_fee = Helper::getPercentOfNumber($input['card_amount'],$user->customer_charge);
+        $customer_fee = $customer_fee + $user->customer_cent_charge;
+        $actualAmount = round($input['card_amount'] + $customer_fee, 2);
 
-        $order->amount                   = $actualAmount;
-        $order->trx_id                   = "";
-        $order->qrcode                   = "";
-        $order->balance                  = $input['card_amount'];
-        $order->used_amount              = 0;
-        $order->recipient_name           = $input['recipient_name'];
-        $order->recipient_email          = $input['recipient_email'];
-        $order->recipient_notes          = $input['recipient_note'];
-        $order->stripe_response          = "";
+        $admin_fee_amount = Helper::getPercentOfNumber($actualAmount,$user->business_charge);
+        $admin_fee_amount = round($admin_fee_amount + $user->business_cent_charge, 2);
+        
+        $stripe_fees = ($actualAmount * 0.029) + 0.30;
+        $total_fees = $admin_fee_amount + $stripe_fees;
+        $business_user_amount = round($actualAmount - $total_fees,2);
+
+        // echo "actualAmount: ".$actualAmount."</br>";
+        // echo "admin_fee_amount: ".$admin_fee_amount."</br>";
+
+        // echo "stripe_fees: ".$stripe_fees."</br>";
+        // echo "business_user_amount: ".$business_user_amount."</br>";
+        // die;
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $payment_intent = Stripe\PaymentIntent::create([
+          'payment_method_types'   => ['card'],
+          'amount'                 => $actualAmount*100,
+          'currency'               => 'usd',
+          'application_fee_amount' => $admin_fee_amount*100,
+        ], ['stripe_account' => $user->connected_stripe_account_id]);
+
+        $order->amount                       = $actualAmount;
+        $order->trx_id                       = $payment_intent->id;
+        $order->qrcode                       = "";
+        $order->balance                      = $input['card_amount'];
+        $order->used_amount                  = 0.00;
+        $order->admin_fee_amount             = $admin_fee_amount;
+        $order->business_user_amount         = $business_user_amount;
+        $order->stripe_fees                  = $stripe_fees;
+        $order->payment_intent_client_secret = $payment_intent->client_secret;
+        $order->recipient_name               = $input['recipient_name'];
+        $order->recipient_email              = $input['recipient_email'];
+        $order->recipient_notes              = $input['recipient_note'];
+        $order->stripe_response              = $payment_intent;
         $order->save();
         
         return redirect('/order/make-payment/'.base64_encode($order->id));
     }
+
 
     public function makePayment ($id) {
         $order_id = base64_decode($id);
@@ -102,27 +146,41 @@ class OrderController extends Controller
             return view('make_payment')->with($data);
         }else{
            return redirect('/search'); 
-        }
-         
+        } 
+    }
+
+
+    public function makeIntent($id) {
+        $order_id = base64_decode($id);
+        $order = Order::find($order_id);
+
+        $user = DB::table('users as u')->select(
+                'u.id',
+                'u.name',
+                'b.business_name',
+                'b.connected_stripe_account_id')
+         ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
+         ->where('u.id', $order->user_id)->first();
+        
+        if($order->status=='0'){
+            $data['id']             = base64_encode($order->id);  
+            $data['balance']        = $order->balance;
+            $data['amount']         = $order->amount;
+            $data['fee_amount']     = $order->amount - $order->balance;
+            $data['payment_intent'] = $order->payment_intent_client_secret;
+            $data['stripeAccount']  = $user->connected_stripe_account_id;
+            return view('make_payment_new')->with($data);
+        }else{
+           return redirect('/search'); 
+        } 
     }
 
     public function storePayment(Request $request){
         
         $input    = $request->all();
-        
         $order_id = base64_decode($input['order_id']);
-        $amount   = $input['amount'];
 
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-
-        $response = Stripe\Charge::create ([
-            "amount"      => $amount * 100,
-            "currency"    => "usd",
-            "source"      => $input['stripeToken'],
-            "description" => "Order ".$order_id
-        ]);
-
-        if($response->paid==1){
+        if($input['paid']==1){
             
             $order = Order::find($order_id);
             
@@ -145,8 +203,6 @@ class OrderController extends Controller
             $order = Order::find($order_id);
             $order->status = 1;
             $order->qrcode = $filename;
-            $order->trx_id = $response->id;
-            $order->stripe_response = $response;
             $order->save();
 
             $order = Order::find($order_id);
@@ -163,7 +219,9 @@ class OrderController extends Controller
             Mail::to($order->customer_email)->send(new SendEmail($data));
 
             $data['qrimage'] = $filename;
-            return redirect('/order/thank-you/'.$input['order_id']);
+            
+            $return['url'] = url('/order/thank-you/'.$input['order_id']);
+            echo json_encode($return);   
         }else{
             echo "Something went wrong, Please try again.";
         }
@@ -179,7 +237,6 @@ class OrderController extends Controller
             $data['qrimage'] = $order->qrcode;
             $data['orderInfo'] = $order;
             $data['businessinfo'] = $businessinfo;
-            // echo "<pre>"; print_r($data); die;
             return view('thank_you')->with($data);
         }else{
             return redirect('/search');

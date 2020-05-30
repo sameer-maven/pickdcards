@@ -156,8 +156,9 @@ class AdminController extends Controller
                 'b.type_id',
                 'b.tax_id_number',
                 'b.customer_charge',
-                'b.business_charge'
-
+                'b.customer_cent_charge',
+                'b.business_charge',
+                'b.business_cent_charge'
             )
          ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
          ->where('u.id', $id)->first();
@@ -213,9 +214,23 @@ class AdminController extends Controller
             if(!empty($input['business_type'])){
                 $usersBusInfo->type_id         = $input['business_type'];
             }
+            
+            if(!empty($input['customer_charge'])){
+                $usersBusInfo->customer_charge = $input['customer_charge'];
+            }
 
-            $usersBusInfo->customer_charge = $input['customer_charge'];
-            $usersBusInfo->business_charge = $input['business_charge'];
+            if(!empty($input['customer_cent_charge'])){
+                $usersBusInfo->customer_cent_charge = $input['customer_cent_charge'];
+            }
+
+            if(!empty($input['business_charge'])){
+                $usersBusInfo->business_charge = $input['business_charge'];
+            }
+
+            if(!empty($input['business_cent_charge'])){
+                $usersBusInfo->business_cent_charge = $input['business_cent_charge'];
+            }
+
             $usersBusInfo->save();
         }
 

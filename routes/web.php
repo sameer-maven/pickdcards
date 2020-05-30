@@ -19,7 +19,8 @@ Route::get('/search', 'HomeController@getSearch');
 Route::get('/store-detail/{id}', 'OrderController@storeDetail');
 Route::get('/fill-order-details/{id}', 'OrderController@fillOrderDetails');
 Route::post('/order/add', 'OrderController@store');
-Route::get('/order/make-payment/{id}', 'OrderController@makePayment');
+//Route::get('/order/make-payment/{id}', 'OrderController@makePayment');
+Route::get('/order/make-payment/{id}', 'OrderController@makeIntent');
 Route::post('/order/add-payment', 'OrderController@storePayment');
 Route::get('/order/thank-you/{id}', 'OrderController@thankYou');
 // Pages Static Custom

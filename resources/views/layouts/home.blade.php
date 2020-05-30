@@ -136,7 +136,7 @@
 </footer>
 <!-- Optional JavaScript -->
 <script src="{{ asset('public/front/assets/js/jquery-3.4.1.min.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.12/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.13.4/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 <script src="{{ asset('public/front/assets/js/bootstrap.bundle.min.js') }}"></script>
