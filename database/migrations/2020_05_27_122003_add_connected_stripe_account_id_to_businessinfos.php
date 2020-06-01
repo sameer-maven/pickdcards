@@ -17,7 +17,7 @@ class AddConnectedStripeAccountIdToBusinessinfos extends Migration
             $table->string('connected_stripe_account_id')->nullable()->after('tax_id_number');
             $table->decimal('customer_charge',7,2)->default('3.75')->nullable()->after('connected_stripe_account_id');
             $table->decimal('customer_cent_charge',7,2)->default('0.75')->nullable()->after('customer_charge');
-            $table->decimal('business_charge',7,2)->default('2.00')->nullable()->after('customer_cent_charge');
+            $table->decimal('business_charge',7,2)->default('0.00')->nullable()->after('customer_cent_charge');
             $table->decimal('business_cent_charge',7,2)->default('0.00')->nullable()->after('business_charge');
         });
     }

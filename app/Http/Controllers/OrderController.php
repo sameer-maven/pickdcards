@@ -94,17 +94,22 @@ class OrderController extends Controller
         $customer_fee = Helper::getPercentOfNumber($input['card_amount'],$user->customer_charge);
         $customer_fee = $customer_fee + $user->customer_cent_charge;
         $actualAmount = round($input['card_amount'] + $customer_fee, 2);
-
-        $admin_fee_amount = Helper::getPercentOfNumber($actualAmount,$user->business_charge);
-        $admin_fee_amount = round($admin_fee_amount + $user->business_cent_charge, 2);
         
-        $stripe_fees = ($actualAmount * 0.029) + 0.30;
-        $total_fees = $admin_fee_amount + $stripe_fees;
+        if($user->business_charge!= 0){
+            $admin_fee_amount = Helper::getPercentOfNumber($actualAmount,$user->business_charge);
+            $admin_fee_amount = round($admin_fee_amount + $user->business_cent_charge, 2);
+        }else{
+            $admin_fee_amount = round($customer_fee, 2);
+        }
+        
+        $stripe_fees          = ($actualAmount * 0.029) + 0.30;
+        $stripe_fees          = round($stripe_fees,2);
+        $total_fees           = $admin_fee_amount + $stripe_fees;
         $business_user_amount = round($actualAmount - $total_fees,2);
 
         // echo "actualAmount: ".$actualAmount."</br>";
         // echo "admin_fee_amount: ".$admin_fee_amount."</br>";
-
+        // echo "customer_fee_amount: ".$customer_fee."</br>";
         // echo "stripe_fees: ".$stripe_fees."</br>";
         // echo "business_user_amount: ".$business_user_amount."</br>";
         // die;
