@@ -95,31 +95,37 @@ class OrderController extends Controller
         $customer_fee = $customer_fee + $user->customer_cent_charge;
         $actualAmount = round($input['card_amount'] + $customer_fee, 2);
         
-        if($user->business_charge!= 0){
-            $admin_fee_amount = Helper::getPercentOfNumber($actualAmount,$user->business_charge);
-            $admin_fee_amount = round($admin_fee_amount + $user->business_cent_charge, 2);
-        }else{
-            $admin_fee_amount = round($customer_fee, 2);
-        }
-        
+        // Stripe Fee
         $stripe_fees          = ($actualAmount * 0.029) + 0.30;
         $stripe_fees          = round($stripe_fees,2);
-        $total_fees           = $admin_fee_amount + $stripe_fees;
-        $business_user_amount = round($actualAmount - $total_fees,2);
 
-        // echo "actualAmount: ".$actualAmount."</br>";
-        // echo "admin_fee_amount: ".$admin_fee_amount."</br>";
-        // echo "customer_fee_amount: ".$customer_fee."</br>";
+        if($user->business_charge!= 0){
+            $business_fee = Helper::getPercentOfNumber($input['card_amount'],$user->business_charge);
+            $business_fee = round($business_fee + $user->business_cent_charge, 2);
+        }else{
+            $business_fee = $user->business_charge;
+        }
+
+        $business_user_amount = round($input['card_amount'] - $business_fee,2);
+        
+        $pickd_card_amount    = $actualAmount - $stripe_fees - $business_user_amount;
+
+        // echo "Customer Fee: ".$customer_fee."</br>";
+        // echo "Business Fee: ".$business_fee."</br></br></br>";
+        
+        // echo "Customer Paid: ".$actualAmount."</br>";
         // echo "stripe_fees: ".$stripe_fees."</br>";
         // echo "business_user_amount: ".$business_user_amount."</br>";
+        // echo "pickd: ".$pickd_card_amount."</br>";
         // die;
+        
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $payment_intent = Stripe\PaymentIntent::create([
           'payment_method_types'   => ['card'],
           'amount'                 => $actualAmount*100,
           'currency'               => 'usd',
-          'application_fee_amount' => $admin_fee_amount*100,
+          'application_fee_amount' => $pickd_card_amount*100,
         ], ['stripe_account' => $user->connected_stripe_account_id]);
 
         $order->amount                       = $actualAmount;
