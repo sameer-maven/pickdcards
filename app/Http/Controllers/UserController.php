@@ -21,6 +21,7 @@ use Auth;
 use DB;
 use Session;
 use Stripe;
+use QrCode;
 
 class UserController extends Controller
 {
@@ -106,7 +107,6 @@ class UserController extends Controller
             Mail::to($user->email)->send(new SendEmailUser($user));
             $user->business_name = trim($input['business_name']);
             Mail::to("hello@pickdcards.com")->send(new SendEmailAdmin($user));
-            // Mail::to("prateek.vora@mavencluster.com")->send(new SendEmailAdmin($user));
         }
 
         \Session::flash('notification',"Business Information Added Successfully");
@@ -298,10 +298,10 @@ class UserController extends Controller
                 $ordQuery->whereBetween('created_at',[$from, $to]);
             }
 
-            $data = $ordQuery->orderBy('id','desc')->paginate(15)->appends(["name"=>$query,"datefilter"=>$datefilter]);
+            $data = $ordQuery->orderBy('id','desc')->paginate(25)->appends(["name"=>$query,"datefilter"=>$datefilter]);
 
         } else {
-            $data = Order::where(['user_id'=>$id,'status'=>'1'])->orderBy('id','desc')->paginate(15);
+            $data = Order::where(['user_id'=>$id,'status'=>'1'])->orderBy('id','desc')->paginate(25);
         }
 
         $is_business_profile_complete = Auth::user()->is_business_profile_complete;
@@ -388,6 +388,56 @@ class UserController extends Controller
 
         \Session::flash('notification',"Stripe account disconnected successfully.");
         return redirect('/user/manage-profile');
+    }
+
+    public function generateQrcode($order_id)
+    {
+        $order = Order::find($order_id);
+        $user = DB::table('users as u')->select(
+            'u.id',
+            'u.name',
+            'u.email',
+            'u.avatar',
+            'u.status',
+            'u.is_verify',
+            'b.business_name'
+        )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')->where('u.id', $order->user_id)->first();
+        
+        $business_name = str_replace(' ', '', $user->business_name);
+        
+        $qrFilename    = 'qrcode_order_'.$order_id.'_user_'.$business_name.'_'.time().str_random(10).'.png';
+        $path          = 'public/qrcode/';
+        $filename      = $path.$order->qrcode;
+        
+        if (\File::exists($filename)) {
+
+            \File::delete($filename);
+
+            $amount = $order->balance-$order->used_amount;
+
+            QrCode::format('png')->size(300)->generate('GIFT CARD CODE: '.strtoupper($business_name).round($amount), public_path('qrcode/'.$qrFilename));
+            $uorder         = Order::find($order_id);
+            $uorder->qrcode = $qrFilename;
+            $uorder->save();
+
+            $order = Order::find($order_id);
+            $data  = [
+                        'avatar'        => asset('public/avatar/'.$user->avatar),
+                        'customer_name' => $order->customer_full_name,
+                        'balance'       => round($amount),
+                        'qrcode'        => asset('public/qrcode/'.$order->qrcode),
+                        'bgImg'         => asset('public/front-email-template/img/bg.jpg'),
+                        'mainbgImg'     => asset('public/front-email-template/img/main-bg.jpg'),
+                        'footerLogoImg' => asset('public/front-email-template/img/logo.png')
+                    ];
+
+            Mail::to($order->customer_email)->send(new SendEmail($data));
+            Mail::to($order->recipient_email)->send(new SendEmail($data));
+        }
+
+        \Session::flash('notification',"Qr Code updated & email sent to customer & recipient successfully.");
+        return redirect('/admin/order-detail/'.$order_id);
+        
     }
 
 }

@@ -27,6 +27,9 @@
                        Home <!-- <span class="sr-only">(current)</span> -->
                     </a>
                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url('/search') }}">Search</a>
+                </li>
                  <li class="nav-item">
                     <a class="nav-link" href="{{ url('page/how-it-works') }}">How it Works </a>
                   </li>

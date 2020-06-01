@@ -74,7 +74,7 @@
                            <td>{{$users->state}}</td>
                         </tr>
                         <tr>
-                           <td>Zipcode</td>
+                           <td>Zip Code</td>
                            <td>{{$users->pincode}}</td>
                         </tr>
                         <tr>
@@ -170,8 +170,8 @@
                            </div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Zipcode</label></div>
-                           <div class="col-lg-7"><input type="text" name="pincode" class="form-control" placeholder="Zipcode" value="{{$users->pincode}}"></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Zip Code</label></div>
+                           <div class="col-lg-7"><input type="text" name="pincode" class="form-control" placeholder="Zip Code" value="{{$users->pincode}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Business Phone Number</label></div>

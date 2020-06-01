@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendEmail;
 use Illuminate\Support\Facades\Input as Input;
-use App\User;
 use App\Order;
+use App\User;
 use App\Businessinfo;
 use App\Generalsettings;
 use App\Helper;
@@ -15,6 +17,10 @@ use Image;
 use DB;
 use App\Industry;
 use App\Type;
+use Session;
+use Stripe;
+use QrCode;
+
 
 class AdminController extends Controller
 {
@@ -292,7 +298,36 @@ class AdminController extends Controller
 
     public function orderDetail($id)
     {
-        return view('admin.orders-view');   
+        $data['order'] = Order::find($id);
+
+        $data['user'] = DB::table('users as u')->select(
+                'u.id',
+                'u.name',
+                'u.email',
+                'u.avatar',
+                'u.status',
+                'u.is_verify',
+                'u.created_at',
+                'b.business_name',
+                'b.address',
+                'b.city',
+                'b.state',
+                'b.pincode',
+                'b.phone_number',
+                'b.business_email',
+                'b.url',
+                'b.industry_id',
+                'b.type_id',
+                'b.tax_id_number',
+                'b.customer_charge',
+                'b.customer_cent_charge',
+                'b.business_charge',
+                'b.business_cent_charge'
+            )
+         ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
+         ->where('u.id', $data['order']->user_id)->first();
+
+        return view('admin.orders-view')->with($data);   
     }
 
     public function commissionSettings()
@@ -337,6 +372,55 @@ class AdminController extends Controller
         $Generalsettings->save();
         \Session::flash('notification',"Settings Updated Successfully.");
         return redirect('/admin/profile-socials');
+    }
+
+    public function generateQrcode($order_id)
+    {
+        $order = Order::find($order_id);
+        $user = DB::table('users as u')->select(
+            'u.id',
+            'u.name',
+            'u.email',
+            'u.avatar',
+            'u.status',
+            'u.is_verify',
+            'b.business_name'
+        )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')->where('u.id', $order->user_id)->first();
+        
+        $business_name = str_replace(' ', '', $user->business_name);
+        
+        $qrFilename    = 'qrcode_order_'.$order_id.'_user_'.$business_name.'_'.time().str_random(10).'.png';
+        $path          = 'public/qrcode/';
+        $filename      = $path.$order->qrcode;
+        
+        if (\File::exists($filename)) {
+
+            \File::delete($filename);
+
+            $amount = $order->balance-$order->used_amount;
+
+            QrCode::format('png')->size(300)->generate('GIFT CARD CODE: '.strtoupper($business_name).round($amount), public_path('qrcode/'.$qrFilename));
+            $uorder         = Order::find($order_id);
+            $uorder->qrcode = $qrFilename;
+            $uorder->save();
+
+            $order = Order::find($order_id);
+            $data  = [
+                        'avatar'        => asset('public/avatar/'.$user->avatar),
+                        'customer_name' => $order->customer_full_name,
+                        'balance'       => round($amount),
+                        'qrcode'        => asset('public/qrcode/'.$order->qrcode),
+                        'bgImg'         => asset('public/front-email-template/img/bg.jpg'),
+                        'mainbgImg'     => asset('public/front-email-template/img/main-bg.jpg'),
+                        'footerLogoImg' => asset('public/front-email-template/img/logo.png')
+                    ];
+
+            Mail::to($order->customer_email)->send(new SendEmail($data));
+        }
+
+        \Session::flash('notification',"Qr Code updated & email sent to customer successfully.");
+        return redirect('/admin/order-detail/'.$order_id);
+        
     }
 
 }

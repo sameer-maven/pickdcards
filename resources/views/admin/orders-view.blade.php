@@ -44,42 +44,38 @@
                   <div class="col-sm-3">
                     <span style="color: #007bff">Business User Details</span>
                     <address>
-                      <strong>Admin, Inc.</strong><br>
-                      795 Folsom Ave, Suite 600<br>
-                      San Francisco, CA 94107<br>
-                      Phone: (804) 123-5432<br>
-                      Email: info@almasaeedstudio.com
+                      <strong>{{$user->business_name}}</strong><br>
+                      {{$user->address}}, {{$user->city}}, {{$user->state}} {{$user->pincode}}<br>
+                      Phone: {{$user->phone_number}}<br>
+                      Email: {{$user->business_email}}
                     </address>
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-3">
                     <span style="color: #007bff">Customer Details</span>
                     <address>
-                      <strong>John Doe</strong><br>
-                      795 Folsom Ave, Suite 600<br>
-                      San Francisco, CA 94107<br>
-                      Phone: (555) 539-1037<br>
-                      Email: john.doe@example.com
+                      <strong>{{$order->customer_full_name}}</strong><br>
+                      Email: {{$order->customer_email}}
                     </address>
                   </div>
                   <div class="col-sm-3">
                     <span style="color: #007bff">Recipent Details</span>
                     <address>
-                      <strong>John Doe</strong><br>
-                      795 Folsom Ave, Suite 600<br>
-                      San Francisco, CA 94107<br>
-                      Phone: (555) 539-1037<br>
-                      Email: john.doe@example.com
+                      <strong>{{$order->recipient_name}}</strong><br>
+                      Email: {{$order->recipient_email}}
                     </address>
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-3">
-                    <b>Order ID: #007612</b><br>
+                    <b>Order ID: #{{$order->id}}</b><br>
                     <br>
-                    <b>Date:</b> 2/22/2014<br>
-                    <b>Paid Amount: $</b> 100.00<br> 
-                    <b>Gift Amount: $</b> 100.00<br>
-                    <b>Used Amount: $</b> 100.00<br>
+                    <b>Date:</b> {{$order->created_at}}<br>
+                    <?php
+                      $gift_card_amount = round($order->balance+$order->used_amount,2);
+                      $remaining = round($order->balance,2);
+                    ?>
+                    <b>Gift Card Amount: $</b> {{$gift_card_amount}}<br> 
+                    <b>Remaining Amount: $</b> {{$remaining}} 
                   </div>
                   <!-- /.col -->
                 </div>
@@ -88,7 +84,7 @@
                   <!-- accepted payments column -->
                   <div class="col-sm-6">
                     <p class="lead">QR Code:</p>
-                    <img class="img-responsive img-thumbnail" src="http://pickd.mavens.work/public/qrcode/qrcode_order_8_user_Walmart_1589808035988cui1mAZ.png">
+                    <img class="img-responsive img-thumbnail" src="{{asset('public/qrcode/'.$order->qrcode)}}">
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-6">
@@ -96,21 +92,22 @@
 
                     <div class="table-responsive">
                       <table class="table">
-                        <tbody><tr>
-                          <th style="width:50%">Customer Paid:</th>
-                          <td>$106.00</td>
+                        <tbody>
+                        <tr>
+                          <th>Business User Profit:</th>
+                          <td>$ {{$order->business_user_amount}}</td>
                         </tr>
                         <tr>
-                          <th>Stripe Fee</th>
-                          <td>$4.00</td>
+                          <th>Stripe Fee:</th>
+                          <td>$ {{$order->stripe_fees}}</td>
                         </tr>
                         <tr>
                           <th>Admin Profit:</th>
-                          <td>$6.00</td>
+                          <td>$ {{$order->admin_fee_amount}}</td>
                         </tr>
                         <tr>
-                          <th>Business User Profit:</th>
-                          <td>$96.00</td>
+                          <th style="width:50%">Total:</th>
+                          <td>$ {{$order->amount}}</td>
                         </tr>
                       </tbody></table>
                     </div>
@@ -120,14 +117,10 @@
                 <br>
                 <div class="row">
                   <div class="col-sm-8">
-                    <button type="button" class="btn btn-success pull-right"><i class="fa fa-qrcode"></i> Re Generate QR Code
-                    </button>
-                    <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
-                      <i class="fa fa-envelope"></i> Send Email
-                    </button>
+                    <a href="{{ url('admin/generate-qrcode/'.$order->id) }}" class="btn btn-success pull-right"><i class="fa fa-qrcode"></i> Re Send QR Code</a>
                   </div>
                   <div class="col-sm-4">
-                    <a href="{{ url('admin/orders-list') }}" type="button" class="btn btn-danger" style="float: right">
+                    <a href="{{ url('admin/orders-list') }}" class="btn btn-danger" style="float: right">
                       <i class="fas fa-arrow-alt-circle-left"></i> Back
                     </a>
                   </div>

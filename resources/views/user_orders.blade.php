@@ -49,7 +49,8 @@
                      <tr>
                         <th>Order No</th>
                         <th>Customer</th>
-                        <th>Gift Amount</th>
+                        <th>Gift Card Amount</th>
+                        <th>Remaining Amount</th>
                         <th>Date</th>
                         <th>View</th>
                      </tr>
@@ -58,15 +59,16 @@
                      
                         @foreach( $data as $order )
                         <tr>
-                           <td>#{{$order->id}}</td>
-                           <td>{{$order->customer_full_name}}</td>
-                           <td>${{$order->amount}}</td>
+                           <td style="width: 10%;">#{{$order->id}}</td>
+                           <td style="width: 15%;">{{$order->customer_full_name}}</td>
+                           <td style="width: 16%;">$<?php echo round($order->balance,2) ?></td>
+                           <td style="width: 17%;">$<?php echo round($order->balance-$order->used_amount,2) ?></td>
                            <?php
                               $createDate = new DateTime($order->created_at);
                               $createDate = $createDate->format('Y-m-d'); 
                            ?>
-                           <td>{{$createDate}}</td>
-                           <td><a href="{{url('user/order-detail/'.$order->id)}}" class="btn pickd-btn btn-3">Details</a></td>
+                           <td style="width: 12%;">{{$createDate}}</td>
+                           <td style="width: 20%;"><a href="{{url('user/order-detail/'.$order->id)}}" class="btn pickd-btn btn-3">Details</a></td>
                         </tr>
                         @endforeach
                      

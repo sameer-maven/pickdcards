@@ -78,3 +78,12 @@ a.connect-button:hover {
 		max-width: 100%;
 	}
 }
+
+.search-col-wrap > div {
+    margin-bottom: 35px;
+}
+
+.search-col-wrap .search-result-col{
+    margin-bottom: 0;
+    min-height: 100%;
+}

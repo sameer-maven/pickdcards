@@ -41,7 +41,7 @@
                   </select>
                </div>
                <div class="col-lg-12 form-group">
-                  <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Zipcode">
+                  <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Zip Code">
                </div>
                <div class="col-lg-12 form-group">
                   <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="Phone No (XXX) XXX-XXXX" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}">

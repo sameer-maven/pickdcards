@@ -112,13 +112,14 @@
       <div class="row">
          <div class="col-lg-6">
             <div class="d-flex flex-wrap align-items-center">
-               <a href="JavaScript:(void)" class="btn pickd-btn picked-btn-white">Get Started</a>
+               <a href="{{ url('/register') }}" class="btn pickd-btn picked-btn-white">Get Started</a>
                <ul class="social-icons d-flex flex-wrap list-unstyled mb-0">
-                  <li><a href="#"><span class="icon-facebook-1"></span></a></li>
-                  <li><a href="#"><span class="icon-twitter-black-shape"></span></a></li>
-                  <li><a href="#"><span class="icon-linkedin"></span></a></li>
-                  <li><a href="#"><span class="icon-instagram"></span></a></li>
-                  <li><a href="#"><span class="icon-youtube-1"></span></a></li>
+                  <li><a href="https://www.facebook.com/pickdcards" target="__blank"><span class="icon-facebook-1"></span></a></li>
+                  <li><a href="https://twitter.com/pickdcards" target="__blank"><span class="icon-twitter-black-shape"></span></a></li>
+                  <li><a href="https://www.linkedin.com/company/pickd-cards" target="__blank"><span class="icon-linkedin"></span></a></li>
+                  <li><a href="https://www.instagram.com/pickdcards" target="__blank"><span class="icon-instagram"></span></a></li>
+                  <li><a href="https://www.pinterest.com/pickdcards" target="__blank"><span class="icon-pinterest"></span></a></li>
+                  <!-- <li><a href="#"><span class="icon-youtube-1"></span></a></li> -->
                </ul>
             </div>
          </div>
