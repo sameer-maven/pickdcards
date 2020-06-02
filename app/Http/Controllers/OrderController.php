@@ -119,21 +119,26 @@ class OrderController extends Controller
         // echo "pickd: ".$pickd_card_amount."</br>";
         // die;
         
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-
-        $payment_intent = Stripe\PaymentIntent::create([
+        $paymentOpt = [
           'payment_method_types'   => ['card'],
           'amount'                 => $actualAmount*100,
           'currency'               => 'usd',
-          'application_fee_amount' => $pickd_card_amount*100,
-        ], ['stripe_account' => $user->connected_stripe_account_id]);
+        ];
+
+        if($pickd_card_amount > 0){
+            $paymentOpt['application_fee_amount'] = $pickd_card_amount*100;   
+        }
+
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $payment_intent = Stripe\PaymentIntent::create($paymentOpt, ['stripe_account' => $user->connected_stripe_account_id]);
 
         $order->amount                       = $actualAmount;
         $order->trx_id                       = $payment_intent->id;
         $order->qrcode                       = "";
         $order->balance                      = $input['card_amount'];
         $order->used_amount                  = 0.00;
-        $order->admin_fee_amount             = $admin_fee_amount;
+        $order->admin_fee_amount             = $pickd_card_amount;
         $order->business_user_amount         = $business_user_amount;
         $order->stripe_fees                  = $stripe_fees;
         $order->payment_intent_client_secret = $payment_intent->client_secret;

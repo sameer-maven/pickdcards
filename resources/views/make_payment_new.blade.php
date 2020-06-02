@@ -36,7 +36,7 @@
         <div class='form-row'>
           <div class='col-lg-12'>
             <div class='form-control total btn pickd-btn text-white rounded'>
-              Processing Fee:
+              Service Fee:
               <span class='amount'>$ {{$fee_amount}}</span>
             </div>
           </div>
