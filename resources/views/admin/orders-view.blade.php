@@ -71,11 +71,12 @@
                     <br>
                     <b>Date:</b> {{$order->created_at}}<br>
                     <?php
-                      $gift_card_amount = round($order->balance+$order->used_amount,2);
-                      $remaining = round($order->balance,2);
+                      $gift_card_amount = round($order->balance,2);
+                      $remaining = round($order->balance-$order->used_amount,2); 
                     ?>
-                    <b>Gift Card Amount: $</b> {{$gift_card_amount}}<br> 
-                    <b>Remaining Amount: $</b> {{$remaining}} 
+                    <b>Gift Card Amount: $</b> {{$gift_card_amount}}<br><br>
+                    <b>Used Amount: $</b> {{$order->used_amount}}<br>
+                    <b>Remaining Amount: $</b> {{$remaining}}<br>
                   </div>
                   <!-- /.col -->
                 </div>
@@ -88,7 +89,7 @@
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-6">
-                    <p class="lead">Total</p>
+                    <p class="lead">Purchase Details</p>
 
                     <div class="table-responsive">
                       <table class="table">

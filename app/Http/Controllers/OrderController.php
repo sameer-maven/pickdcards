@@ -234,6 +234,18 @@ class OrderController extends Controller
 
             Mail::to($order->customer_email)->send(new SendEmail($data));
 
+            $data  = [
+                        'avatar'        => asset('public/avatar/'.$user->avatar),
+                        'customer_name' => $order->recipient_name,
+                        'balance'       => round($order->balance),
+                        'qrcode'        => asset('public/qrcode/'.$order->qrcode),
+                        'bgImg'         => asset('public/front-email-template/img/bg.jpg'),
+                        'mainbgImg'     => asset('public/front-email-template/img/main-bg.jpg'),
+                        'footerLogoImg' => asset('public/front-email-template/img/logo.png')
+                    ];
+
+            Mail::to($order->recipient_email)->send(new SendEmail($data));
+
             $data['qrimage'] = $filename;
             
             $return['url'] = url('/order/thank-you/'.$input['order_id']);

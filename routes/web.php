@@ -38,6 +38,7 @@ Route::post('/user/store-manage-profile','UserController@storeManageProfile');
 
 Route::get('/user/orders', 'UserController@ordersList');
 Route::get('/user/order-detail/{id}', 'UserController@orderDetail');
+Route::get('/user/generate-qrcode/{id}','UserController@generateQrcode');
 
 Route::get('/user/stripe-authorization', 'UserController@stripeAuthorization');
 Route::get('/user/stripe-deauthorization', 'UserController@stripeDeauthorization');

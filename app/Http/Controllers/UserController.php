@@ -17,6 +17,7 @@ use App\Businessinfo;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmailAdmin;
 use App\Mail\SendEmailUser;
+use App\Mail\SendEmail;
 use Auth;
 use DB;
 use Session;
@@ -289,6 +290,7 @@ class UserController extends Controller
 
             if($query != ''){
                 $ordQuery->where('customer_full_name', 'LIKE', '%'.$query.'%');
+                $ordQuery->orWhere('recipient_name', 'LIKE', '%'.$query.'%');
             }
 
             if($datefilter!= ''){
@@ -318,12 +320,14 @@ class UserController extends Controller
     {
         $data = Order::find($id);
 
+        $user = DB::table('users as u')->select('u.id','u.name','b.business_name')->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')->where('u.id', Auth::user()->id)->first();
+
         $is_business_profile_complete = Auth::user()->is_business_profile_complete;
         if($is_business_profile_complete == '0'){
             return redirect('/user');  
         }else{  
             if(!empty($data)){
-                return view('user_order_detail',['data' => $data]);
+                return view('user_order_detail',['data' => $data,'user' => $user]);
             }else{
                 return redirect('/user/orders');
             }
@@ -423,20 +427,21 @@ class UserController extends Controller
             $order = Order::find($order_id);
             $data  = [
                         'avatar'        => asset('public/avatar/'.$user->avatar),
-                        'customer_name' => $order->customer_full_name,
                         'balance'       => round($amount),
                         'qrcode'        => asset('public/qrcode/'.$order->qrcode),
                         'bgImg'         => asset('public/front-email-template/img/bg.jpg'),
                         'mainbgImg'     => asset('public/front-email-template/img/main-bg.jpg'),
                         'footerLogoImg' => asset('public/front-email-template/img/logo.png')
                     ];
-
+            $data['customer_name'] = $order->customer_full_name;
             Mail::to($order->customer_email)->send(new SendEmail($data));
+            
+            $data['customer_name'] = $order->recipient_name;
             Mail::to($order->recipient_email)->send(new SendEmail($data));
         }
 
-        \Session::flash('notification',"Qr Code updated & email sent to customer & recipient successfully.");
-        return redirect('/admin/order-detail/'.$order_id);
+        \Session::flash('notification',"Qr Code updated, An email sent to customer & recipient successfully.");
+        return redirect('/user/order-detail/'.$order_id);
         
     }
 

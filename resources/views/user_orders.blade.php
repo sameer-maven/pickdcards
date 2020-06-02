@@ -30,7 +30,7 @@
                      <div class="col-lg-6 mb-3 mb-lg-0">
                         <div class="form-group mb-0">
                            <label class="cstm-label search-label d-block">
-                              <input type="text" name="q" class="form-control" placeholder="Customer Name"  value="{{Request::get('q')}}" />
+                              <input type="text" name="q" class="form-control" placeholder="Customer or Recipent Name"  value="{{Request::get('q')}}" />
                               <span class="icon-search label-icon"></span>
                            </label>
                            <button type="submit" style="display: none;">Save Changes</button> 
@@ -49,6 +49,7 @@
                      <tr>
                         <th>Order No</th>
                         <th>Customer</th>
+                        <th>Recipent</th>
                         <th>Gift Card Amount</th>
                         <th>Remaining Amount</th>
                         <th>Date</th>
@@ -61,8 +62,9 @@
                         <tr>
                            <td style="width: 10%;">#{{$order->id}}</td>
                            <td style="width: 15%;">{{$order->customer_full_name}}</td>
-                           <td style="width: 16%;">$<?php echo round($order->balance,2) ?></td>
-                           <td style="width: 17%;">$<?php echo round($order->balance-$order->used_amount,2) ?></td>
+                           <td style="width: 15%;">{{$order->recipient_name}}</td>
+                           <td style="width: 16%;text-align: center;">$<?php echo round($order->balance,2) ?></td>
+                           <td style="width: 17%;text-align: center;">$<?php echo round($order->balance-$order->used_amount,2) ?></td>
                            <?php
                               $createDate = new DateTime($order->created_at);
                               $createDate = $createDate->format('Y-m-d'); 
