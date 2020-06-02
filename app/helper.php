@@ -321,4 +321,15 @@ public static function resizeImageFixed( $image, $width, $height, $imageNew = nu
    	public static function getPercentOfNumber($amount, $percent){
 	    return ($percent / 100) * $amount;
 	}
+
+	public static function generateRandomString($length = 10) {
+		$characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString     = '';
+	    for ($i = 0; $i < $length; $i++) {
+	        $randomString .= $characters[rand(0, $charactersLength - 1)];
+	    }
+	    return $randomString;
+	}
+
 }//<--- End Class

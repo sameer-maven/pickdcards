@@ -417,11 +417,16 @@ class UserController extends Controller
 
             \File::delete($filename);
 
-            $amount = $order->balance-$order->used_amount;
+            $amount    = $order->balance-$order->used_amount;
+            
+            $randstr   = Helper::generateRandomString(4);
+            $card_code = strtoupper($business_name).'-'.round($amount).'-'.$randstr;
 
-            QrCode::format('png')->size(300)->generate('GIFT CARD CODE: '.strtoupper($business_name).round($amount), public_path('qrcode/'.$qrFilename));
-            $uorder         = Order::find($order_id);
-            $uorder->qrcode = $qrFilename;
+            QrCode::format('png')->size(300)->generate('GIFT CARD CODE: '.$card_code, public_path('qrcode/'.$qrFilename));
+            
+            $uorder            = Order::find($order_id);
+            $uorder->qrcode    = $qrFilename;
+            $uorder->card_code = $card_code;
             $uorder->save();
 
             $order = Order::find($order_id);
@@ -443,6 +448,52 @@ class UserController extends Controller
         \Session::flash('notification',"Qr Code updated, An email sent to customer & recipient successfully.");
         return redirect('/user/order-detail/'.$order_id);
         
+    }
+
+    public function redeemAmount($order_id,$amount)
+    {
+        
+        $uorder              = Order::find($order_id);
+        
+        $appendsMsg = "";
+
+        $finalAmount = $uorder->balance - $uorder->used_amount;
+
+        if($amount >= $finalAmount){
+            $appendsMsg          = "remaining amount";
+        }
+
+        if($amount <= $uorder->balance && $uorder->used_amount == 0){
+            $uorder->used_amount = $amount;
+            $ret                 = $uorder->save();
+            if($ret){
+                $response = [
+                    'save'=>'yes',
+                    'message'=>'Amount Redeemed Successfully.',
+                ];
+                return json_encode($response);
+            } 
+        }elseif($amount <= $finalAmount){
+            $amount              = $uorder->used_amount+$amount;
+            $uorder->used_amount = $amount;
+            $ret                 = $uorder->save();
+            if($ret){
+                $response = [
+                    'save'=>'yes',
+                    'message'=>'Amount Redeemed Successfully.',
+                ];
+                return json_encode($response);
+            }
+        }
+        else{
+            $response = [
+                'save'=>'no',
+                'message'=>'Amount should be less or equal to '.$appendsMsg,
+            ];
+            return json_encode($response);
+        }
+
+                  
     }
 
 }

@@ -398,7 +398,9 @@ class AdminController extends Controller
             \File::delete($filename);
 
             $amount = $order->balance-$order->used_amount;
-
+            
+            $randstr   = Helper::generateRandomString(4);
+            $card_code = strtoupper($business_name).'-'.round($amount).'-'.$randstr;
             QrCode::format('png')->size(300)->generate('GIFT CARD CODE: '.strtoupper($business_name).round($amount), public_path('qrcode/'.$qrFilename));
             $uorder         = Order::find($order_id);
             $uorder->qrcode = $qrFilename;

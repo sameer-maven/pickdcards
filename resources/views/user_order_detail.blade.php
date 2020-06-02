@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+  .hide{display: none;}
+</style>
 <nav aria-label="breadcrumb" class="page-breadcrumb">
    <div class="container">
   <ol class="breadcrumb mb-4">
@@ -32,9 +35,8 @@
             </ul>
             <?php 
               $remainingAmount = round($data->balance-$data->used_amount,2);
-              $business_name = str_replace(' ', '', $user->business_name);
-              $business_name = strtoupper($business_name);
-              $balanceCode = $business_name.round($remainingAmount); 
+              
+              $balanceCode = $data->card_code; 
             ?>
             <ul class="consumer-info-list list-unstyled flex-grow-1 mb-0">
               <li><b>:</b> <?php echo date_format($data->created_at,"Y/m/d H:i:s");?></li>
@@ -51,6 +53,9 @@
           <div class="form-group">
              <textarea class="form-control" id="" rows="3" placeholder="Note" style="padding: 10px 30px;background: #E6E6E6;" readonly>{{$data->recipient_notes}}</textarea>
            </div>
+           <?php if($data->balance != $data->used_amount){ ?>
+            <button class="button-success pure-button" id="redeem">Redeem Amount</button>
+           <?php } ?>
         </div>
         <!-- <div class="col-lg-6 pl-0">
           <div class="consumer-info d-flex">
@@ -67,10 +72,13 @@
         <?php if($data->balance != $data->used_amount){ ?>
         <div class="col-lg-6 pl-0">
           <br>
-          <a href="javascript:void(0);" id="qrcodeScan" style="float: right;">Show Qr Code Detail</a>
+          <a href="javascript:void(0);" id="qrcodeScan" style="float: right;">Show Code</a>
           <br>
-          <div class="consumer-info d-flex" style="float: right;" id="qrcodeContainer">
+          <div style="float: right;border: 1px solid black;" id="qrcodeImgContainer">
             <img class="img-responsive img-thumbnail" src="{{asset('public/qrcode/'.$data->qrcode)}}">
+          </div>
+          <div class="hide" style="float: right;border: 1px solid black;padding: 60px;" id="qrcodeTexContainer">
+            <p>GIFT CARD CODE: <b><?php echo $balanceCode; ?></b></p>
           </div>
         </div>
         <br>
@@ -95,12 +103,22 @@
 
 @section('javascript')
    <script>
-      var balanceC = "{{$balanceCode}}";
-      var orderID  = "{{$data->id}}";
-      var url      = "{{url('/user/generate-qrcode')}}";
+      var balanceC  = "{{$balanceCode}}";
+      var orderID   = "{{$data->id}}";
+      var url       = "{{url('/user/generate-qrcode')}}";
+      var redeemUrl = "{{url('/user/redeem-amount')}}";
 
       $(document).on("click","#qrcodeScan",function(){
-        Swal.fire("GIFT CARD CODE: "+balanceC);
+        $("#qrcodeImgContainer").toggleClass("hide");
+        $("#qrcodeTexContainer").toggleClass("hide");
+
+        var x = document.getElementById("qrcodeScan");
+        if (x.innerHTML === "Hide Code") {
+          x.innerHTML = "Show Code";
+        } else {
+          x.innerHTML = "Hide Code";
+        }
+
       });
 
       $(document).on("click","#resendCard",function(){
@@ -138,36 +156,99 @@
     $(document).on("click","#redeem",function(){
 
       Swal.fire({
-        title: 'Submit your Github username',
+        title: 'Please enter gift card code',
         input: 'text',
         inputAttributes: {
           autocapitalize: 'off'
         },
         showCancelButton: true,
-        confirmButtonText: 'Look up',
+        confirmButtonText: 'Apply',
         showLoaderOnConfirm: true,
-        preConfirm: (login) => {
-          return fetch(`//api.github.com/users/${login}`)
-            .then(response => {
-              if (!response.ok) {
-                throw new Error(response.statusText)
-              }
-              return response.json()
-            })
-            .catch(error => {
-              Swal.showValidationMessage(
-                `Request failed: ${error}`
-              )
-            })
+        preConfirm: (code) => {
+          if(code==""){
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Please enter gift card code'
+            }).then((result) => {
+              $("#redeem").click();
+            });
+          }
+
+          if(code == balanceC){
+            return "yes";
+          }else{
+            return "no";
+          } 
         },
         allowOutsideClick: () => !Swal.isLoading()
       }).then((result) => {
-        if (result.value) {
+
+        if (result.value == "yes") {
           Swal.fire({
-            title: `${result.value.login}'s avatar`,
-            imageUrl: result.value.avatar_url
-          })
+            title: 'Code Applied!',
+            text: 'Please add redeem amount',
+            icon: 'success',
+            input: 'text',
+            inputAttributes: {
+              autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Redeem',
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#d33',
+            showLoaderOnConfirm: true,
+            preConfirm: (Amount) => {
+              return fetch(redeemUrl+'/'+orderID+'/'+Amount)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error(response.statusText)
+                  }
+                  return response.json()
+                })
+                .catch(error => {
+                  Swal.showValidationMessage(
+                    `Request failed: ${error}`
+                  )
+                })
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+          }).then((result) => {
+
+            if (result.value) {
+
+              if(result.value.save=="yes"){
+
+                Swal.fire({
+                  title: "Done",
+                  text: result.value.message,
+                  icon: 'success',
+                }).then((e)=>{
+                  location.reload();
+                });
+
+              }
+
+              if(result.value.save=="no"){
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: result.value.message,
+                });
+              }
+
+            }
+          }); 
         }
+
+        if(result.value == "no"){
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Invalid code entered!'
+          });
+        }
+
       });
 
     //End Ready 

@@ -212,13 +212,16 @@ class OrderController extends Controller
 
             $business_name = str_replace(' ', '', $user->business_name);
 
-            $filename = 'qrcode_order_'.$order_id.'_user_'.$business_name.'_'.time().str_random(10).'.png';
-            
-            QrCode::format('png')->size(300)->generate('GIFT CARD CODE: '.strtoupper($business_name).round($order->balance), public_path('qrcode/'.$filename));
+            $filename  = 'qrcode_order_'.$order_id.'_user_'.$business_name.'_'.time().str_random(10).'.png';
+            $randstr   = Helper::generateRandomString(4);
+            $card_code = strtoupper($business_name).'-'.round($order->balance).'-'.$randstr;
 
-            $order = Order::find($order_id);
-            $order->status = 1;
-            $order->qrcode = $filename;
+            QrCode::format('png')->size(300)->generate('GIFT CARD CODE: '.$card_code, public_path('qrcode/'.$filename));
+
+            $order            = Order::find($order_id);
+            $order->status    = 1;
+            $order->qrcode    = $filename;
+            $order->card_code = $card_code;
             $order->save();
 
             $order = Order::find($order_id);
