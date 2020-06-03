@@ -14,6 +14,7 @@ use App\State;
 use App\User;
 use App\Order;
 use App\Businessinfo;
+use App\Transaction;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmailAdmin;
 use App\Mail\SendEmailUser;
@@ -322,12 +323,14 @@ class UserController extends Controller
 
         $user = DB::table('users as u')->select('u.id','u.name','b.business_name')->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')->where('u.id', Auth::user()->id)->first();
 
+        $transactions = DB::table('transactions')->where('order_id','=',$id)->where('user_id','=',Auth::user()->id)->get();
+
         $is_business_profile_complete = Auth::user()->is_business_profile_complete;
         if($is_business_profile_complete == '0'){
             return redirect('/user');  
         }else{  
             if(!empty($data)){
-                return view('user_order_detail',['data' => $data,'user' => $user]);
+                return view('user_order_detail',['data' => $data,'user' => $user,'transactions'=>$transactions]);
             }else{
                 return redirect('/user/orders');
             }
@@ -453,20 +456,25 @@ class UserController extends Controller
     public function redeemAmount($order_id,$amount)
     {
         
-        $uorder              = Order::find($order_id);
-        
-        $appendsMsg = "";
-
+        $uorder      = Order::find($order_id);
+        $appendsMsg  = "";
         $finalAmount = $uorder->balance - $uorder->used_amount;
 
         if($amount >= $finalAmount){
-            $appendsMsg          = "remaining amount";
+            $appendsMsg = "remaining amount";
         }
+        
+        
 
         if($amount <= $uorder->balance && $uorder->used_amount == 0){
             $uorder->used_amount = $amount;
             $ret                 = $uorder->save();
-            if($ret){
+            if($ret){                
+                $transaction               = new Transaction;
+                $transaction->order_id     = $order_id;
+                $transaction->user_id      = Auth::user()->id;
+                $transaction->tranx_amount = $amount;
+                $transaction->save();
                 $response = [
                     'save'=>'yes',
                     'message'=>'Amount Redeemed Successfully.',
@@ -474,9 +482,17 @@ class UserController extends Controller
                 return json_encode($response);
             } 
         }elseif($amount <= $finalAmount){
+
+            $transaction               = new Transaction;
+            $transaction->order_id     = $order_id;
+            $transaction->user_id      = Auth::user()->id;
+            $transaction->tranx_amount = $amount;
+            $transaction->save();
+
             $amount              = $uorder->used_amount+$amount;
             $uorder->used_amount = $amount;
             $ret                 = $uorder->save();
+
             if($ret){
                 $response = [
                     'save'=>'yes',

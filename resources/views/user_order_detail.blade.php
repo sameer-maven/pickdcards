@@ -56,6 +56,9 @@
            <?php if($data->balance != $data->used_amount){ ?>
             <button class="button-success pure-button" id="redeem">Redeem Amount</button>
            <?php } ?>
+           <?php if($transactions->count()>0){ ?>
+            <button class="button-secondary pure-button" id="allTransactions">All Transactions</button><?php if($data->balance == $data->used_amount){ ?><br><br><?php } ?>
+           <?php } ?>
         </div>
         <!-- <div class="col-lg-6 pl-0">
           <div class="consumer-info d-flex">
@@ -96,7 +99,24 @@
 
       </div>
     </div>
-    
+
+    <?php if($transactions->count()>0){ ?>
+      <div id="transactionsTable" style="display:none;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Amount</th>
+              <th scope="col">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach( $transactions as $transaction )
+            <tr><td>{{$transaction->tranx_amount}}</td><td>{{$transaction->created_at}}</td></tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    <?php } ?>
   </div>
 </div>
 @endsection
@@ -159,7 +179,8 @@
         title: 'Please enter gift card code',
         input: 'text',
         inputAttributes: {
-          autocapitalize: 'off'
+          autocapitalize: 'off',
+          placeholder: "Please add gift card code"
         },
         showCancelButton: true,
         confirmButtonText: 'Apply',
@@ -189,9 +210,10 @@
             title: 'Code Applied!',
             text: 'Please add redeem amount',
             icon: 'success',
-            input: 'text',
+            input: 'number',
             inputAttributes: {
-              autocapitalize: 'off'
+              autocapitalize: 'off',
+              placeholder:"Amount"
             },
             showCancelButton: true,
             confirmButtonText: 'Redeem',
@@ -251,7 +273,19 @@
 
       });
 
-    //End Ready 
+    //End document 
+    });
+
+    $(document).on("click","#allTransactions",function(){
+      var table=$("#transactionsTable").html();
+      Swal.fire({
+        title: 'All Transactions',
+        html:table,
+        focusConfirm: false,
+        confirmButtonText:'Ok',
+        confirmButtonAriaLabel: 'Thumbs up, great!'
+      });
+
     });
     
   </script>
