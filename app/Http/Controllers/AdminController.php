@@ -20,6 +20,7 @@ use App\Type;
 use Session;
 use Stripe;
 use QrCode;
+use App\Transaction;
 
 
 class AdminController extends Controller
@@ -328,6 +329,13 @@ class AdminController extends Controller
          ->where('u.id', $data['order']->user_id)->first();
 
         return view('admin.orders-view')->with($data);   
+    }
+
+    public function orderTransactions($id)
+    {
+        $data['transactions'] = DB::table('transactions')->where('order_id','=',$id)->get();
+        $data['order_id']     = $id;
+        return view('admin.orders-transactions')->with($data);   
     }
 
     public function commissionSettings()

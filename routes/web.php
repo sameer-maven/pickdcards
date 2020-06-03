@@ -77,6 +77,7 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::get('/admin/orders-list','AdminController@ordersList');
 	Route::get('/admin/order-detail/{id}','AdminController@orderDetail');
 	Route::get('/admin/generate-qrcode/{id}','AdminController@generateQrcode');
+	Route::get('/admin/order-transactions/{id}','AdminController@orderTransactions');
 
 	Route::get('/admin/commission-settings','AdminController@commissionSettings');
 	Route::post('/admin/commission-settings/update','AdminController@updateCommissionSettings');

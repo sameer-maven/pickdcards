@@ -62,6 +62,7 @@
                       <th>Customer Email</th>
                       <th>Paid Amount</th>
                       <th>Gift Amount</th>
+                      <th>Used Amount</th>
                       <th>Date</th>
                       <th>Status</th>
                       <th>Action</th>
@@ -77,6 +78,7 @@
                         <td>{{ $order->customer_email }}</td>
                         <td>${{ $order->amount }}</td>
                         <td>${{ $order->balance }}</td>
+                        <td>${{ $order->used_amount }}</td>
                         <td>{{$order->created_at}}</td>
                         <?php 
                           if( $order->status == '1' ) {
@@ -92,6 +94,7 @@
 
                         <td>
                           <a href="{{url('admin/order-detail/'.$order->id)}}" class="btn btn-info btn-xs padding-btn"> <i class="nav-icon fas fa-eye"></i> View</a>
+                          <a href="{{url('admin/order-transactions/'.$order->id)}}" class="btn btn-warning btn-xs padding-btn"> <i class="nav-icon fas fa-eye"></i> Redeem Transactions</a>
                         </td>
                       </tr>
                       @endforeach

@@ -119,6 +119,7 @@
                 <div class="row">
                   <div class="col-sm-8">
                     <a href="{{ url('admin/generate-qrcode/'.$order->id) }}" class="btn btn-success pull-right"><i class="fa fa-qrcode"></i> Re Send QR Code</a>
+                    <a href="{{ url('admin/order-transactions/'.$order->id) }}" class="btn btn-info pull-right" target="_blank"><i class="fa fa-history"></i> View Oder's Transactions</a>
                   </div>
                   <div class="col-sm-4">
                     <a href="{{ url('admin/orders-list') }}" class="btn btn-danger" style="float: right">
