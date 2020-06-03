@@ -30,6 +30,6 @@ class SendEmailUser extends Mailable
      */
     public function build()
     {
-        return $this->from('support@pickdcars.com')->subject('Welcome To PickdCards')->view('email_user_new_account_notificaton')->with('data',$this->data);
+        return $this->from('support@pickdcards.com')->subject('Welcome To PickdCards')->view('email_user_new_account_notificaton')->with('data',$this->data);
     }
 }

@@ -28,7 +28,7 @@
           <a class="nav-link" href="{{ url('/') }}">Home <!-- <span class="sr-only">(current)</span> --></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="{{ url('/search') }}">Search</a>
+          <a class="nav-link" href="{{ url('/search') }}">Buy Gift Card</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ url('page/how-it-works') }}">How it Works </a>
