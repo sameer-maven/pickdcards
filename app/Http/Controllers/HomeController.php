@@ -55,6 +55,7 @@ class HomeController extends Controller
             ->where('b.business_name','LIKE', '%'.$query.'%')
             ->where('u.is_business_profile_complete','=',1)
             ->where('u.status','=',1)
+            ->where('u.is_verify','=',1)
             ->orderBy('id','desc')
             ->paginate(16)->appends("name",$query);
 
@@ -70,7 +71,8 @@ class HomeController extends Controller
             )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
             ->where('u.is_admin','=',null)
             ->where('u.is_business_profile_complete','=',1)
-            ->where('u.status','=',1);
+            ->where('u.status','=',1)
+            ->where('u.is_verify','=',1);
 
 			if ($cityInp != ""){
 			    $cusQuery->where('b.city', 'LIKE', '%'.$cityInp.'%');
@@ -100,6 +102,7 @@ class HomeController extends Controller
             ->where('u.is_admin','=',null)
             ->where('u.is_business_profile_complete','=',1)
             ->where('u.status','=',1)
+            ->where('u.is_verify','=',1)
             ->orderBy('id','desc')
             ->paginate(16);
          }

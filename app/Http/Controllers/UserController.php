@@ -368,6 +368,10 @@ class UserController extends Controller
             $usersBusInfo->connected_stripe_account_id = $response->stripe_user_id;
             $usersBusInfo->save();
 
+            $user  = User::find($user_id);
+            $user->is_verify = '1';
+            $user->save();
+
             \Session::flash('notification',"Stripe account connected successfully.");
             return redirect('/user/manage-profile');
         }
@@ -392,6 +396,10 @@ class UserController extends Controller
 
         $usersBusInfo->connected_stripe_account_id = NULL;
         $usersBusInfo->save();
+
+        $user  = User::find($user_id);
+        $user->is_verify = '0';
+        $user->save();
 
         \Session::flash('notification',"Stripe account disconnected successfully.");
         return redirect('/user/manage-profile');
