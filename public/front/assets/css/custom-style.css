@@ -116,3 +116,19 @@ a.connect-button:hover {
     background: rgb(66, 184, 221);
     /* this is a light blue */
 }
+
+.search-col-wrap .search-result-col{
+    position: relative;
+}
+.result-col-subtitle{
+    margin-bottom: 35px;
+    padding-bottom: 15px;
+}
+.search-result-col a.btn.pickd-btn {
+    position: absolute;
+    width: calc(100% - 63px);
+    left: 0;
+    right: 0;
+    bottom: 30px;
+    margin: 0 auto;
+}
