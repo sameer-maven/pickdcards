@@ -5,6 +5,14 @@
   .hide {
       display: none!important;
   }
+  /*paymenttable-css*/
+  .payment-table tr:nth-child(odd) {
+    background: #f8f8f8;
+}
+.payment-table td span.amount {
+    float: right;
+    font-weight: 700;
+}
 </style>
 <div class="bg-contact overlay-2" style="background-image: url({{ asset('public/front/assets/images/sign-in-bg.jpg') }});">
    <div class="container-contact">
@@ -24,7 +32,7 @@
           </div>
         </div>
         <br>
-        <div class='form-row'>
+        <!-- <div class='form-row'>
           <div class='col-lg-12'>
             <div class='form-control total btn pickd-btn text-white rounded'>
               Card Amount:
@@ -49,8 +57,25 @@
               <span class='amount'>$ {{$amount}}</span>
             </div>
           </div>
+        </div> -->
+        <div class="table-responsive">
+          <table class="table payment-table">
+            <tbody>
+              <tr>
+                <td>Card Amount:
+              <span class='amount'>$ {{$balance}}</span></td>
+              </tr>
+              <tr>
+                <td>Service Fee:
+              <span class='amount'>$ {{$fee_amount}}</span></td>
+              </tr>
+              <tr>
+                <td>Total:
+              <span class='amount'>$ {{$amount}}</span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        
         <div id="card-errors" role="alert"></div>
         <button id="card-button" class="btn btn-primary signin-btn mt-3">Pay</button> 
     </div>
