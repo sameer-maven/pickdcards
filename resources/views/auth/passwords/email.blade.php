@@ -28,7 +28,7 @@
                     </a>
                  </li>
                  <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/search') }}">Buy Gift Card</a>
+                    <a class="nav-link" href="{{ url('/search') }}">Buy a Gift Card</a>
                   </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{{ url('page/how-it-works') }}">How it Works </a>
@@ -146,7 +146,7 @@
          </div>
       </div>
       <div class="footer-btm text-center py-4 mt-4" style="color:#919191;">
-         <p class="mb-0">© 2020 Pickd Cards, All Rights Reserved. <a href="{{ url('/page/legal') }}" class="text-white">Terms and Condition</a>  &#124;  <a href="{{ url('/page/privacy-policy') }}" class="text-white">Privacy Policy</a></p>
+         <p class="mb-0">© 2020 Pickd Cards, All Rights Reserved. <a href="{{ url('/page/legal') }}" class="text-white">Terms of Use</a>  &#124;  <a href="{{ url('/page/legal') }}" class="text-white">Privacy Policy</a></p>
       </div>
    </div>
 </footer>

@@ -81,7 +81,7 @@
          <div class="sign-col">
             <div class="icon-2" style="background: #D9D54E;"><span class="icon-gift"></span></div>
             <!-- <p>Offer digital gift cards with a unique URL you can share with your customers. Your business will be searchable within the Pickd platform using name, location and industry.</p> -->
-            <p>Offer digital gift cards that are completely contact less and POS agnostic. Your business will be part of the Pickd platform and searchable using name, location and industry.</p>
+            <p>Offer digital gift cards that are completely contactless and POS agnostic. Your business will be part of the Pickd platform and searchable using name, location and industry.</p>
          </div>
          <div class="sign-col">
             <div class="icon-2" style="background: #C55C87;"><span class="icon-deposit"></span></div>

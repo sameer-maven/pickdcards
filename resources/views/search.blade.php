@@ -23,7 +23,7 @@
    <div class="container">
       <nav>
          <div class="nav nav-tabs cstm-nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link @if(empty(Request::get('name'))) active @endif" id="search-city-tab" data-toggle="tab" href="#search-city" role="tab" aria-controls="nav-home" aria-selected="true">Search by City, State, Zip Code</a>
+            <a class="nav-item nav-link @if(empty(Request::get('name'))) active @endif" id="search-city-tab" data-toggle="tab" href="#search-city" role="tab" aria-controls="nav-home" aria-selected="true">Search by City, State or Zip Code</a>
             <a class="nav-item nav-link @if(!empty(Request::get('name'))) active @endif" id="search-business-tab" data-toggle="tab" href="#search-business" role="tab" aria-controls="nav-profile" aria-selected="false">Search by Business Name</a>
          </div>
       </nav>
@@ -35,7 +35,7 @@
                      <input type="text" class="form-control flex-grow-1" id="" name="city" placeholder="City" style="margin-left: 10px;" value="{{ Request::get('city') }}">
                   </div>
                   <div class="col-lg-3 form-group search-select-group">
-                     <select class="cstm-select search-select" name="state">
+                     <select class="form-control flex-grow-1" name="state">
                         <option value="">Select State</option>
                         @foreach($States as $state)
                         <option @if( $state['state_name'] == Request::get('state')) selected="selected" @endif value="{{ $state['state_name'] }}">{{ $state['state_name'] }}</option>
@@ -112,7 +112,7 @@
       <div class="row">
          <div class="col-lg-6">
             <div class="d-flex flex-wrap align-items-center">
-               <a href="{{ url('/register') }}" class="btn pickd-btn picked-btn-white">Get Started</a>
+               <a href="{{ url('/register') }}" class="btn pickd-btn picked-btn-white">Sign Your Business Up</a>
                <ul class="social-icons d-flex flex-wrap list-unstyled mb-0">
                   <li><a href="https://www.facebook.com/pickdcards" target="__blank"><span class="icon-facebook-1"></span></a></li>
                   <li><a href="https://twitter.com/pickdcards" target="__blank"><span class="icon-twitter-black-shape"></span></a></li>

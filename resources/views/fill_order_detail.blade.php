@@ -6,8 +6,7 @@
       <div class="wrap-contact" style="max-width: 500px;margin-top: 50px;">
         <img src="{{ asset('public/avatar/'.$users->avatar) }}" class="img-fluid d-block mx-auto" width="100" height="100"><br>
          <h2 class="contact-title text-center">{{ $users->business_name }}</h2>
-         <p class="contact-subtitle">Purchasing a gift certificate allows you to receive a certificate that you can redeem with <b>{{ $users->business_name }}</b> at a later date.
-         </p>
+         <p class="contact-subtitle">Purchase a gift card for any amount between $15 and $500.</p>
          <form class="mt-4" id="addOrderFrm" method="POST" action="{{ url('/order/add') }}" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="user_id" value="<?php echo base64_encode($users->id);?>">

@@ -33,7 +33,7 @@
       <div class="row">
          <div class="col-lg-6">
             <div class="d-flex flex-wrap align-items-center">
-               <a href="{{ url('/register') }}" class="btn pickd-btn picked-btn-white">Get Started</a>
+               <a href="{{ url('/register') }}" class="btn pickd-btn picked-btn-white">Sign Your Business Up</a>
                <ul class="social-icons d-flex flex-wrap list-unstyled mb-0">
                   <li><a href="https://www.facebook.com/pickdcards" target="__blank"><span class="icon-facebook-1"></span></a></li>
                   <li><a href="https://twitter.com/pickdcards" target="__blank"><span class="icon-twitter-black-shape"></span></a></li>

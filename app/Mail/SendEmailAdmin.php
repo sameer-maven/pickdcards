@@ -30,6 +30,6 @@ class SendEmailAdmin extends Mailable
      */
     public function build()
     {
-        return $this->from('support@pickdcars.com')->subject('New User Account Created')->view('email_admin_new_account_notificaton')->with('data',$this->data);
+        return $this->from('hello@pickdcards.com')->subject('New User Account Created')->view('email_admin_new_account_notificaton')->with('data',$this->data);
     }
 }

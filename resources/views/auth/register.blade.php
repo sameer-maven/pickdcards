@@ -28,7 +28,7 @@
                     </a>
                  </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ url('/search') }}">Buy Gift Card</a>
+                  <a class="nav-link" href="{{ url('/search') }}">Buy a Gift Card</a>
                 </li>
                  <li class="nav-item">
                     <a class="nav-link" href="{{ url('page/how-it-works') }}">How it Works </a>
@@ -113,7 +113,7 @@
             <div class="form-group">
                <div class="form-check">
                  <input class="form-check-input" type="checkbox" id="gridCheck1" value="yes" name="agree_terms">
-                 <p class="sign-small-txt"><label class="form-check-label" for="gridCheck1">I agree, for myself and on behalf of my business, to the Pickd Cards <a href="{{ url('/page/legal') }}" class="txt-green">Terms of Service</a> and <a href="{{ url('/page/privacy-policy') }}" class="txt-green">Privacy Policy</a></label></p>
+                 <p class="sign-small-txt"><label class="form-check-label" for="gridCheck1">I agree, for myself and on behalf of my business, to the Pickd Cards <a href="{{ url('/page/legal') }}" class="txt-green">Terms of Use</a> and <a href="{{ url('/page/legal') }}" class="txt-green">Privacy Policy</a></label></p>
                </div>
             </div>
             <!-- <div class="form-group">
@@ -175,7 +175,7 @@
          </div>
       </div>
       <div class="footer-btm text-center py-4 mt-4" style="color:#919191;">
-         <p class="mb-0">© 2020 Pickd Cards, All Rights Reserved. <a href="{{ url('/page/legal') }}" class="text-white">Terms and Condition</a>  &#124;  <a href="{{ url('/page/privacy-policy') }}" class="text-white">Privacy Policy</a></p>
+         <p class="mb-0">© 2020 Pickd Cards, All Rights Reserved. <a href="{{ url('/page/legal') }}" class="text-white">Terms of Use</a>  &#124;  <a href="{{ url('/page/legal') }}" class="text-white">Privacy Policy</a></p>
       </div>
    </div>
 </footer>
