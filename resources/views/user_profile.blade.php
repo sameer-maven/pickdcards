@@ -98,7 +98,7 @@
                            <td id="businessTypeText">Type of Business</td>
                         </tr>
                         <tr>
-                           <td>Tax ID number</td>
+                           <td>Tax ID</td>
                            <td>{{$users->tax_id_number}}</td>
                         </tr>
                         <tr>
@@ -186,7 +186,7 @@
                            <div class="col-lg-7"><input type="text" name="url" class="form-control" placeholder="Business URL" value="{{$users->url}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Business Industry <span style="color: red;">*</span></label></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Industry <span style="color: red;">*</span></label></div>
                            <div class="col-lg-7">
                             <select name="business_industry" id="business_industry" class="form-control">
                               <option value="">Business Industry</option>
@@ -208,7 +208,7 @@
                            </div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Tax ID number <span style="color: red;">*</span></label></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Tax ID <span style="color: red;">*</span></label></div>
                            <div class="col-lg-7"><input type="tel" name="tax_id_number" class="form-control" placeholder="Tax ID" id="tax_id_number" value="{{$users->tax_id_number}}"></div>
                         </div>
 
