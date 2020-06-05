@@ -403,21 +403,20 @@ class AdminController extends Controller
         
         if (\File::exists($filename)) {
 
-            \File::delete($filename);
+            //\File::delete($filename);
 
             $amount = $order->balance-$order->used_amount;
             
-            $randstr   = Helper::generateRandomString(4);
-            $card_code = strtoupper($business_name).'-'.round($amount).'-'.$randstr;
-            QrCode::format('png')->size(300)->generate('GIFT CARD CODE: '.strtoupper($business_name).round($amount), public_path('qrcode/'.$qrFilename));
-            $uorder         = Order::find($order_id);
-            $uorder->qrcode = $qrFilename;
-            $uorder->save();
+            //$randstr   = Helper::generateRandomString(4);
+            //$card_code = strtoupper($business_name).'-'.round($amount).'-'.$randstr;
+            //QrCode::format('png')->size(300)->generate('GIFT CARD CODE: '.strtoupper($business_name).round($amount), public_path('qrcode/'.$qrFilename));
+            //$uorder         = Order::find($order_id);
+            //$uorder->qrcode = $qrFilename;
+            //$uorder->save();
 
             $order = Order::find($order_id);
             $data  = [
                         'avatar'        => asset('public/avatar/'.$user->avatar),
-                        'customer_name' => $order->customer_full_name,
                         'balance'       => round($amount),
                         'qrcode'        => asset('public/qrcode/'.$order->qrcode),
                         'bgImg'         => asset('public/front-email-template/img/bg.jpg'),
@@ -425,7 +424,11 @@ class AdminController extends Controller
                         'footerLogoImg' => asset('public/front-email-template/img/logo.png')
                     ];
 
+            $data['customer_name'] = $order->customer_full_name;
             Mail::to($order->customer_email)->send(new SendEmail($data));
+            
+            $data['customer_name'] = $order->recipient_name;
+            Mail::to($order->recipient_email)->send(new SendEmail($data));
         }
 
         \Session::flash('notification',"Qr Code updated & email sent to customer successfully.");

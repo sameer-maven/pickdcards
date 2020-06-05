@@ -442,19 +442,19 @@ class UserController extends Controller
         
         if (\File::exists($filename)) {
 
-            \File::delete($filename);
+            //\File::delete($filename);
 
             $amount    = $order->balance-$order->used_amount;
             
-            $randstr   = Helper::generateRandomString(4);
-            $card_code = strtoupper($business_name).'-'.round($amount).'-'.$randstr;
+            //$randstr   = Helper::generateRandomString(4);
+            //$card_code = strtoupper($business_name).'-'.round($amount).'-'.$randstr;
 
-            QrCode::format('png')->size(300)->generate('GIFT CARD CODE: '.$card_code, public_path('qrcode/'.$qrFilename));
+            //QrCode::format('png')->size(300)->generate('GIFT CARD CODE: '.$card_code, public_path('qrcode/'.$qrFilename));
             
-            $uorder            = Order::find($order_id);
-            $uorder->qrcode    = $qrFilename;
-            $uorder->card_code = $card_code;
-            $uorder->save();
+            //$uorder            = Order::find($order_id);
+            //$uorder->qrcode    = $qrFilename;
+            //$uorder->card_code = $card_code;
+            //$uorder->save();
 
             $order = Order::find($order_id);
             $data  = [
