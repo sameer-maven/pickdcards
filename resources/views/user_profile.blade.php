@@ -90,7 +90,7 @@
                            <td>{{$users->url}}</td>
                         </tr>
                         <tr>
-                           <td>Business Industry</td>
+                           <td>Industry</td>
                            <td id="businessIndustryText">Business Industry</td>
                         </tr>
                         <tr>
@@ -102,7 +102,7 @@
                            <td>{{$users->tax_id_number}}</td>
                         </tr>
                         <tr>
-                           <td>About Business</td>
+                           <td>Tell us a little about your business</td>
                            <td>{{$users->about_business}}</td>
                         </tr>
                         <?php if(empty($users->connected_stripe_account_id)){ ?>
@@ -147,19 +147,19 @@
                     @csrf
                      <div class="col-lg-8">
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"><label class="mb-0 label-1">Business Name</label></div>
+                           <div class="col-lg-5"><label class="mb-0 label-1">Business Name <span style="color: red;">*</span></label></div>
                            <div class="col-lg-7"> <input type="text" name="business_name" class="form-control" placeholder="Business Name" value="{{$users->business_name}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Street Address</label></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Street Address <span style="color: red;">*</span></label></div>
                            <div class="col-lg-7"><input type="text" name="address" class="form-control" placeholder="Business Address" value="{{$users->address}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">City</label></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">City <span style="color: red;">*</span></label></div>
                            <div class="col-lg-7"><input type="text" name="city" class="form-control" placeholder="City" value="{{$users->city}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">State</label></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">State <span style="color: red;">*</span></label></div>
                            <div class="col-lg-7">
                               <select class="form-control" name="state" id="state">
                                 <option value="">Select State</option>
@@ -170,15 +170,15 @@
                            </div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Zip Code</label></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Zip Code <span style="color: red;">*</span></label></div>
                            <div class="col-lg-7"><input type="text" name="pincode" class="form-control" placeholder="Zip Code" value="{{$users->pincode}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Business Phone Number</label></div>
-                           <div class="col-lg-7"><input type="tel" id="phone_number" name="phone_number" class="form-control" placeholder="Enter Phone No in formate like: (123) 456-7890" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}" value="{{$users->phone_number}}"></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Business Phone Number <span style="color: red;">*</span></label></div>
+                           <div class="col-lg-7"><input type="tel" id="phone_number" name="phone_number" class="form-control" placeholder="Phone Number" value="{{$users->phone_number}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"><label class="mb-0 label-1">Business Email</label></div>
+                           <div class="col-lg-5"><label class="mb-0 label-1">Business Email <span style="color: red;">*</span></label></div>
                            <div class="col-lg-7"><input type="email" name="business_email" class="form-control" placeholder="Business Email" value="{{$users->business_email}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
@@ -186,7 +186,7 @@
                            <div class="col-lg-7"><input type="text" name="url" class="form-control" placeholder="Business URL" value="{{$users->url}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Business Industry</label></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Business Industry <span style="color: red;">*</span></label></div>
                            <div class="col-lg-7">
                             <select name="business_industry" id="business_industry" class="form-control">
                               <option value="">Business Industry</option>
@@ -197,7 +197,7 @@
                           </div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Type of Business</label></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Type of Business <span style="color: red;">*</span></label></div>
                            <div class="col-lg-7">
                              <select name="business_type" id="business_type" class="form-control">
                               <option value="">Type of Business</option>
@@ -208,12 +208,12 @@
                            </div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Tax ID number</label></div>
-                           <div class="col-lg-7"><input type="tel" name="tax_id_number" class="form-control" placeholder="Enter Tax ID in formate like: 12-3456789" pattern="[0-9]{2}-[0-9]{7}" value="{{$users->tax_id_number}}"></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Tax ID number <span style="color: red;">*</span></label></div>
+                           <div class="col-lg-7"><input type="tel" name="tax_id_number" class="form-control" placeholder="Tax ID" id="tax_id_number" value="{{$users->tax_id_number}}"></div>
                         </div>
 
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">About Business</label></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Tell us a little about your business</label></div>
                            <div class="col-lg-7"><textarea class="form-control" id="about_business" name="about_business" rows="4" placeholder="About Your Business">{{$users->about_business}}</textarea></div>
                         </div>
 
@@ -233,7 +233,7 @@
                         </div> -->
 
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Brand Identity</label></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Profile Pic</label></div>
                            <div class="col-lg-7">
                               <div class="upload-photo">
                                  <div class="photo-wrap">
@@ -335,6 +335,21 @@
   $(".input-image-preview").change(function(){
     readURL(this);
   });
+
+   var phones = [{ "mask": "(###) ###-####"}];
+   $('#phone_number').inputmask({ 
+      mask: phones, 
+      greedy: false, 
+      definitions: { '#': { validator: "[0-9]", cardinality: 1}} 
+   });
+
+   var tax = [{ "mask": "##-#######"}];
+   $('#tax_id_number').inputmask({ 
+      mask: tax, 
+      greedy: false, 
+      definitions: { '#': { validator: "[0-9]", cardinality: 1}} 
+   });
+
 </script>
 @endsection
 

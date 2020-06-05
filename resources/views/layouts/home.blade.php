@@ -63,9 +63,9 @@
                 <?php if(Auth::user()->is_admin=='1'){ ?>
                 <a class="dropdown-item" href="{{ url('/admin/dashboard') }}"><span class="icon-account s7-icon"></span>Admin Panel</a>
                 <?php }else{?>
-                <a class="dropdown-item" href="{{ url('/') }}"><span class="icon-account s7-icon"></span>Dashboard</a>
+                <a class="dropdown-item" href="{{ url('/user') }}"><span class="icon-account s7-icon"></span>Dashboard</a>
                 <a class="dropdown-item" href="{{ url('/user/orders') }}"><span class="icon-gear s7-icon"></span>Manage Order</a>
-                <a class="dropdown-item" href="{{ url('/user/manage-profile') }}"><span class="icon-account s7-icon"></span>Manage Profile</a>
+                <a class="dropdown-item" href="{{ url('/user/manage-profile') }}"><span class="icon-add-user s7-icon"></span>Manage Profile</a>
                 <!-- <a class="dropdown-item" href="#"><span class="icon-vip-card s7-icon"></span>Manage Giftcard</a> -->
                 <a class="dropdown-item" href="{{ url('/user/change-password') }}"><span class="icon-key s7-icon"></span>Change Password </a>
                 <?php } ?>
@@ -142,6 +142,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.13.4/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
 <script src="{{ asset('public/front/assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('public/front/assets/js/jquery-migrate-1.2.1.min.js') }}"></script>
 <script src="{{ asset('public/front/assets/js/slick.min.js') }}"></script>

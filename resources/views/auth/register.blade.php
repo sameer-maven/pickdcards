@@ -72,7 +72,7 @@
    <div class="container-contact">
       <div class="wrap-contact">
          <h2 class="contact-title">Create a Pickd Cards Account</h2>
-         <p class="contact-subtitle">Access a suite of solutions built to simplify your small business cash flow.</p>
+         <p class="contact-subtitle">Create an account to setup and manage your small business profile.</p>
          <form class="mt-4" id="reg-form" method="POST" action="{{ route('register') }}">
             @csrf
             <div class="form-group">
@@ -237,7 +237,7 @@
                     },
                     password_confirmation: {
                         required: "Please enter a valid password.",
-                        equalTo: "Please enter a valid password. As like password"
+                        equalTo: "Passwords do not match"
                     },
                     agree_terms: {
                         required: "You must agree Terms & Conditions."

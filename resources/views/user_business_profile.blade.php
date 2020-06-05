@@ -44,7 +44,7 @@
                   <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Zip Code">
                </div>
                <div class="col-lg-12 form-group">
-                  <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="Phone No (XXX) XXX-XXXX" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}">
+                  <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="Phone Number">
                </div>
                <div class="col-lg-12 form-group">
                   <input type="email" class="form-control" id="email" name="email" placeholder="Business Email">
@@ -69,10 +69,10 @@
                   </select>
                </div>
                <div class="col-lg-12 form-group">
-                  <input type="tel" class="form-control" id="tax_id_number" name="tax_id_number" placeholder="Tax ID XX-XXXXXXX" pattern="[0-9]{2}-[0-9]{7}">
+                  <input type="tel" class="form-control" id="tax_id_number" name="tax_id_number" placeholder="Tax ID">
                </div>
                <div class="col-lg-12 form-group">
-                  <textarea class="form-control" id="about_business" name="about_business" rows="4" placeholder="About Your Business"></textarea>
+                  <textarea class="form-control" id="about_business" name="about_business" rows="4" placeholder="Tell us a little about your business"></textarea>
                </div>
             </div>
             <div class="mt-4 text-center">
@@ -82,4 +82,23 @@
       </div>
    </div>
 </div>
+@endsection
+
+@section('javascript') 
+<script>
+   var phones = [{ "mask": "(###) ###-####"}];
+   $('#phone_number').inputmask({ 
+      mask: phones, 
+      greedy: false, 
+      definitions: { '#': { validator: "[0-9]", cardinality: 1}} 
+   });
+
+   var tax = [{ "mask": "##-#######"}];
+   $('#tax_id_number').inputmask({ 
+      mask: tax, 
+      greedy: false, 
+      definitions: { '#': { validator: "[0-9]", cardinality: 1}} 
+   });
+
+</script>
 @endsection

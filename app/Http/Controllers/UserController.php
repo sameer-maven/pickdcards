@@ -24,6 +24,7 @@ use DB;
 use Session;
 use Stripe;
 use QrCode;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -46,15 +47,30 @@ class UserController extends Controller
     {   
 
         $is_business_profile_complete = Auth::user()->is_business_profile_complete;
-        
+        $id = Auth::user()->id;
         $data['Industries'] = Industry::where('status','1')->orderBy('industry')->get();
         $data['Types']      = Type::where('status','1')->orderBy('type')->get();
         $data['States']     = State::where('status','1')->orderBy('state_name')->get();
+        $data['user']       = DB::table('users as u')->select(
+                'u.id',
+                'u.name',
+                'u.status',
+                'u.is_verify',
+                'b.connected_stripe_account_id'
+            )
+         ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
+         ->where('u.id', Auth::user()->id)->first();
+
+        $data['ordersCount'] = Order::where(['user_id'=>$id,'status'=>'1'])->orderBy('id','desc')->count();
+        
+        $sql = Order::where(['user_id'=>$id,'status'=>'1']);
+        $date = date('Y-m-d');
+        $data['todayOrdersCount'] = $sql->where('created_at', 'LIKE', '%'.$date.'%')->count();
 
         if($is_business_profile_complete == '0'){
             return view('user_business_profile')->with($data);  
         }else{
-            return view('user_dashboard');   
+            return view('user_dashboard')->with($data);   
         }
     }
 

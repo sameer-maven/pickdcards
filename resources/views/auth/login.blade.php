@@ -71,11 +71,8 @@
 <!-- sign-in -->
 <div class="bg-contact overlay-2" style="background-image: url({{ asset('public/front/assets/images/sign-in-bg.jpg') }});">
    <div class="container-contact">
-      <div class="wrap-contact">
+      <div class="wrap-contact" style="width: 580px;">
          <h2 class="contact-title">Sign In</h2>
-         <p class="contact-subtitle">Access a suite of solutions built to simplify your small 
-            business cash flow.
-         </p>
          <form class="mt-4" method="POST" action="{{ route('login') }}" id="login-form">
             @csrf
             <div class="form-group">

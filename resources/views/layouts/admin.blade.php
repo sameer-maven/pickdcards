@@ -94,7 +94,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Users Management
+                Users
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -111,7 +111,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-gift"></i>
               <p>
-                Orders Management
+                Orders
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -128,7 +128,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
               <p>
-                Pages Management
+                Pages
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -151,7 +151,7 @@
             <a class="nav-link @if(Request::is('admin/commission-settings'))  active @endif" href="{{url('admin/commission-settings')}}"><i class="nav-icon fas fa-cogs"></i> Commission Settings</a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link @if(Request::is('admin/profile-socials'))  active @endif" href="{{url('admin/profile-socials')}}"><i class="nav-icon fas fa-share-alt"></i> Profile Socials</a>
+            <a class="nav-link @if(Request::is('admin/profile-socials'))  active @endif" href="{{url('admin/profile-socials')}}"><i class="nav-icon fas fa-share-alt"></i> Social Media</a>
           </li>
           <li class="nav-item">
             <a class="nav-link @if(Request::is('admin/change-password'))  active @endif" href="{{url('admin/change-password')}}"><i class="nav-icon fas fa-key"></i> Change Password</a>
