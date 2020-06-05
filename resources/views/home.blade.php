@@ -2,7 +2,8 @@
 
 @section('content')
 <!-- top-banner -->
-<div class="top-banner overlay1" style="background-image: url({{ asset('public/front/assets/images/top-banner.jpg') }});">
+<!-- <div class="top-banner overlay1" style="background-image: url({{ asset('public/front/assets/images/top-banner.jpg') }});"> -->
+<div class="top-banner overlay1" style="background-image: url({{ asset('public/front/assets/images/home-page.png') }});">
    <div class="container">
       <div class="row">
          <div class="col-lg-6">

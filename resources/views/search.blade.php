@@ -2,7 +2,8 @@
 
 @section('content')
 <!-- support-sec -->
-<div class="support-sec sec-padding overlay1 business-support topbanner-padd default-banner" style="background-image: url({{ asset('public/front/assets/images/page-banner.jpg') }});">
+<!-- <div class="support-sec sec-padding overlay1 business-support topbanner-padd default-banner" style="background-image: url({{ asset('public/front/assets/images/page-banner.jpg') }});"> -->
+<div class="support-sec sec-padding overlay1 business-support topbanner-padd default-banner" style="background-image: url({{ asset('public/front/assets/images/search-page.png') }});">
    <div class="container">
       <div class="row">
          <div class="col-lg-6">
