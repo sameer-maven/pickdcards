@@ -56,14 +56,14 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>#ID</th>
-                      <th>Business User</th>
+                      <th>Order ID</th>
+                      <th>Business</th>
                       <th>Customer Name</th>
                       <th>Customer Email</th>
-                      <th>Paid Amount</th>
-                      <th>Gift Amount</th>
+                      <th>Gift Card Amount</th>
                       <th>Used Amount</th>
-                      <th>Date</th>
+                      <th>Remaining Amount</th>
+                      <th>Order Date</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
@@ -76,9 +76,9 @@
                         <td>{{ $order->name }}</td>
                         <td>{{ $order->customer_full_name }}</td>
                         <td>{{ $order->customer_email }}</td>
-                        <td>${{ $order->amount }}</td>
                         <td>${{ $order->balance }}</td>
                         <td>${{ $order->used_amount }}</td>
+                        <td>${{ number_format($order->balance - $order->used_amount,2) }}</td>
                         <td>{{$order->created_at}}</td>
                         <?php 
                           if( $order->status == '1' ) {

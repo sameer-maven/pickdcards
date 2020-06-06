@@ -287,10 +287,10 @@ class AdminController extends Controller
             $custquery->where('u.name', 'LIKE', '%'.$query.'%');
             $custquery->orWhere('o.customer_full_name', 'LIKE', '%'.$query.'%');
             $custquery->orWhere('o.customer_email', 'LIKE', '%'.$query.'%');
-            $data = $custquery->leftjoin('users as u', 'o.user_id', '=', 'u.id')->orderBy('id','desc')->paginate(10)->appends(["q" => $query]);
+            $data = $custquery->leftjoin('users as u', 'o.user_id', '=', 'u.id')->orderBy('id','desc')->paginate(25)->appends(["q" => $query]);
          } else {
             $data = DB::table('orders as o')->select('o.*','u.name')
-                    ->leftjoin('users as u', 'o.user_id', '=', 'u.id')->orderBy('id','desc')->paginate(10);
+                    ->leftjoin('users as u', 'o.user_id', '=', 'u.id')->orderBy('id','desc')->paginate(25);
          }
         
         return view('admin.orders-list', ['data' => $data,'query' => $query]);

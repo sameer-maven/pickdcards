@@ -62,6 +62,7 @@
                       <th>Date</th>
                       <th>Status</th>
                       <th>Approval</th>
+                      <th>Stripe Connect</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -88,12 +89,15 @@
                           if( $user->is_verify == '1' ) {
                               $mode    = 'success';
                               $_status = "VERIFIED";
+                              $_stripe = "CONNECTED";
                             }else{
                               $mode = 'danger';
                               $_status = "UNVERIFIED";
+                              $_stripe = "NOT CONNECTED";
                             }     
                         ?> 
                         <td><span class="badge bg-{{$mode}}">{{ $_status }}</span></td>
+                        <td><span class="badge bg-{{$mode}}">{{ $_stripe }}</span></td>
 
                         <td>
                           @if( $user->id <> Auth::user()->id && $user->is_admin <> 1 )

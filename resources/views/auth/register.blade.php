@@ -36,9 +36,9 @@
                   <li class="nav-item">
                     <a class="nav-link" href="{{ url('page/faq') }}">FAQs</a>
                   </li>
-                  <li class="nav-item">
+                  <!-- <li class="nav-item">
                     <a class="nav-link" href="{{ url('page/legal') }}">Legal</a>
-                  </li>
+                  </li> -->
                   <li class="nav-item">
                     <a class="nav-link" href="{{ url('page/contact-us') }}">Contact Us</a>
                   </li>
@@ -142,6 +142,7 @@
                   <li><a href="{{ url('/') }}">Home</a></li>
                   <li><a href="{{ url('page/how-it-works') }}">How it Works</a></li>
                   <li><a href="{{ url('page/faq') }}">FAQs</a></li>
+                  <li><a href="{{ url('page/legal') }}">Legal</a></li>
                   <li><a href="{{ url('page/contact-us') }}">Contact Us</a></li>
                </ul>
             </div>
@@ -197,7 +198,8 @@
         $(".signin-btn").click(function(e){
 
             $.validator.addMethod("pwcheck", function (value) {
-                return /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(value)
+
+                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value)
             });
 
             $('#reg-form').validate({ // initialize the plugin
@@ -233,7 +235,7 @@
                     password: {
                         required: "Please enter a valid password.",
                         // minlength :"Password must be contains atleast 8 Letters, 1 upper case, 1 special character & 1 number",
-                        pwcheck :"Password must be contains atleast 8 Letters, 1 upper case, 1 special character & 1 number"
+                        pwcheck :"Password must be contains atleast 8 Letters, 1 upper case & 1 number"
                     },
                     password_confirmation: {
                         required: "Please enter a valid password.",

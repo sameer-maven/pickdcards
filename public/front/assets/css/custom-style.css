@@ -143,3 +143,9 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.cstm-navbar .navbar-wrap li a {
+    
+    font-weight: 500 !important;
+    
+}

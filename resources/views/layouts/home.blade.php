@@ -37,9 +37,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ url('page/faq') }}">FAQs</a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="{{ url('page/legal') }}">Legal</a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link" href="{{ url('page/contact-us') }}">Contact Us</a>
         </li>
@@ -100,6 +100,7 @@
                   <li><a href="{{ url('/') }}">Home</a></li>
                   <li><a href="{{ url('page/how-it-works') }}">How it Works</a></li>
                   <li><a href="{{ url('page/faq') }}">FAQs</a></li>
+                  <li><a href="{{ url('page/legal') }}">Legal</a></li>
                   <li><a href="{{ url('page/contact-us') }}">Contact Us</a></li>
                </ul>
             </div>

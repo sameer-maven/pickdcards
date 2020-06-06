@@ -9,9 +9,9 @@
          </div>
          <div class="thnk-content">
           <h2 class="thnk-title">Thank you</h2>
-          <p class="thnk-subtitle"><b>GIFT CARD CODE: {{$orderInfo->card_code}}</b></p>
+          <p class="thnk-subtitle"><b style="font-weight: none !important;">GIFT CARD CODE: {{$orderInfo->card_code}}</b></p>
           <p class="thnk-subtitle">
-          Thank you for purchasing a Pickd Card. You should receive a confirmation email with your order details shortly. {{ $orderInfo->recipient_name }} will receive an email with this QR code for ${{ round($orderInfo->balance, 2) }} to use at {{ $businessinfo->business_name }}.</p>
+          Thank you for purchasing a <b>Pickd Card</b>. You should receive a confirmation email with your order details shortly. <b>{{ $orderInfo->recipient_name }}</b> will receive an email with this QR code for <b>$ <?php echo number_format($orderInfo->balance,2); ?></b> to use at <b>{{ $businessinfo->business_name }}</b>.</p>
          </div>
       </div>
    </div>

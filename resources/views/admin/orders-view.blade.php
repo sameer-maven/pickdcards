@@ -42,7 +42,7 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-sm-3">
-                    <span style="color: #007bff">Business User Details</span>
+                    <span style="color: #007bff">Business</span>
                     <address>
                       <strong>{{$user->business_name}}</strong><br>
                       {{$user->address}}, {{$user->city}}, {{$user->state}} {{$user->pincode}}<br>
@@ -52,14 +52,14 @@
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-3">
-                    <span style="color: #007bff">Customer Details</span>
+                    <span style="color: #007bff">Customer</span>
                     <address>
                       <strong>{{$order->customer_full_name}}</strong><br>
                       Email: {{$order->customer_email}}
                     </address>
                   </div>
                   <div class="col-sm-3">
-                    <span style="color: #007bff">Recipent Details</span>
+                    <span style="color: #007bff">Recipent</span>
                     <address>
                       <strong>{{$order->recipient_name}}</strong><br>
                       Email: {{$order->recipient_email}}
@@ -85,7 +85,8 @@
                   <!-- accepted payments column -->
                   <div class="col-sm-6">
                     <p class="lead">QR Code:</p>
-                    <img class="img-responsive img-thumbnail" src="{{asset('public/qrcode/'.$order->qrcode)}}">
+                    <img class="img-responsive img-thumbnail" src="{{asset('public/qrcode/'.$order->qrcode)}}"><br>
+                    <p>Code: <b>{{$order->card_code}}</b></p>
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-6">
@@ -95,7 +96,7 @@
                       <table class="table">
                         <tbody>
                         <tr>
-                          <th>Business User Profit:</th>
+                          <th>Business Revenue:</th>
                           <td>$ {{$order->business_user_amount}}</td>
                         </tr>
                         <tr>
@@ -103,11 +104,11 @@
                           <td>$ {{$order->stripe_fees}}</td>
                         </tr>
                         <tr>
-                          <th>Admin Profit:</th>
+                          <th>Pickd Revenue:</th>
                           <td>$ {{$order->admin_fee_amount}}</td>
                         </tr>
                         <tr>
-                          <th style="width:50%">Total:</th>
+                          <th style="width:50%">Transaction Total:</th>
                           <td>$ {{$order->amount}}</td>
                         </tr>
                       </tbody></table>
