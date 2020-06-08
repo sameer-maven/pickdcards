@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmail;
+use App\Mail\RecipientSendEmail;
 use Illuminate\Support\Facades\Input as Input;
 use App\Order;
 use App\User;
@@ -207,7 +208,12 @@ class OrderController extends Controller
                 'u.avatar',
                 'u.status',
                 'u.is_verify',
-                'b.business_name'
+                'b.business_name',
+                'b.address',
+                'b.city',
+                'b.state',
+                'b.pincode',
+                'b.phone_number'
             )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')->where('u.id', $order->user_id)->first();
 
             $business_name = str_replace(' ', '', $user->business_name);
@@ -238,16 +244,22 @@ class OrderController extends Controller
             Mail::to($order->customer_email)->send(new SendEmail($data));
 
             $data  = [
-                        'avatar'        => asset('public/avatar/'.$user->avatar),
-                        'customer_name' => $order->recipient_name,
-                        'balance'       => round($order->balance),
-                        'qrcode'        => asset('public/qrcode/'.$order->qrcode),
-                        'bgImg'         => asset('public/front-email-template/img/bg.jpg'),
-                        'mainbgImg'     => asset('public/front-email-template/img/main-bg.jpg'),
-                        'footerLogoImg' => asset('public/front-email-template/img/logo.png')
+                        'avatar'          => asset('public/avatar/'.$user->avatar),
+                        'recipient_name'  => $order->recipient_name,
+                        'balance'         => round($order->balance),
+                        'qrcode'          => asset('public/qrcode/'.$order->qrcode),
+                        'qrcodeText'      => $order->card_code,
+                        'senderName'      => $order->customer_full_name,
+                        'senderNotes'     => $order->recipient_notes,
+                        'businessName'    => $user->business_name,
+                        'businessAddress' => $user->address.", ".$user->city.", ".$user->state.", ".$user->pincode,
+                        'businessPhone'   => $user->phone_number,
+                        'bgImg'           => asset('public/front-email-template/img/bg.jpg'),
+                        'mainbgImg'       => asset('public/front-email-template/img/main-bg.jpg'),
+                        'footerLogoImg'   => asset('public/front-email-template/img/logo.png')
                     ];
+            Mail::to($order->recipient_email)->send(new RecipientSendEmail($data));
 
-            Mail::to($order->recipient_email)->send(new SendEmail($data));
 
             $data['qrimage'] = $filename;
             
