@@ -230,22 +230,10 @@ class OrderController extends Controller
             $order->card_code = $card_code;
             $order->save();
 
-            $order = Order::find($order_id);
-            $data  = [
-                        'avatar'        => asset('public/avatar/'.$user->avatar),
-                        'customer_name' => $order->customer_full_name,
-                        'balance'       => round($order->balance),
-                        'qrcode'        => asset('public/qrcode/'.$order->qrcode),
-                        'bgImg'         => asset('public/front-email-template/img/bg.jpg'),
-                        'mainbgImg'     => asset('public/front-email-template/img/main-bg.jpg'),
-                        'footerLogoImg' => asset('public/front-email-template/img/logo.png')
-                    ];
-
-            Mail::to($order->customer_email)->send(new SendEmail($data));
+            $order = Order::find($order_id);    
 
             $data  = [
                         'avatar'          => asset('public/avatar/'.$user->avatar),
-                        'recipient_name'  => $order->recipient_name,
                         'balance'         => round($order->balance),
                         'qrcode'          => asset('public/qrcode/'.$order->qrcode),
                         'qrcodeText'      => $order->card_code,
@@ -258,6 +246,11 @@ class OrderController extends Controller
                         'mainbgImg'       => asset('public/front-email-template/img/main-bg.jpg'),
                         'footerLogoImg'   => asset('public/front-email-template/img/logo.png')
                     ];
+                    
+            $data['recipient_name'] = $order->customer_full_name;
+            Mail::to($order->customer_email)->send(new RecipientSendEmail($data));
+
+            $data['recipient_name'] = $order->recipient_name;
             Mail::to($order->recipient_email)->send(new RecipientSendEmail($data));
 
 

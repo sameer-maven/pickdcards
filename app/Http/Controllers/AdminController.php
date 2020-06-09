@@ -392,7 +392,12 @@ class AdminController extends Controller
             'u.avatar',
             'u.status',
             'u.is_verify',
-            'b.business_name'
+            'b.business_name',
+            'b.address',
+            'b.city',
+            'b.state',
+            'b.pincode',
+            'b.phone_number'
         )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')->where('u.id', $order->user_id)->first();
         
         $business_name = str_replace(' ', '', $user->business_name);
@@ -416,19 +421,25 @@ class AdminController extends Controller
 
             $order = Order::find($order_id);
             $data  = [
-                        'avatar'        => asset('public/avatar/'.$user->avatar),
-                        'balance'       => round($amount),
-                        'qrcode'        => asset('public/qrcode/'.$order->qrcode),
-                        'bgImg'         => asset('public/front-email-template/img/bg.jpg'),
-                        'mainbgImg'     => asset('public/front-email-template/img/main-bg.jpg'),
-                        'footerLogoImg' => asset('public/front-email-template/img/logo.png')
+                        'avatar'          => asset('public/avatar/'.$user->avatar),
+                        'balance'         => round($amount),
+                        'qrcode'          => asset('public/qrcode/'.$order->qrcode),
+                        'qrcodeText'      => $order->card_code,
+                        'senderName'      => $order->customer_full_name,
+                        'senderNotes'     => $order->recipient_notes,
+                        'businessName'    => $user->business_name,
+                        'businessAddress' => $user->address.", ".$user->city.", ".$user->state.", ".$user->pincode,
+                        'businessPhone'   => $user->phone_number,
+                        'bgImg'           => asset('public/front-email-template/img/bg.jpg'),
+                        'mainbgImg'       => asset('public/front-email-template/img/main-bg.jpg'),
+                        'footerLogoImg'   => asset('public/front-email-template/img/logo.png')
                     ];
+                    
+            $data['recipient_name'] = $order->customer_full_name;
+            Mail::to($order->customer_email)->send(new RecipientSendEmail($data));
 
-            $data['customer_name'] = $order->customer_full_name;
-            Mail::to($order->customer_email)->send(new SendEmail($data));
-            
-            $data['customer_name'] = $order->recipient_name;
-            Mail::to($order->recipient_email)->send(new SendEmail($data));
+            $data['recipient_name'] = $order->recipient_name;
+            Mail::to($order->recipient_email)->send(new RecipientSendEmail($data));
         }
 
         \Session::flash('notification',"Qr Code updated & email sent to customer successfully.");

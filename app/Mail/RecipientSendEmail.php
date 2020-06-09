@@ -32,6 +32,6 @@ class RecipientSendEmail extends Mailable
 
     public function build()
     {
-        return $this->from('sales@pickdcards')->subject('Congratulations for receiving a Gift Card!')->view('recipient_email_gift_card')->with('data',$this->data);
+        return $this->from('sales@pickdcards')->subject('Thanks for purchasing Gift Card!')->view('recipient_email_gift_card')->with('data',$this->data);
     }
 }

@@ -58,7 +58,7 @@
                                           </td>
                                        </tr>
                                        <tr>
-                                          <td style="font-size: 15px;color: #606060;padding-top: 10px;padding-bottom: 10px;">To redeem your gift card, show this QR code when making purchase at <b>{{$data['businessName']}}</b></td>
+                                          <td style="font-size: 15px;color: #606060;padding-top: 10px;padding-bottom: 10px;">To redeem your gift card, show this QR code when making a purchase at <b>{{$data['businessName']}}.</b></td>
                                        </tr>
                                        <tr><td style="font-size: 15px;" ><span style="font-size: 15px;color: #4B4B4B;">Sender Name:</span> {{$data['senderName']}}</td></tr>
                                        <tr><td style="font-size: 15px;" ><span style="font-size: 15px;color: #4B4B4B;">Note:</span> {{$data['senderNotes']}}</td></tr>
@@ -97,7 +97,7 @@
                            </tr>
                            <tr>
                               <td style="color: #2F3B49;font-size: 15px;">
-                                 If you've any question or concern, please drop us a note at support@pickdcards.com or <a href="{{ url('/page/contact-us') }}">contact us</a>
+                                 If you've any question or concern, please drop us a note at support@pickdcards.com or <a href="{{ url('/page/contact-us') }}">Contact Us</a>
                               </td>
                            </tr>
                         </tbody>
