@@ -480,9 +480,11 @@ class UserController extends Controller
                     ];
                     
             $data['recipient_name'] = $order->customer_full_name;
+            $data['subject']        = "You have purchased a Gift Card for ".$order->recipient_name;
             Mail::to($order->customer_email)->send(new RecipientSendEmail($data));
 
             $data['recipient_name'] = $order->recipient_name;
+            $data['subject']        = "You have received a Gift Card from ".$order->customer_full_name;
             Mail::to($order->recipient_email)->send(new RecipientSendEmail($data));
         }
 
