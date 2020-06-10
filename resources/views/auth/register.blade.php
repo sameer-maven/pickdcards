@@ -27,12 +27,13 @@
                        Home <!-- <span class="sr-only">(current)</span> -->
                     </a>
                  </li>
+                 <li class="nav-item active">
+                    <a class="nav-link" href="{{ url('page/about-us') }}">About Us</a>
+                  </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{{ url('/search') }}">Buy a Gift Card</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url('page/about-us') }}">About Us</a>
-                  </li>
+                
                  <li class="nav-item">
                     <a class="nav-link" href="{{ url('page/how-it-works') }}">How it Works </a>
                   </li>
@@ -111,25 +112,26 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-               <p class="sign-small-txt mt-3">8 characters, 1 upper case, 1 lowercase and 1 number</p>
-            </div>
-            <div class="form-group">
-               <div class="form-check">
-                 <input class="form-check-input" type="checkbox" id="gridCheck1" value="yes" name="agree_terms">
-                 <p class="sign-small-txt"><label class="form-check-label" for="gridCheck1">I confirm that I have read, consent and agree to Pickd LLC’s <a href="{{ url('/page/terms-of-use-business') }}" class="txt-green">Terms of Use</a> and <a href="{{ url('/page/privacy-policy-business') }}" class="txt-green">Privacy Policy</a></label></p>
-               </div>
+               <p class="sign-small-txt mt-3"><strong>Password must contain 8 characters (1 lowercase, 1 uppercase, 1 number)</strong></p>
             </div>
             <div class="form-group">
                <div class="form-check">
                  <input class="form-check-input" type="checkbox" id="gridCheck2" value="yes" name="agree_terms2">
-                 <p class="sign-small-txt"><label class="form-check-label" for="gridCheck1">I confirm that I have read, consent and agree to Pickd LLC’s <a href="{{ url('/page/terms-of-sale-business') }}" class="txt-green">Terms of Sale</a></label></p>
+                 <p class="sign-small-txt"><label class="form-check-label" for="gridCheck1"><strong>I confirm that I have read, consent and agree to Pickd LLC’s <a href="{{ url('/page/terms-of-sale-business') }}" class="txt-green">Terms of Sale</a></strong></label></p>
                </div>
             </div>
+            <div class="form-group">
+               <div class="form-check">
+                 <input class="form-check-input" type="checkbox" id="gridCheck1" value="yes" name="agree_terms">
+                 <p class="sign-small-txt"><label class="form-check-label" for="gridCheck1"><strong>I confirm that I have read, consent and agree to Pickd LLC’s <a href="{{ url('/page/terms-of-use-business') }}" class="txt-green">Terms of Use</a> and <a href="{{ url('/page/privacy-policy-business') }}" class="txt-green">Privacy Policy</a></strong></label></p>
+               </div>
+            </div>
+            
             <!-- <div class="form-group">
                <a href="#" class="forgotpass-link">Forgot Password?</a>
             </div> -->
             <button type="submit" class="btn btn-primary signin-btn">Create Account</button>
-            <p class="mt-4 text-center sign-small-txt">Already have a Pickd Cards account? <strong><a href="{{ route('login') }}" class="txt-green"> Sign In</a></strong></p>
+            <p class="mt-4 text-center sign-small-txt"><strong> Already have a Pickd Cards account? <a href="{{ route('login') }}" class="txt-green"> Sign In</a></strong></p>
          </form>
       </div>
    </div>
@@ -247,18 +249,18 @@
                     },
                     password: {
                         required: "Please enter a valid password.",
-                        // minlength :"Password must be contains atleast 8 Letters, 1 upper case, 1 special character & 1 number",
-                        pwcheck :"Password must be contains atleast 8 Letters, 1 upper case & 1 number"
+                        minlength :"Please enter a valid password.",
+                        pwcheck :"Please enter a valid password."
                     },
                     password_confirmation: {
                         required: "Please enter a valid password.",
                         equalTo: "Passwords do not match"
                     },
                     agree_terms: {
-                        required: "You must agree Terms & Conditions."
+                        required: "Please read and agree to the terms"
                     },
                     agree_terms2: {
-                        required: "You must agree Terms & Conditions."
+                        required: "Please read and agree to the terms"
                     }
                 }
             });

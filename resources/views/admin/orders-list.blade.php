@@ -60,9 +60,9 @@
                       <th>Business</th>
                       <th>Customer Name</th>
                       <th>Customer Email</th>
-                      <th>Gift Card Amount</th>
-                      <th>Used Amount</th>
-                      <th>Remaining Amount</th>
+                      <th>Gift Card</th>
+                      <th>Used</th>
+                      <th>Remaining</th>
                       <th>Order Date</th>
                       <th>Status</th>
                       <th>Action</th>

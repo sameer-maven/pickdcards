@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmailAdmin;
 use App\Mail\SendEmailUser;
 use App\Mail\SendEmail;
+use App\Mail\RecipientSendEmail;
 use Auth;
 use DB;
 use Session;

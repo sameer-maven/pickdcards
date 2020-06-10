@@ -27,11 +27,11 @@
                        Home <!-- <span class="sr-only">(current)</span> -->
                     </a>
                  </li>
+                 <li class="nav-item active">
+                    <a class="nav-link" href="{{ url('page/about-us') }}">About Us</a>
+                  </li>
                  <li class="nav-item">
                     <a class="nav-link" href="{{ url('/search') }}">Buy a Gift Card</a>
-                  </li>
-                  <li class="nav-item active">
-                    <a class="nav-link" href="{{ url('page/about-us') }}">About Us</a>
                   </li>
                  <li class="nav-item">
                     <a class="nav-link" href="{{ url('page/how-it-works') }}">How it Works </a>
@@ -102,7 +102,7 @@
                 @endif
             </div>
             <button type="submit" class="btn btn-primary signin-btn">Sign In</button>
-            <p class="mt-4 text-center sign-small-txt">If you don't have a pickd cards account? <strong><a href="{{ route('register') }}" class="txt-green"> Sign Up</a></strong></p>
+            <p class="mt-4 text-center sign-small-txt"><strong>If you don't have a pickd cards account? <a href="{{ route('register') }}" class="txt-green"> Sign Up</a></strong></p>
          </form>
       </div>
    </div>

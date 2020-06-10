@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmail;
+use App\Mail\RecipientSendEmail;
 use Illuminate\Support\Facades\Input as Input;
 use App\Order;
 use App\User;

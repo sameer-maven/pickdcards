@@ -134,7 +134,7 @@
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: "You must agree Terms & Conditions"
+        text: "Please read and agree to the terms"
       });
       return false;
     }
