@@ -323,7 +323,7 @@ public static function resizeImageFixed( $image, $width, $height, $imageNew = nu
 	}
 
 	public static function generateRandomString($length = 10) {
-		$characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
 		$charactersLength = strlen($characters);
 		$randomString     = '';
 	    for ($i = 0; $i < $length; $i++) {

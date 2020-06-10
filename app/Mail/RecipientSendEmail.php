@@ -32,6 +32,6 @@ class RecipientSendEmail extends Mailable
 
     public function build()
     {
-        return $this->from('sales@pickdcards.com')->subject($this->data['subject'])->view('recipient_email_gift_card')->with('data',$this->data);
+        return $this->from('sales@pickdcards.com','PICKD Cards Sales')->subject($this->data['subject'])->view('recipient_email_gift_card')->with('data',$this->data);
     }
 }

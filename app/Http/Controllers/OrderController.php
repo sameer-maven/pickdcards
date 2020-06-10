@@ -220,7 +220,8 @@ class OrderController extends Controller
 
             $filename  = 'qrcode_order_'.$order_id.'_user_'.$business_name.'_'.time().str_random(10).'.png';
             $randstr   = Helper::generateRandomString(4);
-            $card_code = strtoupper($business_name).'-'.round($order->balance).'-'.$randstr;
+            $randstr2  = Helper::generateRandomString(4);
+            $card_code = $randstr.'-'.$randstr2;
 
             QrCode::format('png')->size(300)->generate('GIFT CARD CODE: '.$card_code, public_path('qrcode/'.$filename));
 

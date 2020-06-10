@@ -30,6 +30,9 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{{ url('/search') }}">Buy a Gift Card</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url('page/about-us') }}">About Us</a>
+                  </li>
                  <li class="nav-item">
                     <a class="nav-link" href="{{ url('page/how-it-works') }}">How it Works </a>
                   </li>
@@ -113,7 +116,13 @@
             <div class="form-group">
                <div class="form-check">
                  <input class="form-check-input" type="checkbox" id="gridCheck1" value="yes" name="agree_terms">
-                 <p class="sign-small-txt"><label class="form-check-label" for="gridCheck1">I agree, for myself and on behalf of my business, to the Pickd Cards <a href="{{ url('/page/legal') }}" class="txt-green">Terms of Use</a> and <a href="{{ url('/page/legal') }}" class="txt-green">Privacy Policy</a></label></p>
+                 <p class="sign-small-txt"><label class="form-check-label" for="gridCheck1">I confirm that I have read, consent and agree to Pickd LLC’s <a href="{{ url('/page/terms-of-use-business') }}" class="txt-green">Terms of Use</a> and <a href="{{ url('/page/privacy-policy-business') }}" class="txt-green">Privacy Policy</a></label></p>
+               </div>
+            </div>
+            <div class="form-group">
+               <div class="form-check">
+                 <input class="form-check-input" type="checkbox" id="gridCheck2" value="yes" name="agree_terms2">
+                 <p class="sign-small-txt"><label class="form-check-label" for="gridCheck1">I confirm that I have read, consent and agree to Pickd LLC’s <a href="{{ url('/page/terms-of-sale-business') }}" class="txt-green">Terms of Sale</a></label></p>
                </div>
             </div>
             <!-- <div class="form-group">
@@ -140,6 +149,7 @@
                <h3 class="footer-title">Important</h3>
                <ul class="footer-list list-unstyled">
                   <li><a href="{{ url('/') }}">Home</a></li>
+                  <li><a href="{{ url('page/about-us') }}">About Us</a></li>
                   <li><a href="{{ url('page/how-it-works') }}">How it Works</a></li>
                   <li><a href="{{ url('page/faq') }}">FAQs</a></li>
                   <li><a href="{{ url('page/legal') }}">Legal</a></li>
@@ -223,6 +233,9 @@
                     },
                     agree_terms: {
                         required: true
+                    },
+                    agree_terms2: {
+                        required: true
                     }
                 },
                 messages: {
@@ -242,6 +255,9 @@
                         equalTo: "Passwords do not match"
                     },
                     agree_terms: {
+                        required: "You must agree Terms & Conditions."
+                    },
+                    agree_terms2: {
                         required: "You must agree Terms & Conditions."
                     }
                 }

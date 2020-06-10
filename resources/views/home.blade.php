@@ -87,7 +87,7 @@
          <div class="sign-col">
             <div class="icon-2" style="background: #C55C87;"><span class="icon-deposit"></span></div>
             <!-- <p>Get gift card sales deposited directly into your bank account within a few days. Our gift card service is <span style="font-weight: 700;">100% FREE FOR LIFE</span> for small businesses. <br> * Please see our Terms and Conditions. <br></p> -->
-            <p>Get gift card sales deposited directly into your bank account within a few days. Our gift card service is <span style="font-weight: 700;">100% FREE FOR LIFE</span> for small businesses. <br> * Please see our Terms and Conditions. <br></p>
+            <p>Get gift card sales deposited directly into your bank account within a few days. Our gift card service is <span style="font-weight: 700;">100% FREE FOR LIFE</span> for small businesses. <br> *Please see our Terms and Conditions. <br></p>
          </div>
       </div>
       <div class="btn-wrap text-center mt-5">

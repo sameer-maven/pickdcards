@@ -488,7 +488,7 @@ class UserController extends Controller
             Mail::to($order->recipient_email)->send(new RecipientSendEmail($data));
         }
 
-        \Session::flash('notification',"Qr Code updated, An email sent to customer & recipient successfully.");
+        \Session::flash('notification',"The card has been re-sent to the customer and the recipient. ");
         return redirect('/user/order-detail/'.$order_id);
         
     }

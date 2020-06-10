@@ -53,12 +53,12 @@
           <div class="form-group">
              <textarea class="form-control" id="" rows="3" placeholder="Note" style="padding: 10px 30px;background: #E6E6E6;" readonly>{{$data->recipient_notes}}</textarea>
            </div>
-           <?php if($data->balance != $data->used_amount){ ?>
-            <button class="button-success pure-button" id="redeem">Redeem Amount</button>
-           <?php } ?>
-           <?php if($transactions->count()>0){ ?>
-            <button class="button-secondary pure-button" id="allTransactions">All Transactions</button><?php if($data->balance == $data->used_amount){ ?><br><br><?php } ?>
-           <?php } ?>
+           <?php //if($data->balance != $data->used_amount){ ?>
+            <!-- <button class="button-success pure-button" id="redeem">Redeem</button> -->
+           <?php //} ?>
+           <?php //if($transactions->count()>0){ ?>
+            <!-- <button class="button-secondary pure-button" id="allTransactions">All Transactions</button><?php if($data->balance == $data->used_amount){ ?><br><br><?php } ?> -->
+           <?php //} ?>
         </div>
         <!-- <div class="col-lg-6 pl-0">
           <div class="consumer-info d-flex">
@@ -88,7 +88,13 @@
         <div class="col-lg-12">
            <hr>
            <div class="my-5 text-center">
-              <button type="submit" class="btn btn-primary signin-btn w-auto px-4" id="resendCard">Resend Card</button>
+              <button type="submit" class="btn btn-primary signin-btn w-auto px-4" id="resendCard" style="background:#007bff;border-color:#007bff">Resend Card</button>
+              <?php if($data->balance != $data->used_amount){ ?>
+                <button class="btn btn-primary signin-btn w-auto px-4" id="redeem">Redeem</button>
+              <?php } ?>
+              <?php if($transactions->count()>0){ ?>
+                <button class="btn btn-primary signin-btn w-auto px-4" id="allTransactions">All Transactions</button><?php if($data->balance == $data->used_amount){ ?><br><br><?php } ?>
+              <?php } ?>
            </div>
         </div>
         <?php }else{ ?>

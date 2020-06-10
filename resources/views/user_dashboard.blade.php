@@ -101,7 +101,7 @@
                   <div class="card-new card-1">
                      <div class="card-header-new">
                         {{$todayOrdersCount}}
-                        <span class="title-lite">Today Orders</span>
+                        <span class="title-lite">Today's Orders</span>
                      </div>
                      <div class="card-body-new">
                         <div class="dash-icon-wrap icon-1">

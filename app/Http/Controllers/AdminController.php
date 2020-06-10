@@ -444,7 +444,7 @@ class AdminController extends Controller
             Mail::to($order->recipient_email)->send(new RecipientSendEmail($data));
         }
 
-        \Session::flash('notification',"Qr Code updated & email sent to customer successfully.");
+        \Session::flash('notification',"The card has been re-sent to the customer and the recipient. ");
         return redirect('/admin/order-detail/'.$order_id);
         
     }

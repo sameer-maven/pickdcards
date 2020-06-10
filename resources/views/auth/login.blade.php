@@ -30,6 +30,9 @@
                  <li class="nav-item">
                     <a class="nav-link" href="{{ url('/search') }}">Buy a Gift Card</a>
                   </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="{{ url('page/about-us') }}">About Us</a>
+                  </li>
                  <li class="nav-item">
                     <a class="nav-link" href="{{ url('page/how-it-works') }}">How it Works </a>
                   </li>
@@ -119,6 +122,7 @@
                <h3 class="footer-title">Important</h3>
                <ul class="footer-list list-unstyled">
                   <li><a href="{{ url('/') }}">Home</a></li>
+                  <li><a href="{{ url('page/about-us') }}">About Us</a></li>
                   <li><a href="{{ url('page/how-it-works') }}">How it Works</a></li>
                   <li><a href="{{ url('page/faq') }}">FAQs</a></li>
                   <li><a href="{{ url('page/legal') }}">Legal</a></li>
