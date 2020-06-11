@@ -56,6 +56,7 @@ class HomeController extends Controller
             ->where('u.is_business_profile_complete','=',1)
             ->where('u.status','=',1)
             ->where('u.is_verify','=',1)
+            ->where('b.connected_stripe_account_id','!=',NULL)
             ->orderBy('id','desc')
             ->paginate(16)->appends("name",$query);
 
@@ -72,7 +73,8 @@ class HomeController extends Controller
             ->where('u.is_admin','=',null)
             ->where('u.is_business_profile_complete','=',1)
             ->where('u.status','=',1)
-            ->where('u.is_verify','=',1);
+            ->where('u.is_verify','=',1)
+            ->where('b.connected_stripe_account_id','!=',NULL);
 
 			if ($cityInp != ""){
 			    $cusQuery->where('b.city', 'LIKE', '%'.$cityInp.'%');
@@ -103,6 +105,7 @@ class HomeController extends Controller
             ->where('u.is_business_profile_complete','=',1)
             ->where('u.status','=',1)
             ->where('u.is_verify','=',1)
+            ->where('b.connected_stripe_account_id','!=',NULL)
             ->orderBy('id','desc')
             ->paginate(16);
          }
