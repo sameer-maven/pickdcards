@@ -65,6 +65,19 @@
                 <input type="text" class="form-control" name="address" placeholder="Enter Address" value="{{$users->address}}">
               </div>
               <div class="form-group">
+                <label for="exampleInputEmail1">City</label>
+                <input type="text" class="form-control" name="city" placeholder="Enter city" value="{{$users->city}}">
+              </div>
+              <div class="form-group">
+                <label>State</label>
+                <select class="custom-select" name="state">
+                  <option value="">Please Select</option>
+                  @foreach($States as $state)
+                  <option @if( $state['state_name'] == $users->state) selected="selected" @endif value="{{ $state['state_name'] }}">{{ $state['state_name'] }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="form-group">
                 <label for="exampleInputEmail1">Phone Number</label>
                 <input type="text" class="form-control" name="phone_number" placeholder="Enter Phone Number" value="{{$users->phone_number}}">
               </div>

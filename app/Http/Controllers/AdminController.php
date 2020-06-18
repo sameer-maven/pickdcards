@@ -18,6 +18,7 @@ use Image;
 use DB;
 use App\Industry;
 use App\Type;
+use App\State;
 use Session;
 use Stripe;
 use QrCode;
@@ -166,6 +167,8 @@ class AdminController extends Controller
                 'u.created_at',
                 'b.business_name',
                 'b.address',
+                'b.city',
+                'b.state',
                 'b.phone_number',
                 'b.business_email',
                 'b.url',
@@ -180,8 +183,9 @@ class AdminController extends Controller
          ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
          ->where('u.id', $id)->first();
 
-        $data['Industries']           = Industry::where('status','1')->orderBy('industry')->get();
-        $data['Types']                = Type::where('status','1')->orderBy('type')->get();
+        $data['Industries'] = Industry::where('status','1')->orderBy('industry')->get();
+        $data['Types']      = Type::where('status','1')->orderBy('type')->get();
+        $data['States']     = State::where('status','1')->orderBy('state_name')->get();
 
         return view('admin.edit-users')->with($data);
     }
@@ -206,6 +210,14 @@ class AdminController extends Controller
 
             if(!empty($input['address'])){
                 $usersBusInfo->address         = $input['address'];
+            }
+
+            if(!empty($input['city'])){
+                $usersBusInfo->city         = $input['city'];
+            }
+
+            if(!empty($input['state'])){
+                $usersBusInfo->state = $input['state'];
             }
 
             if(!empty($input['phone_number'])){
