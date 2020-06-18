@@ -79,7 +79,7 @@
         <div class="form-group">
            <div class="form-check">
              <input class="form-check-input" type="checkbox" id="gridCheck1" value="yes" name="agree_terms">
-             <p class="sign-small-txt"><label class="form-check-label" for="gridCheck1">I confirm that I have read, consent and agree to Pickd LLC’s <a href="{{ url('/page/terms-of-use-consumer') }}" class="txt-green">Terms of Use</a> and <a href="{{ url('/page/privacy-policy-consumer') }}" class="txt-green">Privacy Policy</a></label></p>
+             <p class="sign-small-txt"><label class="form-check-label" for="gridCheck1">I confirm that I have read, consent and agree to Pickd LLC’s <a href="{{ url('/page/terms-of-use-consumer') }}" class="txt-green" target="_blank">Terms of Use</a> and <a href="{{ url('/page/privacy-policy-consumer') }}" class="txt-green" target="_blank">Privacy Policy</a></label></p>
            </div>
         </div>
         <div id="card-errors" role="alert"></div>

@@ -75,7 +75,7 @@
                   <textarea class="form-control" id="about_business" name="about_business" rows="4" placeholder="Tell us a little about your business"></textarea>
                </div>
                 <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">My log</label></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Business Logo</label></div>
                            <div class="col-lg-7">
                               <div class="upload-photo">
                                  <div class="photo-wrap">
