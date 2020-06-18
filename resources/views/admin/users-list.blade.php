@@ -99,14 +99,19 @@
                         <td><span class="badge bg-{{$mode}}">{{ $_status }}</span></td>
 
                         <?php
-                          $Business = \App\Businessinfo::where('user_id',$user->id)->first();  
-                          if( $Business->connected_stripe_account_id != '' && $Business->connected_stripe_account_id != NULL) {
+                          $Business = \App\Businessinfo::where('user_id',$user->id)->first();
+                          if(!empty($Business)){
+                            if( $Business->connected_stripe_account_id != '' && $Business->connected_stripe_account_id != NULL) {
                               $mode    = 'success';
                               $_stripe = "CONNECTED";
                             }else{
                               $mode = 'danger';
                               $_stripe = "NOT CONNECTED";
-                            }     
+                            } 
+                          }else{
+                            $mode = 'danger';
+                            $_stripe = "NOT CONNECTED";
+                          }    
                         ?>
                         <td><span class="badge bg-{{$mode}}">{{ $_stripe }}</span></td>
 
