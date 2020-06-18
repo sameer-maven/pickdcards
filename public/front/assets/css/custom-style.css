@@ -151,3 +151,7 @@ input[type=number] {
 strong {
     font-weight: bold !important;
 }
+/* 18-02-20 */
+.cstm-navbar .navbar-wrap li {
+    padding: 10px 5px;
+}

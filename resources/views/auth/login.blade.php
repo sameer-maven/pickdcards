@@ -16,12 +16,12 @@
   <header>
      <nav id="mainNav" class="navbar navbar-expand-xl cstm-navbar">
         <div class="container">
-           <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('public/front/assets/images/logo.svg') }}" class="img-fluid"></a>
+           <a class="navbar-brand mr-0" href="{{ url('/') }}"><img src="{{ asset('public/front/assets/images/logo.svg') }}" class="img-fluid"></a>
            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
            <span class="navbar-toggler-icon"></span>
            </button>
-           <div class="navbar-collapse collapse justify-content-end navbar-wrap" id="navbarCollapse" style="">
-              <ul class="navbar-nav">
+           <div class="navbar-collapse collapse align-items-center navbar-wrap" id="navbarCollapse" style="">
+              <ul class="navbar-nav flex-grow-1 justify-content-center">
                  <li class="nav-item active">
                     <a class="nav-link" href="{{ url('/') }}">
                        Home <!-- <span class="sr-only">(current)</span> -->
@@ -45,7 +45,10 @@
                   <li class="nav-item">
                     <a class="nav-link" href="{{ url('page/contact-us') }}">Contact Us</a>
                   </li>
-                  @guest
+                  
+              </ul>
+              <ul class="navbar-nav nav-btn-wrap">
+              @guest
                   @if (Route::has('register'))
                   <li class="nav-item px-2">
                     <a class="nav-link nav-btn" href="{{ route('register') }}">{{ __('Register') }}</a>
