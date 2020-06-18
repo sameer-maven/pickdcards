@@ -63,10 +63,12 @@ class UserController extends Controller
          ->where('u.id', Auth::user()->id)->first();
 
         $data['ordersCount'] = Order::where(['user_id'=>$id,'status'=>'1'])->orderBy('id','desc')->count();
+         $data['ordersSaleCount'] = Order::where(['user_id'=>$id,'status'=>'1'])->orderBy('id','desc')->sum("balance");
         
         $sql = Order::where(['user_id'=>$id,'status'=>'1']);
         $date = date('Y-m-d');
         $data['todayOrdersCount'] = $sql->where('created_at', 'LIKE', '%'.$date.'%')->count();
+        $data['todayOrdersSale'] = $sql->where('created_at', 'LIKE', '%'.$date.'%')->sum("balance");
 
         if($is_business_profile_complete == '0'){
             return view('user_business_profile')->with($data);  
@@ -92,6 +94,39 @@ class UserController extends Controller
             'business_type'     => 'required',
             'tax_id_number'     => 'required'
         ]);
+             //<--- HASFILE PHOTO
+         $temp    = 'public/temp/';
+        $path    = 'public/avatar/'; 
+        $imgOld  = $path.Auth::user()->avatar;
+        if( $request->hasFile('photo') )    {
+       
+            $validator = Validator::make($request->all(), ['photo' => 'required|mimes:jpg,gif,png,jpe,jpeg|image_size:>=180,>=180|max:2MB']);
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            $avatar    = strtolower(Auth::user()->id.time().str_random(10).'.'.$extension );
+            
+            if( $request->file('photo')->move($temp, $avatar) ) {
+                
+                set_time_limit(0);
+                
+                //Helper::resizeImageFixed( $temp.$avatar, 200, 100, $temp.$avatar );
+                
+                // Copy folder
+                if ( \File::exists($temp.$avatar) ) {
+                    /* Avatar */    
+                    \File::copy($temp.$avatar, $path.$avatar);
+                    \File::delete($temp.$avatar);
+                }//<--- IF FILE EXISTS
+                
+                //<<<-- Delete old image -->>>/
+                if ( \File::exists($imgOld) && $imgOld != $path.'default.jpg' ) {
+                    \File::delete($temp.$avatar);   
+                    \File::delete($imgOld);
+                }//<--- IF FILE EXISTS #1
+                 $avatar;      
+                // Update Database
+                User::where( 'id', $id )->update( array( 'avatar' => $avatar ) );   
+            }// Move
+        }//<--- HASFILE PHOTO 
 
         $sql                 = New Businessinfo;
         $sql->business_name  = trim($input['business_name']);

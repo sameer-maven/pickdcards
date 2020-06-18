@@ -111,6 +111,36 @@
                   </div>
                </a>
             </div>
+            <div class="col-sm-6 col-lg-4">
+               <a href="{{url('/user/orders')}}">
+                  <div class="card-new card-1">
+                     <div class="card-header-new">
+                        {{$ordersSaleCount}}
+                        <span class="title-lite">Total Sale</span>
+                     </div>
+                     <div class="card-body-new">
+                        <div class="dash-icon-wrap icon-1">
+                           <span class="icon-calendar1"></span>
+                        </div>
+                     </div>
+                  </div>
+               </a>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+               <a href="{{url('/user/orders')}}">
+                  <div class="card-new card-1">  
+                     <div class="card-header-new">
+                        {{$todayOrdersSale}}
+                        <span class="title-lite">Today's Sale</span>
+                     </div>
+                     <div class="card-body-new">
+                        <div class="dash-icon-wrap icon-1">
+                           <span class="icon-calendar1"></span>
+                        </div>
+                     </div>
+                  </div>   
+               </a>
+            </div>   
             <!-- <div class="col-sm-6 col-lg-4">
                <a href="javascript:(void)">
                   <div class="card-new card-1">

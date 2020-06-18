@@ -38,7 +38,16 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('admin.dashboard');
+         $data['total_orders'] = Order::orderBy('id','desc')->count();
+         $data['total_sale'] = number_format(Order::where(['status'=>'1'])->orderBy('id','desc')->sum("balance"),2);
+        
+        $sql = Order::where(['status'=>'1']);
+        $date = date('Y-m-d');
+        $data['total_today_orders'] = $sql->where('created_at', 'LIKE', '%'.$date.'%')->count();
+        $data['total_today_sale'] = number_format($sql->where('created_at', 'LIKE', '%'.$date.'%')->sum("balance"),2);
+         $data['total_users'] = User::where('is_admin','=',null)->orderBy('id','desc')->count();
+        
+        return view('admin.dashboard')->with($data); 
     }
 
     public function profile()
@@ -137,7 +146,7 @@ class AdminController extends Controller
             ->orWhere('email', 'LIKE', '%'.$query.'%')
             ->orderBy('id','desc')->paginate(10);
          } else {
-            $data = User::where('is_admin','=',null)->orderBy('id','desc')->paginate(10);
+            $data = User::where('is_admin','=',null)->orderBy('name','asc')->paginate(25);
          }
         
         return view('admin.users-list', ['data' => $data,'query' => $query]);

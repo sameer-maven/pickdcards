@@ -1,6 +1,12 @@
 @extends('layouts.home')
 
 @section('content')
+<style type="text/css">
+   .select2-selection--single{
+      width:240px;
+   }
+
+</style>
 <!-- support-sec -->
 <!-- <div class="support-sec sec-padding overlay1 business-support topbanner-padd default-banner" style="background-image: url({{ asset('public/front/assets/images/page-banner.jpg') }});"> -->
 <div class="support-sec sec-padding overlay1 business-support topbanner-padd default-banner" style="background-image: url({{ asset('public/front/assets/images/search-page.png') }});">
@@ -28,9 +34,10 @@
             <a class="nav-item nav-link @if(!empty(Request::get('name'))) active @endif" id="search-business-tab" data-toggle="tab" href="#search-business" role="tab" aria-controls="nav-profile" aria-selected="false">Search by Business Name</a>
          </div>
       </nav>
+   <form id="industryFrm" action="{{ url('search') }}" method="get">
       <div class="tab-content" id="nav-tabContent">
          <div class="tab-pane fade @if(empty(Request::get('name'))) active show @endif cstm-tab" id="search-city" role="tabpanel" aria-labelledby="search-city-tab">
-            <form role="search" autocomplete="off" action="{{ url('search') }}" method="get">
+          <!--   <form role="search" autocomplete="off" action="{{ url('search') }}" method="get"> -->
                <div class="form-row align-items-center">
                   <div class="col-lg-3 form-group search-select-group">
                      <input type="text" class="form-control flex-grow-1" id="" name="city" placeholder="City" style="margin-left: 10px;" value="{{ Request::get('city') }}">
@@ -51,10 +58,10 @@
                      <button type="submit" class="btn btn-primary w-100 btn-2" style="min-height: 55px;">Search</button>
                   </div>
                </div>
-            </form>
+            <!-- </form> -->
          </div>
          <div class="tab-pane fade cstm-tab @if(!empty(Request::get('name'))) active show @endif" id="search-business" role="tabpanel" aria-labelledby="search-business-tab">
-            <form role="search" autocomplete="off" action="{{ url('search') }}" method="get">
+           <!--  <form role="search" autocomplete="off" action="{{ url('search') }}" method="get"> -->
                <div class="form-row align-items-center">
                   <div class="col-lg-10 form-group d-flex align-items-center">
                      <input type="text" class="form-control flex-grow-1" id="" name="name" placeholder="Business Name" value="{{ Request::get('name') }}">
@@ -63,7 +70,7 @@
                      <button type="submit" class="btn btn-primary w-100 btn-2" style="min-height: 55px;">Search</button>
                   </div>
                </div>
-            </form>
+          <!--   </form> -->
          </div>
          @if(!empty(Request::get('name')) || !empty(Request::get('city')) || !empty(Request::get('state')) || !empty(Request::get('zipcode')) || !empty(Request::get('page')) || !empty(Request::get('industry')) )
          <a href="{{ url('/search') }}" class="btn btn-danger" style="float:right;margin-top: 4px;">Reset</a>
@@ -73,7 +80,7 @@
          <div class="result-heading-top d-flex flex-wrap align-items-center justify-content-between mb-4">
             <h4 class="result-title">{{$data->total()}} Results</h4>
             <div class="search-result-select">
-               <form id="industryFrm" action="{{ url('search') }}" method="get">
+              <!--  <form id="industryFrm" action="{{ url('search') }}" method="get"> -->
                   <div class="form-group search-select-group mb-0">
                      <select class="cstm-select search-select" name="industry" id="industry">
                         <option value="">Select Industry</option>
@@ -82,7 +89,7 @@
                         @endforeach
                      </select>
                   </div>
-               </form>
+              <!--  </form> -->
             </div>
          </div>
          <div>
@@ -98,7 +105,7 @@
             </div>
             @endforeach
             @else
-               <p>No result Found.</p>
+            <!--    <p>No result Found.</p> -->
             @endif
          </div>
          <nav aria-label="Page navigation cstm-navigation">
@@ -106,6 +113,7 @@
          </nav>
       </div>
       </div>
+   </form>
    </div>
 </div>
 <div class="contact-info-wrap py-4">

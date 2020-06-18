@@ -49,7 +49,7 @@ class PagesController extends Controller
             ->orWhere('slug', 'LIKE', '%'.$query.'%')
             ->orderBy('id','desc')->paginate(10);
          } else {
-            $data = Pages::orderBy('id','desc')->paginate(10);
+            $data = Pages::orderBy('title','asc')->paginate(25);
          }
         
         return view('admin.pages', ['data' => $data,'query' => $query]);

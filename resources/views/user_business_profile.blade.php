@@ -9,7 +9,7 @@
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 {{ Session::get('notification') }}
             </div>
-        @endif
+        @endif 
         @if ($errors->any())
             <div class="alert alert-danger btn-sm alert-fonts" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -20,7 +20,7 @@
                 </ul>
             </div>
         @endif
-         <form class="mt-4" id="profileFrm" method="POST" action="{{ url('/user/add') }}">
+         <form class="mt-4" id="profileFrm" method="POST" action="{{ url('/user/add') }}" enctype="multipart/form-data">
             @csrf
             <div class="row">
                <div class="col-lg-12 form-group">
@@ -74,6 +74,27 @@
                <div class="col-lg-12 form-group">
                   <textarea class="form-control" id="about_business" name="about_business" rows="4" placeholder="Tell us a little about your business"></textarea>
                </div>
+                <div class="form-group profile-form-group d-flex align-items-center">
+                           <div class="col-lg-5"> <label class="mb-0 label-1">My log</label></div>
+                           <div class="col-lg-7">
+                              <div class="upload-photo">
+                                 <div class="photo-wrap">
+                                    <label for="file_upload_image" id="custom-file-upload" class="custom-file-upload mb-0">
+                                    <span class="icon-cloud-computing upload-icon"></span>
+                                    <span class="upload-text">Upload Image</span> 
+                                    </label>
+                                     <label class="label-uploader">
+                                    <span class="form-control-wrap file-514">
+                                    <input type="file" name="photo" size="40" class="wpcf7-form-control image-file input-image-preview upload-input-file" id="file_upload_image" accept="image/*">
+                                    </span>
+                                    </label>
+                                 </div>
+                                 <div class="photo-preview">
+                                    <img src="" alt="Image Preview" id="img-preview" class="img-responsive" style="display: none; width: 100px; height: 100px">
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
             </div>
             <div class="mt-4 text-center">
               <button type="submit" class="btn btn-primary bus-profile-btn">Confirm</button>
@@ -86,6 +107,19 @@
 
 @section('javascript') 
 <script>
+   function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $('#img-preview').attr('src', e.target.result);
+        $('#img-preview').show();
+      }
+      reader.readAsDataURL(input.files[0]); // convert to base64 string
+    }
+  }
+  $(".input-image-preview").change(function(){
+    readURL(this);
+  });
    var phones = [{ "mask": "(###) ###-####"}];
    $('#phone_number').inputmask({ 
       mask: phones, 

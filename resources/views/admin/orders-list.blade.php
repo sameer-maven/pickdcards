@@ -59,7 +59,7 @@
                       <th>Order ID</th>
                       <th>Business</th>
                       <th>Customer Name</th>
-                      <th>Customer Email</th>
+                   <!--    <th>Customer Email</th> -->
                       <th>Gift Card</th>
                       <th>Used</th>
                       <th>Remaining</th>
@@ -75,7 +75,7 @@
                         <td>{{ $order->id }}</td>
                         <td>{{ $order->name }}</td>
                         <td>{{ $order->customer_full_name }}</td>
-                        <td>{{ $order->customer_email }}</td>
+                   <!--      <td>{{ $order->customer_email }}</td> -->
                         <td>${{ $order->balance }}</td>
                         <td>${{ $order->used_amount }}</td>
                         <td>${{ number_format($order->balance - $order->used_amount,2) }}</td>
