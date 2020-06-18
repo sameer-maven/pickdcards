@@ -57,7 +57,7 @@ class HomeController extends Controller
             ->where('u.status','=',1)
             ->where('u.is_verify','=',1)
             ->where('b.connected_stripe_account_id','!=',NULL)
-            ->orderBy('id','desc')
+            ->orderBy('b.business_name','asc')
             ->paginate(16)->appends("name",$query);
 
          }elseif ($cityInp != '' || $stateInp != '' || $zipcodeInp != '' || $industyInp !='') {
@@ -91,7 +91,7 @@ class HomeController extends Controller
             if ($industyInp != ""){
                 $cusQuery->where('b.industry_id','=',$industyInp);
             }
-			$data = $cusQuery->orderBy('id','desc')->paginate(16)->appends(['city'=>$cityInp,'state'=>$stateInp,'zipcode'=>$zipcodeInp,'industry'=>$zipcodeInp]);
+			$data = $cusQuery->orderBy('b.business_name','asc')->paginate(16)->appends(['city'=>$cityInp,'state'=>$stateInp,'zipcode'=>$zipcodeInp,'industry'=>$zipcodeInp]);
          }else {
             $data = DB::table('users as u')->select(
                 'u.id',
@@ -106,7 +106,7 @@ class HomeController extends Controller
             ->where('u.status','=',1)
             ->where('u.is_verify','=',1)
             ->where('b.connected_stripe_account_id','!=',NULL)
-            ->orderBy('id','desc')
+            ->orderBy('b.business_name','asc')
             ->paginate(16);
          }
         

@@ -48,7 +48,7 @@
           <div class="icon">
             <i class="ion ion-bag"></i>
           </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="{{ url('admin/orders-list') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>   
       <!-- ./col -->
@@ -56,8 +56,8 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-              <h3>{{ $total_sale }}</h3>
-            <p>Total Sale</p>
+              <h3>${{ $total_sale }}</h3>
+            <p>Total Sales</p>
           </div>
           <div class="icon">
             <i class="ion ion-stats-bars"></i>
@@ -69,14 +69,14 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>{{ $total_today_sale }}</h3>
+            <h3>${{ $total_today_sale }}</h3>
 
-            <p>Today's Sale</p>
+            <p>Today's Sales</p>
           </div>
           <div class="icon">
             <i class="ion ion-stats-bars"></i>
           </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="{{ url('admin/orders-list') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->

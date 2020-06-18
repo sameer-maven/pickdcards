@@ -115,8 +115,8 @@
                <a href="{{url('/user/orders')}}">
                   <div class="card-new card-1">
                      <div class="card-header-new">
-                        {{$ordersSaleCount}}
-                        <span class="title-lite">Total Sale</span>
+                        ${{$ordersSaleCount}}
+                        <span class="title-lite">Total Sales</span>
                      </div>
                      <div class="card-body-new">
                         <div class="dash-icon-wrap icon-1">
@@ -130,8 +130,8 @@
                <a href="{{url('/user/orders')}}">
                   <div class="card-new card-1">  
                      <div class="card-header-new">
-                        {{$todayOrdersSale}}
-                        <span class="title-lite">Today's Sale</span>
+                        ${{$todayOrdersSale}}
+                        <span class="title-lite">Today's Sales</span>
                      </div>
                      <div class="card-body-new">
                         <div class="dash-icon-wrap icon-1">

@@ -117,13 +117,13 @@
             <div class="form-group">
                <div class="form-check">
                  <input class="form-check-input" type="checkbox" id="gridCheck2" value="yes" name="agree_terms2">
-                 <p class="sign-small-txt"><label class="form-check-label" for="gridCheck1"><strong>I confirm that I have read, consent and agree to Pickd LLC’s <a href="{{ url('/page/terms-of-sale-business') }}" class="txt-green">Terms of Sale</a></strong></label></p>
+                 <p class="sign-small-txt"><label class="form-check-label" for="gridCheck1"><strong>I confirm that I have read, consent and agree to Pickd LLC’s <a href="{{ url('/page/terms-of-sale-business') }}" class="txt-green" target="_blank">Terms of Sale</a></strong></label></p>
                </div>
             </div>
             <div class="form-group">
                <div class="form-check">
                  <input class="form-check-input" type="checkbox" id="gridCheck1" value="yes" name="agree_terms">
-                 <p class="sign-small-txt"><label class="form-check-label" for="gridCheck1"><strong>I confirm that I have read, consent and agree to Pickd LLC’s <a href="{{ url('/page/terms-of-use-business') }}" class="txt-green">Terms of Use</a> and <a href="{{ url('/page/privacy-policy-business') }}" class="txt-green">Privacy Policy</a></strong></label></p>
+                 <p class="sign-small-txt"><label class="form-check-label" for="gridCheck1"><strong>I confirm that I have read, consent and agree to Pickd LLC’s <a href="{{ url('/page/terms-of-use-business') }}" class="txt-green" target="_blank">Terms of Use</a> and <a href="{{ url('/page/privacy-policy-business') }}" class="txt-green" target="_blank">Privacy Policy</a></strong></label></p>
                </div>
             </div>
             
