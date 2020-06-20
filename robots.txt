@@ -1,0 +1,7 @@
+# Disallow Bots
+User-agent: *
+Disallow: /admin/
+Disallow: /user/
+Disallow: /adminer/
+Disallow: /fill-order-details/
+Disallow: /store-detail/
