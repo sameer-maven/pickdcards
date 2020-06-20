@@ -19,9 +19,16 @@ class CreateOrdersTable extends Migration
             $table->string('customer_full_name');
             $table->string('customer_email');
             $table->string('customer_phone');
-            $table->string('customer_bussiness_email')->nullable();
             $table->tinyInteger('status')->default('0')->comment = '0 (not paid), 1 (paid)';
+            $table->string('qrcode');
+            $table->decimal('balance',9,2);
             $table->decimal('amount',9,2);
+            $table->decimal('used_amount',9,2);
+            $table->decimal('admin_fee_amount',7,2)->default('0.00')->nullable();
+            $table->decimal('business_user_amount',7,2)->default('0.00')->nullable();
+            $table->decimal('stripe_fees',7,2)->default('0.00')->nullable();
+            $table->string('card_code')->nullable();
+            $table->string('payment_intent_client_secret')->nullable();
             $table->string('trx_id');
             $table->string('recipient_name');
             $table->string('recipient_email');

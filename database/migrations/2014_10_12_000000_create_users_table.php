@@ -21,6 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('is_admin')->nullable();
             $table->rememberToken();
+            $table->tinyInteger('status')->default('1');
+            $table->string('avatar')->default('default.jpg');
+            $table->boolean('is_business_profile_complete')->default('0');
             $table->timestamps();
         });
     }

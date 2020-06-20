@@ -32,6 +32,8 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Industry' => $baseDir . '/app/Industry.php',
+    'App\\Mail\\RecipientSendEmail' => $baseDir . '/app/Mail/RecipientSendEmail.php',
+    'App\\Mail\\ResetPasswordEmail' => $baseDir . '/app/Mail/ResetPasswordEmail.php',
     'App\\Mail\\SendEmail' => $baseDir . '/app/Mail/SendEmail.php',
     'App\\Mail\\SendEmailAdmin' => $baseDir . '/app/Mail/SendEmailAdmin.php',
     'App\\Mail\\SendEmailUser' => $baseDir . '/app/Mail/SendEmailUser.php',

@@ -59,10 +59,12 @@
               {{ Session::get('notification') }}
           </div>
       @endif
-      @if($user->is_verify==0 && $user->connected_stripe_account_id=="")
+      
+      @if($stripeConnected==0)
       <div class="alert alert-danger btn-sm alert-fonts" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        Your account is unverified, Please connect your stripe account to verify. Please visit the <a href="https://dashboard.stripe.com/oauth/authorize?response_type=code&client_id={{env('STRIPE_CLIENT_ID')}}&scope=read_write">link</a>.
+        Your account is unverified, Please connect your stripe account to your business. Please visit the <a href="{{url('user/businesses')}}">link</a>.
+        <!-- Your account is unverified, Please connect your stripe account to your business. Please visit the <a href="https://dashboard.stripe.com/oauth/authorize?response_type=code&client_id={{env('STRIPE_CLIENT_ID')}}&scope=read_write">link</a>. -->
       </div>
       @endif
       <div class="columns-wrap">

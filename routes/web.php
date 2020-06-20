@@ -36,6 +36,12 @@ Route::post('/user/store-change-password','UserController@storeChangePassword');
 Route::get('/user/manage-profile', 'UserController@manageProfile');
 Route::post('/user/store-manage-profile','UserController@storeManageProfile');
 
+Route::get('/user/add-business', 'UserController@addBusiness');
+Route::post('/user/store-add-business','UserController@storeAddBusiness');
+Route::get('/user/businesses', 'UserController@businessList');
+Route::get('/user/edit-business/{id}', 'UserController@editBusiness');
+Route::post('/user/store-edit-business','UserController@storeEditBusiness');
+
 Route::get('/user/orders', 'UserController@ordersList');
 Route::get('/user/order-detail/{id}', 'UserController@orderDetail');
 Route::get('/user/generate-qrcode/{id}','UserController@generateQrcode');
@@ -43,7 +49,7 @@ Route::get('/user/generate-qrcode/{id}','UserController@generateQrcode');
 Route::get('/user/redeem-amount/{id}/{amount}','UserController@redeemAmount');
 
 Route::get('/user/stripe-authorization', 'UserController@stripeAuthorization');
-Route::get('/user/stripe-deauthorization', 'UserController@stripeDeauthorization');
+Route::get('/user/stripe-deauthorization/{id}', 'UserController@stripeDeauthorization');
 
 //Admin Routes
 

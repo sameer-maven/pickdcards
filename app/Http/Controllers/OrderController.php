@@ -53,7 +53,6 @@ class OrderController extends Controller
     {
         $input        = $request->all();
         $id           = base64_decode($input['user_id']);
-        //$input['business_name'];
         $validatedData = $request->validate([
             'name'            => 'required',
             'email'           => 'required',
@@ -63,34 +62,15 @@ class OrderController extends Controller
             'recipient_note'  => 'required'
         ]);
 
+        $businessInfo = Businessinfo::find($id);
+
         $order = new Order;
-        $order->user_id                  = $id;
+        $order->user_id                  = $businessInfo->user_id;
         $order->customer_full_name       = $input['name'];
         $order->customer_email           = $input['email'];
         $order->customer_phone           = "";
 
-        if(isset($input['business_email']) && !empty($input['business_email'])){
-            $order->customer_bussiness_email = $input['business_email'];
-        }else{
-            $order->customer_bussiness_email = "";
-        }
-
-        $user = DB::table('users as u')->select(
-                'u.id',
-                'u.name',
-                'u.email',
-                'u.avatar',
-                'u.status',
-                'u.is_verify',
-                'u.created_at',
-                'b.business_name',
-                'b.connected_stripe_account_id',
-                'b.customer_charge',
-                'b.customer_cent_charge',
-                'b.business_charge',
-                'b.business_cent_charge')
-         ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
-         ->where('u.id', $id)->first();
+        $user = DB::table('businessinfos')->select('*')->where('id', $id)->first();
 
         $customer_fee = Helper::getPercentOfNumber($input['card_amount'],$user->customer_charge);
         $customer_fee = $customer_fee + $user->customer_cent_charge;
@@ -201,20 +181,8 @@ class OrderController extends Controller
             
             $order = Order::find($order_id);
             
-            $user = DB::table('users as u')->select(
-                'u.id',
-                'u.name',
-                'u.email',
-                'u.avatar',
-                'u.status',
-                'u.is_verify',
-                'b.business_name',
-                'b.address',
-                'b.city',
-                'b.state',
-                'b.pincode',
-                'b.phone_number'
-            )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')->where('u.id', $order->user_id)->first();
+            $user = DB::table('businessinfos')->select("*")
+            ->where('id', $order->user_id)->first();
 
             $business_name = str_replace(' ', '', $user->business_name);
 
@@ -286,28 +254,8 @@ class OrderController extends Controller
         
         $id = base64_decode($id);
 
-        $data['users'] = DB::table('users as u')->select(
-                'u.id',
-                'u.name',
-                'u.email',
-                'u.avatar',
-                'u.status',
-                'u.is_verify',
-                'u.created_at',
-                'b.business_name',
-                'b.address',
-                'b.city',
-                'b.state',
-                'b.about_business',
-                'b.phone_number',
-                'b.business_email',
-                'b.url',
-                'b.industry_id',
-                'b.type_id',
-                'b.tax_id_number'
-            )
-         ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
-         ->where('u.id', $id)->first();
+        $data['users'] = DB::table('businessinfos')->select("*")
+        ->where('id', $id)->first();
 
         return view('fill_order_detail')->with($data);
     }
@@ -316,28 +264,8 @@ class OrderController extends Controller
         
         $id = base64_decode($id);
 
-        $data['users'] = DB::table('users as u')->select(
-                'u.id',
-                'u.name',
-                'u.email',
-                'u.avatar',
-                'u.status',
-                'u.is_verify',
-                'u.created_at',
-                'b.business_name',
-                'b.address',
-                'b.city',
-                'b.state',
-                'b.about_business',
-                'b.phone_number',
-                'b.business_email',
-                'b.url',
-                'b.industry_id',
-                'b.type_id',
-                'b.tax_id_number'
-            )
-         ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
-         ->where('u.id', $id)->first();
+        $data['users'] = DB::table('businessinfos')->select("*")
+        ->where('id', $id)->first();
 
         return view('store_detail')->with($data);
     }

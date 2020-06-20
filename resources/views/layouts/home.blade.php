@@ -72,7 +72,7 @@
                 <a class="dropdown-item" href="{{ url('/user') }}"><span class="icon-calendar1 s7-icon"></span>Dashboard</a>
                 <a class="dropdown-item" href="{{ url('/user/orders') }}"><span class="icon-gear s7-icon"></span>Manage Orders</a>
                 <a class="dropdown-item" href="{{ url('/user/manage-profile') }}"><span class="icon-add-user s7-icon"></span>Manage Profile</a>
-                <!-- <a class="dropdown-item" href="#"><span class="icon-vip-card s7-icon"></span>Manage Giftcard</a> -->
+                <a class="dropdown-item" href="{{ url('/user/businesses') }}"><span class="icon-vip-card s7-icon"></span>Manage Business</a>
                 <a class="dropdown-item" href="{{ url('/user/change-password') }}"><span class="icon-key s7-icon"></span>Change Password </a>
                 <?php } ?>
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><span class="icon-account s7-icon"></span>{{ __('Logout') }}</a>

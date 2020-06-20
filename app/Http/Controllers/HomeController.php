@@ -36,77 +36,51 @@ class HomeController extends Controller
         $stateInp   = Input::get('state');
         $zipcodeInp = Input::get('zipcode');
         $industyInp = Input::get('industry');
-
         $Industries = Industry::where('status','1')->orderBy('industry')->get();
         $Types      = Type::where('status','1')->orderBy('type')->get();
         $States     = State::where('status','1')->orderBy('state_name')->get();
 
         if($query != '' && strlen($query) > 2) {
            
-            $data = DB::table('users as u')->select(
-                'u.id',
-                'u.name',
-                'b.business_name',
-                'b.address',
-                'b.city',
-                'b.state'
-            )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
-            ->where('u.is_admin','=',null)
-            ->where('b.business_name','LIKE', '%'.$query.'%')
-            ->where('u.is_business_profile_complete','=',1)
-            ->where('u.status','=',1)
-            ->where('u.is_verify','=',1)
-            ->where('b.connected_stripe_account_id','!=',NULL)
-            ->orderBy('b.business_name','asc')
+            $data = DB::table('businessinfos')->select("*")
+            ->where('business_name','LIKE', '%'.$query.'%')
+            ->where('status','=',1)
+            ->where('is_verify','=',1)
+            ->where('connected_stripe_account_id','!=',NULL)
+            ->orderBy('business_name','asc')
             ->paginate(16)->appends("name",$query);
 
          }elseif ($cityInp != '' || $stateInp != '' || $zipcodeInp != '' || $industyInp !='') {
 
-         	$cusQuery = DB::table('users as u')->select(
-                'u.id',
-                'u.name',
-                'b.business_name',
-                'b.address',
-                'b.city',
-                'b.state'
-            )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
-            ->where('u.is_admin','=',null)
-            ->where('u.is_business_profile_complete','=',1)
-            ->where('u.status','=',1)
-            ->where('u.is_verify','=',1)
-            ->where('b.connected_stripe_account_id','!=',NULL);
+         	$cusQuery = DB::table('businessinfos')->select('*')
+            ->where('status','=',1)
+            ->where('is_verify','=',1)
+            ->where('connected_stripe_account_id','!=',NULL);
 
 			if ($cityInp != ""){
-			    $cusQuery->where('b.city', 'LIKE', '%'.$cityInp.'%');
+			    $cusQuery->where('city', 'LIKE', '%'.$cityInp.'%');
 			}
 
 			if ($stateInp != ""){
-			    $cusQuery->where('b.state', 'LIKE', '%'.$stateInp.'%');
+			    $cusQuery->where('state', 'LIKE', '%'.$stateInp.'%');
 			}
 
             if ($zipcodeInp != ""){
-                $cusQuery->where('b.pincode','=',$zipcodeInp);
+                $cusQuery->where('pincode','=',$zipcodeInp);
             }
 
             if ($industyInp != ""){
-                $cusQuery->where('b.industry_id','=',$industyInp);
+                $cusQuery->where('industry_id','=',$industyInp);
             }
-			$data = $cusQuery->orderBy('b.business_name','asc')->paginate(16)->appends(['city'=>$cityInp,'state'=>$stateInp,'zipcode'=>$zipcodeInp,'industry'=>$zipcodeInp]);
+			$data = $cusQuery->orderBy('business_name','asc')->paginate(16)->appends(['city'=>$cityInp,'state'=>$stateInp,'zipcode'=>$zipcodeInp,'industry'=>$industyInp]);
+            
          }else {
-            $data = DB::table('users as u')->select(
-                'u.id',
-                'u.name',
-                'b.business_name',
-                'b.address',
-                'b.city',
-                'b.state'
-            )->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
-            ->where('u.is_admin','=',null)
-            ->where('u.is_business_profile_complete','=',1)
-            ->where('u.status','=',1)
-            ->where('u.is_verify','=',1)
-            ->where('b.connected_stripe_account_id','!=',NULL)
-            ->orderBy('b.business_name','asc')
+
+            $data = DB::table('businessinfos')->select("*")
+            ->where('status','=',1)
+            ->where('is_verify','=',1)
+            ->where('connected_stripe_account_id','!=',NULL)
+            ->orderBy('business_name','asc')
             ->paginate(16);
          }
         

@@ -48,22 +48,14 @@ class UserController extends Controller
     {   
 
         $is_business_profile_complete = Auth::user()->is_business_profile_complete;
-        $id = Auth::user()->id;
-        $data['Industries'] = Industry::where('status','1')->orderBy('industry')->get();
-        $data['Types']      = Type::where('status','1')->orderBy('type')->get();
-        $data['States']     = State::where('status','1')->orderBy('state_name')->get();
-        $data['user']       = DB::table('users as u')->select(
-                'u.id',
-                'u.name',
-                'u.status',
-                'u.is_verify',
-                'b.connected_stripe_account_id'
-            )
-         ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
-         ->where('u.id', Auth::user()->id)->first();
-
-        $data['ordersCount'] = Order::where(['user_id'=>$id,'status'=>'1'])->orderBy('id','desc')->count();
-         $data['ordersSaleCount'] = Order::where(['user_id'=>$id,'status'=>'1'])->orderBy('id','desc')->sum("balance");
+        $id                           = Auth::user()->id;
+        $data['Industries']           = Industry::where('status','1')->orderBy('industry')->get();
+        $data['Types']                = Type::where('status','1')->orderBy('type')->get();
+        $data['States']               = State::where('status','1')->orderBy('state_name')->get();
+        $data['user']                 = DB::table('users')->select("*")->where('id', Auth::user()->id)->first();
+        $data['stripeConnected']      = DB::table('businessinfos')->select("connected_stripe_account_id")->where('user_id', $id)->whereNotNull('connected_stripe_account_id')->count();
+        $data['ordersCount']          = Order::where(['user_id'=>$id,'status'=>'1'])->orderBy('id','desc')->count();
+        $data['ordersSaleCount']      = Order::where(['user_id'=>$id,'status'=>'1'])->orderBy('id','desc')->sum("balance");
         
         $sql = Order::where(['user_id'=>$id,'status'=>'1']);
         $date = date('Y-m-d');
@@ -94,8 +86,41 @@ class UserController extends Controller
             'business_type'     => 'required',
             'tax_id_number'     => 'required'
         ]);
-             //<--- HASFILE PHOTO
-         $temp    = 'public/temp/';
+
+        $sql                 = New Businessinfo;
+        $sql->business_name  = trim($input['business_name']);
+        $sql->user_id        = $id;
+        $sql->address        = $input['address'];
+        $sql->city           = $input['city'];
+        $sql->state          = $input['state'];
+        $sql->pincode        = $input['pincode'];
+        $sql->phone_number   = $input['phone_number'];
+        $sql->business_email = $input['email'];
+
+        if(isset($input['business_url']) && !empty($input['business_url'])){
+            $sql->url             = $input['business_url'];
+        }else{
+            $sql->url             = ""; 
+        }
+
+        $sql->industry_id    = $input['business_industry'];
+        $sql->type_id        = $input['business_type'];
+        $sql->tax_id_number  = $input['tax_id_number'];
+        $sql->about_business = $input['about_business'];
+        $saved               = $sql->save();
+        $savedID             = $sql->id;
+
+        if($saved){
+            $user  = User::find($id);
+            $user->is_business_profile_complete = '1';
+            $user->save();
+            Mail::to($user->email)->send(new SendEmailUser($user));
+            $user->business_name = trim($input['business_name']);
+            Mail::to("hello@pickdcards.com")->send(new SendEmailAdmin($user));
+        }
+
+        //<--- HASFILE PHOTO
+        $temp    = 'public/temp/';
         $path    = 'public/avatar/'; 
         $imgOld  = $path.Auth::user()->avatar;
         if( $request->hasFile('photo') )    {
@@ -116,54 +141,14 @@ class UserController extends Controller
                     \File::copy($temp.$avatar, $path.$avatar);
                     \File::delete($temp.$avatar);
                 }//<--- IF FILE EXISTS
-                
-                //<<<-- Delete old image -->>>/
-                if ( \File::exists($imgOld) && $imgOld != $path.'default.jpg' ) {
-                    \File::delete($temp.$avatar);   
-                    \File::delete($imgOld);
-                }//<--- IF FILE EXISTS #1
-                 $avatar;      
+                    
                 // Update Database
-                User::where( 'id', $id )->update( array( 'avatar' => $avatar ) );   
+                Businessinfo::where('id',$savedID)->update( array( 'avatar' => $avatar ) );   
             }// Move
-        }//<--- HASFILE PHOTO 
-
-        $sql                 = New Businessinfo;
-        $sql->business_name  = trim($input['business_name']);
-        $sql->user_id        = $id;
-        $sql->address        = $input['address'];
-        $sql->city           = $input['city'];
-        $sql->state          = $input['state'];
-        $sql->pincode        = $input['pincode'];
-        $sql->phone_number   = $input['phone_number'];
-        $sql->business_email = $input['email'];
-
-        if(isset($input['business_url']) && !empty($input['business_url'])){
-            $sql->url             = $input['business_url'];
-        }else{
-            $sql->url             = ""; 
-        }
-
-        $sql->industry_id         = $input['business_industry'];
-        $sql->type_id             = $input['business_type'];
-        $sql->tax_id_number       = $input['tax_id_number'];
-        $sql->about_business      = $input['about_business'];
-        $sql->bank_name           = "";
-        $sql->bank_routing_number = "";
-        $sql->bank_account_number = "";
-        $saved                    = $sql->save();
-
-        if($saved){
-            $user  = User::find($id);
-            $user->is_business_profile_complete = '1';
-            $user->save();
-
-            Mail::to($user->email)->send(new SendEmailUser($user));
-            $user->business_name = trim($input['business_name']);
-            Mail::to("hello@pickdcards.com")->send(new SendEmailAdmin($user));
-        }
+        }//<--- HASFILE PHOTO
 
         \Session::flash('notification',"Business Information Added Successfully");
+        
         return redirect('user');
     }
 
@@ -207,38 +192,11 @@ class UserController extends Controller
     public function manageProfile()
     {   
         
-        $data['users'] = DB::table('users as u')->select(
-                'u.id',
-                'u.name',
-                'u.email',
-                'u.avatar',
-                'u.status',
-                'u.is_verify',
-                'u.created_at',
-                'b.business_name',
-                'b.address',
-                'b.city',
-                'b.state',
-                'b.pincode',
-                'b.about_business',
-                'b.phone_number',
-                'b.business_email',
-                'b.url',
-                'b.industry_id',
-                'b.type_id',
-                'b.tax_id_number',
-                'b.bank_name',
-                'b.bank_routing_number',
-                'b.bank_account_number',
-                'b.connected_stripe_account_id'
-            )
-         ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
-         ->where('u.id', Auth::user()->id)->first();
-
-        $data['Industries'] = Industry::where('status','1')->orderBy('industry')->get();
-        $data['Types']      = Type::where('status','1')->orderBy('type')->get();
-        $data['States']     = State::where('status','1')->orderBy('state_name')->get();
-
+        $data['users']                = DB::table('users')->select('*')->where('id', Auth::user()->id)->first();
+        $data['Industries']           = Industry::where('status','1')->orderBy('industry')->get();
+        $data['Types']                = Type::where('status','1')->orderBy('type')->get();
+        $data['States']               = State::where('status','1')->orderBy('state_name')->get();
+        
         $is_business_profile_complete = Auth::user()->is_business_profile_complete;
 
         if($is_business_profile_complete == '0'){
@@ -287,44 +245,7 @@ class UserController extends Controller
                 // Update Database
                 User::where( 'id', $id )->update( array( 'avatar' => $avatar ) );   
             }// Move
-        }//<--- HASFILE PHOTO 
-
-        $userBusinessInfo = DB::table('businessinfos')->where('user_id',$id)->first();
-
-        if ($userBusinessInfo !== null) {
-            $usersBusInfo = Businessinfo::find($userBusinessInfo->id);   
-        }else{
-            $usersBusInfo = new Businessinfo; 
-        }
-
-        $usersBusInfo->business_name  = ucwords($input['business_name']);
-        $usersBusInfo->address        = $input['address'];
-        $usersBusInfo->city           = $input['city'];
-        $usersBusInfo->state          = $input['state'];
-        $usersBusInfo->pincode        = $input['pincode'];
-        $usersBusInfo->about_business = $input['about_business'];
-        $usersBusInfo->phone_number   = $input['phone_number'];
-        $usersBusInfo->business_email = $input['business_email'];
-        
-        if(isset($input['url']) && !empty($input['url'])){
-            $usersBusInfo->url = $input['url'];
-        }
-        
-        if(isset($input['bank_name']) && !empty($input['bank_name'])){
-            $usersBusInfo->bank_name = $input['bank_name'];
-        }
-        if(isset($input['bank_account_number']) && !empty($input['bank_account_number'])){
-            $usersBusInfo->bank_account_number = $input['bank_account_number'];
-        }
-
-        if(isset($input['bank_routing_number']) && !empty($input['bank_routing_number'])){
-            $usersBusInfo->bank_routing_number = $input['bank_routing_number'];
-        }
-
-        $usersBusInfo->tax_id_number       = $input['tax_id_number'];
-        $usersBusInfo->industry_id         = $input['business_industry'];
-        $usersBusInfo->type_id             = $input['business_type'];
-        $usersBusInfo->save();
+        }//<--- HASFILE PHOTO
 
         \Session::flash('notification',"Details Updated Successfully.");
         return redirect('/user/manage-profile');
@@ -392,7 +313,6 @@ class UserController extends Controller
     public function stripeAuthorization(Request $request)
     {
         $input   = $request->all();
-        $user_id = Auth::user()->id;
 
         if (!isset($input['code']) || isset($input['error'])) {
 
@@ -403,6 +323,8 @@ class UserController extends Controller
 
         }else{
             
+            $business_id = base64_decode($input['state']);
+            
             Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
             $response = \Stripe\OAuth::token([
@@ -411,34 +333,23 @@ class UserController extends Controller
             ]);
 
             $connected_stripe_account_id = $response->stripe_user_id;
-
-            $userBusinessInfo = DB::table('businessinfos')->where('user_id',$user_id)->first();
-            if ($userBusinessInfo !== null) {
-                $usersBusInfo = Businessinfo::find($userBusinessInfo->id);   
-            }
+            
+            $usersBusInfo = Businessinfo::find($business_id);   
+            
             // Store connected_stripe_account_id in database.
             $usersBusInfo->connected_stripe_account_id = $response->stripe_user_id;
             $usersBusInfo->save();
 
-            $user  = User::find($user_id);
-            $user->is_verify = '1';
-            $user->save();
-
             \Session::flash('notification',"Stripe account connected successfully.");
-            return redirect('/user/manage-profile');
+            return redirect('/user/businesses');
         }
 
     }
 
-    public function stripeDeauthorization(Request $request)
+    public function stripeDeauthorization($business_id)
     {
-        $user_id          = Auth::user()->id;
-        $userBusinessInfo = DB::table('businessinfos')->where('user_id',$user_id)->first();
+        $usersBusInfo = Businessinfo::find($business_id);   
 
-        if ($userBusinessInfo !== null) {
-            $usersBusInfo = Businessinfo::find($userBusinessInfo->id);   
-        }
-        
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $response = \Stripe\OAuth::deauthorize([
@@ -449,12 +360,8 @@ class UserController extends Controller
         $usersBusInfo->connected_stripe_account_id = NULL;
         $usersBusInfo->save();
 
-        $user  = User::find($user_id);
-        $user->is_verify = '0';
-        $user->save();
-
         \Session::flash('notification',"Stripe account disconnected successfully.");
-        return redirect('/user/manage-profile');
+        return redirect('/user/businesses');
     }
 
     public function generateQrcode($order_id)
@@ -583,9 +490,212 @@ class UserController extends Controller
                 'message'=>'Amount should be less or equal to '.$appendsMsg,
             ];
             return json_encode($response);
+        }          
+    }
+
+
+    public function addBusiness()
+    {   
+        $data['Industries'] = Industry::where('status','1')->orderBy('industry')->get();
+        $data['Types']      = Type::where('status','1')->orderBy('type')->get();
+        $data['States']     = State::where('status','1')->orderBy('state_name')->get();
+        return view('user_add_business')->with($data);  
+    }
+
+    public function storeAddBusiness(Request $request) {
+        
+        $input         = $request->all();
+        $id            = Auth::user()->id;
+
+        $validatedData = $request->validate([
+            'business_name'     => 'required',
+            'address'           => 'required',
+            'city'              => 'required',
+            'state'             => 'required',
+            'pincode'           => 'required',
+            'phone_number'      => 'required',
+            'email'             => 'required',
+            'business_industry' => 'required',
+            'business_type'     => 'required',
+            'tax_id_number'     => 'required'
+        ]);
+
+        $sql                 = New Businessinfo;
+        $sql->business_name  = trim($input['business_name']);
+        $sql->user_id        = $id;
+        $sql->address        = $input['address'];
+        $sql->city           = $input['city'];
+        $sql->state          = $input['state'];
+        $sql->pincode        = $input['pincode'];
+        $sql->phone_number   = $input['phone_number'];
+        $sql->business_email = $input['email'];
+
+        if(isset($input['business_url']) && !empty($input['business_url'])){
+            $sql->url             = $input['business_url'];
+        }else{
+            $sql->url             = ""; 
         }
 
-                  
+        $sql->industry_id    = $input['business_industry'];
+        $sql->type_id        = $input['business_type'];
+        $sql->tax_id_number  = $input['tax_id_number'];
+        $sql->about_business = $input['about_business'];
+        $saved               = $sql->save();
+        $savedID             = $sql->id;
+
+        if($saved){
+            $user  = User::find($id);
+            $user->is_business_profile_complete = '1';
+            $user->save();
+        }
+
+        //<--- HASFILE PHOTO
+        $temp    = 'public/temp/';
+        $path    = 'public/avatar/';
+        if($request->hasFile('photo'))    {
+       
+            $validator = Validator::make($request->all(), ['photo' => 'required|mimes:jpg,gif,png,jpe,jpeg|image_size:>=180,>=180|max:2MB']);
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            $avatar    = strtolower($savedID.time().str_random(10).'.'.$extension );
+            
+            if( $request->file('photo')->move($temp, $avatar) ) {
+                
+                set_time_limit(0);
+                
+                //Helper::resizeImageFixed( $temp.$avatar, 200, 100, $temp.$avatar );
+                
+                // Copy folder
+                if ( \File::exists($temp.$avatar) ) {
+                    /* Avatar */    
+                    \File::copy($temp.$avatar, $path.$avatar);
+                    \File::delete($temp.$avatar);
+                }//<--- IF FILE EXISTS
+                   
+                // Update Database
+                Businessinfo::where('id',$savedID)->update( array( 'avatar' => $avatar ) );   
+            }// Move
+        }//<--- HASFILE PHOTO
+
+        \Session::flash('notification',"Business Information Added Successfully");
+        
+        return redirect('user/businesses');
+    }
+
+    public function businessList()
+    {
+        
+        $query = Input::get('q');
+        $id    = Auth::user()->id;
+
+        if($query != '' && strlen( $query ) > 2) {
+
+            $ordQuery = Businessinfo::where(['user_id'=>$id]);            
+
+            if($query != ''){
+                $ordQuery->where('business_name', 'LIKE', '%'.$query.'%');
+            }
+
+            $data = $ordQuery->orderBy('id','asc')->paginate(25)->appends(["name"=>$query]);
+
+        } else {
+            $data = Businessinfo::where(['user_id'=>$id])->orderBy('id','asc')->paginate(25);
+        }
+
+        $is_business_profile_complete = Auth::user()->is_business_profile_complete;
+        if($is_business_profile_complete == '0'){
+            return redirect('/user');  
+        }else{  
+            return view('user_business', ['data' => $data,'query' => $query]);
+        }
+        
+    }
+
+    public function editBusiness($business_id)
+    {   
+        
+        $data['users']      = DB::table('businessinfos')->select('*')->where('id',$business_id)->first();
+        
+        if(empty($data['users'])){
+            return redirect('user/businesses');die; 
+        }
+
+        $data['Industries'] = Industry::where('status','1')->orderBy('industry')->get();
+        $data['Types']      = Type::where('status','1')->orderBy('type')->get();
+        $data['States']     = State::where('status','1')->orderBy('state_name')->get();
+        
+        $is_business_profile_complete = Auth::user()->is_business_profile_complete;
+
+        if($is_business_profile_complete == '0'){
+            return redirect('/user');  
+        }else{
+            return view('user_business_edit')->with($data);  
+        }
+    }
+
+    public function storeEditBusiness(Request $request)
+    {
+        $input  = $request->all();
+        $id     = $input['id'];
+
+        $usersBusInfo = Businessinfo::find($id);
+        $temp         = 'public/temp/';
+        $path         = 'public/avatar/';
+        $imgOld       = $path.$usersBusInfo->avatar;
+        if(empty($usersBusInfo)){
+            return redirect('user/businesses');die; 
+        }   
+        $usersBusInfo->business_name  = ucwords($input['business_name']);
+        $usersBusInfo->address        = $input['address'];
+        $usersBusInfo->city           = $input['city'];
+        $usersBusInfo->state          = $input['state'];
+        $usersBusInfo->pincode        = $input['pincode'];
+        $usersBusInfo->about_business = $input['about_business'];
+        $usersBusInfo->phone_number   = $input['phone_number'];
+        $usersBusInfo->business_email = $input['business_email'];
+        
+        if(isset($input['url']) && !empty($input['url'])){
+            $usersBusInfo->url = $input['url'];
+        }
+
+        $usersBusInfo->tax_id_number = $input['tax_id_number'];
+        $usersBusInfo->industry_id   = $input['business_industry'];
+        $usersBusInfo->type_id       = $input['business_type'];
+        $usersBusInfo->status        = $input['status'];
+        $usersBusInfo->save(); 
+
+        //<--- HASFILE PHOTO
+        if( $request->hasFile('photo') )    {
+
+            $validator = Validator::make($request->all(), ['photo' => 'required|mimes:jpg,gif,png,jpe,jpeg|image_size:>=180,>=180|max:2MB']);
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            $avatar    = strtolower($id.time().str_random(10).'.'.$extension );
+            
+            if( $request->file('photo')->move($temp, $avatar) ) {
+                
+                set_time_limit(0);
+                
+                //Helper::resizeImageFixed( $temp.$avatar, 200, 100, $temp.$avatar );
+                
+                // Copy folder
+                if ( \File::exists($temp.$avatar) ) {
+                    /* Avatar */    
+                    \File::copy($temp.$avatar, $path.$avatar);
+                    \File::delete($temp.$avatar);
+                }//<--- IF FILE EXISTS
+                
+                //<<<-- Delete old image -->>>/
+                if ( \File::exists($imgOld) && $imgOld != $path.'default.jpg' ) {
+                    \File::delete($temp.$avatar);   
+                    \File::delete($imgOld);
+                }//<--- IF FILE EXISTS #1
+                
+                // Update Database
+                Businessinfo::where('id',$id)->update(array( 'avatar' => $avatar ) );   
+            }// Move
+        }//<--- HASFILE PHOTO
+
+        \Session::flash('notification',"Business Details Updated Successfully.");
+        return redirect('/user/businesses');
     }
 
 }

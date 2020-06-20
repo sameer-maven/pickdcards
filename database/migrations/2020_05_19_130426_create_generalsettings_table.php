@@ -22,6 +22,7 @@ class CreateGeneralsettingsTable extends Migration
             $table->string('linkedin')->nullable();
             $table->string('instagram')->nullable();
             $table->string('youtube')->nullable();
+            $table->string('pinterest')->nullable();
             $table->timestamps();
         });
     }
