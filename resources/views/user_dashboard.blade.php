@@ -86,7 +86,7 @@
                <a href="{{url('/user/redeem-order')}}">
                   <div class="card-new card-1">  
                      <div class="card-header-new">
-                        <span class="title-lite">Redeem Card Amount</span>
+                        <span class="title-lite">Redeem Gift Card Amount</span>
                      </div>
                      <div class="card-body-new">
                         <div class="dash-icon-wrap icon-1">
