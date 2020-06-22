@@ -6,12 +6,12 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1>Business Users List ({{$data->total()}})</h1>
+        <h1>Businesses List ({{$data->total()}})</h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Home</a></li>
-          <li class="breadcrumb-item active">Users List</li>
+          <li class="breadcrumb-item active">Businesses List</li>
         </ol>
       </div>
     </div>
@@ -36,10 +36,10 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Business Users</h3>
+                <h3 class="card-title">Businesses</h3>
                  @if( $data->total() !=  0 ) 
                 <div class="card-tools">
-                  <form role="search" autocomplete="off" action="{{ url('admin/users-list') }}" method="get">
+                  <form role="search" autocomplete="off" action="{{ url('admin/businesses-list') }}" method="get">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="q" class="form-control float-right" placeholder="Search">
 
@@ -57,10 +57,13 @@
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Name</th>
+                      <th>User Name</th>
+                      <th>Business Name</th>
                       <th>Email</th>
                       <th>Date</th>
                       <th>Status</th>
+                      <th>Approval</th>
+                      <th>Stripe Connect</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -69,8 +72,12 @@
                      @foreach( $data as $user )
                       <tr>
                         <td>{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
+                        <?php
+                         $usertbl =  DB::table('users')->select("*")->where('id', $user->user_id)->first(); 
+                        ?>
+                        <td>{{ $usertbl->name }}</td>
+                        <td>{{ $user->business_name }}</td>
+                        <td>{{ $user->business_email }}</td>
                         <td>{{ $user->created_at }}</td>
                         <?php 
                           if( $user->status == '1' ) {
@@ -82,14 +89,30 @@
                             }     
                         ?> 
                         <td><span class="badge bg-{{$mode}}">{{ $_status }}</span></td>
+                        <?php 
+                          if( $user->is_verify == '1' ) {
+                              $mode    = 'success';
+                              $_status = "VERIFIED";
+                            }else{
+                              $mode = 'danger';
+                              $_status = "UNVERIFIED";
+                            }     
+                        ?> 
+                        <td><span class="badge bg-{{$mode}}">{{ $_status }}</span></td>
+
+                        <?php 
+                          if( $user->connected_stripe_account_id != NULL ) {
+                              $mode    = 'success';
+                              $_stripe = "CONNECTED";
+                            }else{
+                              $mode = 'danger';
+                              $_stripe = "NOT CONNECTED";
+                            }     
+                        ?> 
+                        <td><span class="badge bg-{{$mode}}">{{ $_stripe }}</span></td>
 
                         <td>
-                          @if( $user->id <> Auth::user()->id && $user->is_admin <> 1 )
-                          <a href="{{url('admin/users-list/edit/'.$user->id)}}" class="btn btn-success btn-xs padding-btn"> <i class="nav-icon fas fa-edit"></i> Edit</a>
-                          <!-- <a href="javascript:void(0);" data-uid="{{$user->id}}" data-url="{{url('admin/users-list/delete/'.$user->id)}}" class="btn btn-danger btn-xs padding-btn deleteUser"> <i class="nav-icon fas fa-trash-alt"></i> Delete</a> -->
-                          @else
-                            (Admin User)
-                          @endif
+                          <a href="{{url('admin/businesses-list/edit/'.$user->id)}}" class="btn btn-success btn-xs padding-btn"> <i class="nav-icon fas fa-edit"></i> Edit</a>
                         </td>
                       </tr>
                       @endforeach

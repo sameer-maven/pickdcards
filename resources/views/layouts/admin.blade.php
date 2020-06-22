@@ -90,7 +90,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview @if(Request::is('admin/users-list'))  menu-open @endif ">
+          <li class="nav-item has-treeview @if(Request::is('admin/users-list') || Request::is('admin/businesses-list'))  menu-open @endif ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
@@ -103,6 +103,12 @@
                 <a href="{{url('admin/users-list')}}" class="nav-link @if(Request::is('admin/users-list')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Business Users</p>
+                </a>
+              </li>
+              <li class="nav-item" >
+                <a href="{{url('admin/businesses-list')}}" class="nav-link @if(Request::is('admin/businesses-list')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Businesses</p>
                 </a>
               </li>
             </ul>

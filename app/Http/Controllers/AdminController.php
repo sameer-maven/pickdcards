@@ -155,38 +155,7 @@ class AdminController extends Controller
     }
 
     public function editUsers ($id) {
-
-          
-         $data['users'] = DB::table('users as u')->select(
-                'u.id',
-                'u.name',
-                'u.email',
-                'u.avatar',
-                'u.status',
-                'u.is_verify',
-                'u.created_at',
-                'b.business_name',
-                'b.address',
-                'b.city',
-                'b.state',
-                'b.phone_number',
-                'b.business_email',
-                'b.url',
-                'b.industry_id',
-                'b.type_id',
-                'b.tax_id_number',
-                'b.customer_charge',
-                'b.customer_cent_charge',
-                'b.business_charge',
-                'b.business_cent_charge'
-            )
-         ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
-         ->where('u.id', $id)->first();
-
-        $data['Industries'] = Industry::where('status','1')->orderBy('industry')->get();
-        $data['Types']      = Type::where('status','1')->orderBy('type')->get();
-        $data['States']     = State::where('status','1')->orderBy('state_name')->get();
-
+        $data['users']      = DB::table('users as u')->select('*')->where('id', $id)->first();
         return view('admin.edit-users')->with($data);
     }
 
@@ -200,74 +169,8 @@ class AdminController extends Controller
             'email'  => 'required'
         ]);
 
-        $userBusinessInfo = DB::table('businessinfos')->where('user_id',$id)->first();
-        if ($userBusinessInfo !== null) {
-            $usersBusInfo                  = Businessinfo::find($userBusinessInfo->id);
-
-            if(!empty($input['business_name'])){
-                $usersBusInfo->business_name   = $input['business_name'];
-            }
-
-            if(!empty($input['address'])){
-                $usersBusInfo->address         = $input['address'];
-            }
-
-            if(!empty($input['city'])){
-                $usersBusInfo->city         = $input['city'];
-            }
-
-            if(!empty($input['state'])){
-                $usersBusInfo->state = $input['state'];
-            }
-
-            if(!empty($input['phone_number'])){
-                $usersBusInfo->phone_number    = $input['phone_number'];
-            }
-
-            if(!empty($input['business_email'])){
-                $usersBusInfo->business_email  = $input['business_email'];
-            }
-
-            if(!empty($input['url'])){
-                $usersBusInfo->url = $input['url'];
-            }
-
-            if(!empty($input['tax_id_number'])){
-                $usersBusInfo->tax_id_number   = $input['tax_id_number'];
-            }
-
-            if(!empty($input['business_industry'])){
-                $usersBusInfo->industry_id     = $input['business_industry'];
-            }
-
-            if(!empty($input['business_type'])){
-                $usersBusInfo->type_id         = $input['business_type'];
-            }
-            
-            if(!empty($input['customer_charge'])){
-                $usersBusInfo->customer_charge = $input['customer_charge'];
-            }
-
-            if(!empty($input['customer_cent_charge'])){
-                $usersBusInfo->customer_cent_charge = $input['customer_cent_charge'];
-            }
-
-            if(!empty($input['business_charge'])){
-                $usersBusInfo->business_charge = $input['business_charge'];
-            }
-
-            if(!empty($input['business_cent_charge'])){
-                $usersBusInfo->business_cent_charge = $input['business_cent_charge'];
-            }
-
-            $usersBusInfo->save();
-        }
-
         $user            = User::find($id);
-        $user->name      = $input['name'];
-        $user->email     = $input['email'];
         $user->status    = $input['status'];
-        $user->is_verify = $input['is_verify'];
         $user->save();
         
         \Session::flash('notification',"User Details Updated Successfully.");
@@ -297,6 +200,98 @@ class AdminController extends Controller
         
         \Session::flash('notification',"User Deleted Successfully.");
         return redirect('/admin/users-list');
+    }
+
+    public function businessList()
+    {
+        
+        $query = Input::get('q');
+        
+        if( $query != '' && strlen( $query ) > 2 ) {
+            $data = Businessinfo::where('id','!=',1)
+            ->where('business_name', 'LIKE', '%'.$query.'%')
+            ->orWhere('business_email', 'LIKE', '%'.$query.'%')
+            ->orderBy('id','asc')->paginate(10);
+         } else {
+            $data = Businessinfo::where('id','!=',1)->orderBy('business_name','asc')->paginate(25);
+         }
+        
+        return view('admin.business-list', ['data' => $data,'query' => $query]);
+
+    }
+
+    public function editBusiness ($id) {
+        $data['users']      = DB::table('businessinfos')->select('*')->where('id', $id)->first();
+        $data['Industries'] = Industry::where('status','1')->orderBy('industry')->get();
+        $data['Types']      = Type::where('status','1')->orderBy('type')->get();
+        return view('admin.edit-business')->with($data);
+    }
+
+    public function updateBusiness (Request $request) {
+
+        $input = $request->all();
+        $id    = $input["id"];
+
+        $validatedData = $request->validate([
+            'business_name'  => 'required',
+            'business_email' => 'required'
+        ]);
+
+        $usersBusInfo                  = Businessinfo::find($id);
+        if(!empty($input['business_name'])){
+            $usersBusInfo->business_name   = $input['business_name'];
+        }
+
+        if(!empty($input['address'])){
+            $usersBusInfo->address         = $input['address'];
+        }
+
+        if(!empty($input['phone_number'])){
+            $usersBusInfo->phone_number    = $input['phone_number'];
+        }
+
+        if(!empty($input['business_email'])){
+            $usersBusInfo->business_email  = $input['business_email'];
+        }
+
+        if(!empty($input['url'])){
+            $usersBusInfo->url = $input['url'];
+        }
+
+        if(!empty($input['tax_id_number'])){
+            $usersBusInfo->tax_id_number   = $input['tax_id_number'];
+        }
+
+        if(!empty($input['business_industry'])){
+            $usersBusInfo->industry_id     = $input['business_industry'];
+        }
+
+        if(!empty($input['business_type'])){
+            $usersBusInfo->type_id         = $input['business_type'];
+        }
+        
+        if(!empty($input['customer_charge'])){
+            $usersBusInfo->customer_charge = $input['customer_charge'];
+        }
+
+        if(!empty($input['customer_cent_charge'])){
+            $usersBusInfo->customer_cent_charge = $input['customer_cent_charge'];
+        }
+
+        if(!empty($input['business_charge'])){
+            $usersBusInfo->business_charge = $input['business_charge'];
+        }
+
+        if(!empty($input['business_cent_charge'])){
+            $usersBusInfo->business_cent_charge = $input['business_cent_charge'];
+        }
+
+        $usersBusInfo->status    = $input['status'];
+        $usersBusInfo->is_verify = $input['is_verify'];
+        $usersBusInfo->save();
+        
+        \Session::flash('notification',"Business Details Updated Successfully.");
+        return redirect('/admin/businesses-list');
     }
 
     public function ordersList()
@@ -329,7 +324,6 @@ class AdminController extends Controller
                 'u.email',
                 'u.avatar',
                 'u.status',
-                'u.is_verify',
                 'u.created_at',
                 'b.business_name',
                 'b.address',

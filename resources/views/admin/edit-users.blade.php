@@ -48,109 +48,17 @@
             <div class="card-body">
               <div class="form-group">
                 <label for="exampleInputEmail1">Name</label>
-                <input type="text" class="form-control" name="name" placeholder="Enter Name" value="{{$users->name}}">
+                <input type="text" class="form-control" name="name" placeholder="Enter Name" value="{{$users->name}}" readonly>
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Email</label>
-                <input type="email" class="form-control" name="email" placeholder="Enter email" value="{{$users->email}}">
-              </div>
-              <h5 class="mt-4 mb-2">Business Information</h5>
-              <hr>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Business Name</label>
-                <input type="text" class="form-control" name="business_name" placeholder="Enter Business Name" value="{{$users->business_name}}">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Address</label>
-                <input type="text" class="form-control" name="address" placeholder="Enter Address" value="{{$users->address}}">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">City</label>
-                <input type="text" class="form-control" name="city" placeholder="Enter city" value="{{$users->city}}">
-              </div>
-              <div class="form-group">
-                <label>State</label>
-                <select class="custom-select" name="state">
-                  <option value="">Please Select</option>
-                  @foreach($States as $state)
-                  <option @if( $state['state_name'] == $users->state) selected="selected" @endif value="{{ $state['state_name'] }}">{{ $state['state_name'] }}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Phone Number</label>
-                <input type="text" class="form-control" name="phone_number" placeholder="Enter Phone Number" value="{{$users->phone_number}}">
-              </div>
-              <div class="form-group">
-                <label>Business Industry</label>
-                <select class="custom-select" name="business_industry">
-                  <option value="">Please Select</option>
-                  @foreach($Industries as $industry)
-                  <option @if( $industry['id'] == $users->industry_id) selected="selected" @endif value="{{ $industry['id'] }}">{{ $industry['industry'] }}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Type of Business</label>
-                <select class="custom-select" name="business_type">
-                  <option value="">Please Select</option>
-                  @foreach($Types as $type)
-                  <option @if( $type['id'] == $users->type_id) selected="selected" @endif value="{{ $type['id'] }}">{{ $type['type'] }}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Business Email</label>
-                <input type="text" class="form-control" name="business_email" placeholder="Enter Business Email" value="{{$users->business_email}}">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Website Url</label>
-                <input type="text" class="form-control" name="url" placeholder="Enter Website Url" value="{{$users->url}}">
-              </div>
-              <h5 class="mt-4 mb-2">Account Information</h5>
-              <hr>
-              
-              <div class="form-group">
-                <label for="exampleInputEmail1">Tax Id Number</label>
-                <input type="text" class="form-control" name="tax_id_number" placeholder="Enter tax id number" value="{{$users->tax_id_number}}">
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-md-6">
-                    <label for="exampleInputEmail1">Customer user will charge (%)</label>
-                    <input type="number" class="form-control" id="customer_charge" name="customer_charge" placeholder="Enter charge" value="{{$users->customer_charge}}">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="exampleInputEmail1">+ ($)</label>
-                    <input type="number" class="form-control" id="customer_cent_charge" name="customer_cent_charge" placeholder="Enter charge" value="{{$users->customer_cent_charge}}">
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-md-6">
-                    <label for="exampleInputEmail1">Business user will charge (%)</label>
-                    <input type="number" class="form-control" id="business_charge" name="business_charge" placeholder="Enter charge" value="{{$users->business_charge}}">
-                  </div>
-                  <div class="col-md-6">
-                    <label for="exampleInputEmail1">+ ($)</label>
-                    <input type="number" class="form-control" id="business_cent_charge" name="business_cent_charge" placeholder="Enter charge" value="{{$users->business_cent_charge}}">
-                  </div>
-                </div>
+                <input type="email" class="form-control" name="email" placeholder="Enter email" value="{{$users->email}}" readonly>
               </div>
               <div class="form-group">
                 <label>Status</label>
                 <select class="custom-select" name="status">
                   <option @if( $users->status == '1' ) selected="selected" @endif value="1">ACTIVE</option>
                   <option @if( $users->status == '0' ) selected="selected" @endif value="0">INACTIVE</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label>Approval</label>
-                <select class="custom-select" name="is_verify">
-                  <option @if( $users->is_verify == '1' ) selected="selected" @endif value="1">VERIFIED</option>
-                  <option @if( $users->is_verify == '0' ) selected="selected" @endif value="0">UNVERIFIED</option>
                 </select>
               </div>
 

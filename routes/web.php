@@ -75,6 +75,9 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::post('/admin/users-list/update','AdminController@updateUsers');
 	Route::get('/admin/users-list/delete/{id}','AdminController@deleteUser')->where(array( 'id' => '[0-9]+'));
 
+	Route::get('/admin/businesses-list','AdminController@businessList');
+	Route::get('/admin/businesses-list/edit/{id}','AdminController@editBusiness')->where(array( 'id' => '[0-9]+'));
+	Route::post('/admin/businesses-list/update','AdminController@updateBusiness');
 	// Pages
 	Route::resource('/admin/pages', 'PagesController', 
 		['names' => [
