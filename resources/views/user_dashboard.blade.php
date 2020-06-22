@@ -63,8 +63,7 @@
       @if($stripeConnected==0)
       <div class="alert alert-danger btn-sm alert-fonts" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        Your account is unverified, Please connect your stripe account to your business. Please visit the <a href="{{url('user/businesses')}}">link</a>.
-        <!-- Your account is unverified, Please connect your stripe account to your business. Please visit the <a href="https://dashboard.stripe.com/oauth/authorize?response_type=code&client_id={{env('STRIPE_CLIENT_ID')}}&scope=read_write">link</a>. -->
+        For <b>{{$stripeNotConnected->business_name}}</b>, you are almost ready to start offering gift cards. Please <a href="https://dashboard.stripe.com/oauth/authorize?response_type=code&client_id={{env('STRIPE_CLIENT_ID')}}&scope=read_write&state=<?php echo base64_encode($stripeNotConnected->id); ?>">click here</a> to connect a Stripe account.
       </div>
       @endif
       <div class="columns-wrap">

@@ -54,6 +54,7 @@ class UserController extends Controller
         $data['States']               = State::where('status','1')->orderBy('state_name')->get();
         $data['user']                 = DB::table('users')->select("*")->where('id', Auth::user()->id)->first();
         $data['stripeConnected']      = DB::table('businessinfos')->select("connected_stripe_account_id")->where('user_id', $id)->whereNotNull('connected_stripe_account_id')->count();
+        $data['stripeNotConnected']   = DB::table('businessinfos')->select("*")->where('user_id', $id)->whereNull('connected_stripe_account_id')->first();
         $data['ordersCount']          = Order::where(['user_id'=>$id,'status'=>'1'])->orderBy('id','desc')->count();
         $data['ordersSaleCount']      = Order::where(['user_id'=>$id,'status'=>'1'])->orderBy('id','desc')->sum("balance");
         
@@ -338,6 +339,7 @@ class UserController extends Controller
             
             // Store connected_stripe_account_id in database.
             $usersBusInfo->connected_stripe_account_id = $response->stripe_user_id;
+            $usersBusInfo->is_verify                   = 1;
             $usersBusInfo->save();
 
             \Session::flash('notification',"Stripe account connected successfully.");
@@ -358,6 +360,7 @@ class UserController extends Controller
         ]);
 
         $usersBusInfo->connected_stripe_account_id = NULL;
+        $usersBusInfo->is_verify                   = 0;
         $usersBusInfo->save();
 
         \Session::flash('notification',"Stripe account disconnected successfully.");
@@ -447,8 +450,6 @@ class UserController extends Controller
             $appendsMsg = "remaining amount";
         }
         
-        
-
         if($amount <= $uorder->balance && $uorder->used_amount == 0){
             $uorder->used_amount = $amount;
             $ret                 = $uorder->save();
@@ -587,6 +588,9 @@ class UserController extends Controller
         $query = Input::get('q');
         $id    = Auth::user()->id;
 
+        $data2['stripeConnected']      = DB::table('businessinfos')->select("connected_stripe_account_id")->where('user_id', $id)->whereNotNull('connected_stripe_account_id')->count();
+        $data2['stripeNotConnected']   = DB::table('businessinfos')->select("*")->where('user_id', $id)->whereNull('connected_stripe_account_id')->get();
+
         if($query != '' && strlen( $query ) > 2) {
 
             $ordQuery = Businessinfo::where(['user_id'=>$id]);            
@@ -605,7 +609,7 @@ class UserController extends Controller
         if($is_business_profile_complete == '0'){
             return redirect('/user');  
         }else{  
-            return view('user_business', ['data' => $data,'query' => $query]);
+            return view('user_business', ['data' => $data,'query' => $query,'data2' => $data2]);
         }
         
     }
@@ -696,6 +700,83 @@ class UserController extends Controller
 
         \Session::flash('notification',"Business Details Updated Successfully.");
         return redirect('/user/businesses');
+    }
+
+    public function redeemOrder()
+    {
+        return view('user_order_redeem');
+    }
+
+    public function redeemOrderAjax(Request $request)
+    {
+        
+        $input     = $request->all();
+        $user_id   = $input['user_id'];
+        $gift_code = $input['gift_code'];
+
+        $data = DB::table('orders')->select('*')
+        ->where('user_id',$user_id)
+        ->where('card_code',$gift_code)
+        ->first();
+
+        if(!empty($data) && $data!=""){
+            $response = [
+                'status'           =>'ok',
+                'message'          =>'Code Applied!',
+                'order_id'         => $data->id,
+                'customer_name'    => $data->customer_full_name,
+                'customer_email'   => $data->customer_email,
+                'recipient_name'   => $data->recipient_name,
+                'recipient_email'  => $data->recipient_email,
+                'total_amount'     => $data->balance,
+                'used_amount'      => $data->used_amount,
+                'remaining_amount' => $data->balance - $data->used_amount,
+            ];
+        }else{
+            $response = [
+                'status'  =>'error',
+                'message' =>'Record Not Found',
+            ];
+        }
+        return json_encode($response);
+    }
+
+    public function AllOrderTransactionsAjax(Request $request)
+    {
+        $input    = $request->all();
+        $user_id  = $input['user_id'];
+        $order_id = $input['order_id'];
+
+        $transactions = DB::table('transactions')->select('*')->where('order_id',$order_id)->where('user_id',$user_id)->get();
+        
+        if($transactions->count()>0){
+            $table ='';
+            $table.='<table class="table">';
+            $table.='<thead>';
+            $table.='<tr>';
+            $table.='<th scope="col">Amount</th>';
+            $table.='<th scope="col">Date</th>';
+            $table.='</tr>';
+            $table.='</thead>';
+            $table.='<tbody>';
+            foreach( $transactions as $transaction ){
+                $table.='<tr><td>$'.$transaction->tranx_amount.'</td><td>'.$transaction->created_at.'</td></tr>';
+            }
+            $table.='</tbody>';
+            $table.='</table>';
+
+            $response = [
+                'status'           =>'ok',
+                'message'          =>'Success',
+                'table'            => $table,
+            ];
+        }else{
+            $response = [
+                'status'  =>'error',
+                'message' =>'Record Not Found',
+            ];  
+        }
+        return json_encode($response);
     }
 
 }
