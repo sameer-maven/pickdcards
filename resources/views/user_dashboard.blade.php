@@ -68,25 +68,12 @@
       @endif
       <div class="columns-wrap">
          <div class="row">
-            <div class="col-sm-6 col-lg-4">
-               <a href="{{url('/user/manage-profile')}}">
-                  <div class="card-new card-1">
-                     <div class="card-header-new">
-                        <span class="title-lite">Manage Profile</span>
-                     </div>
-                     <div class="card-body-new">
-                        <div class="dash-icon-wrap icon-1">
-                           <span class="icon-add-user"></span>
-                        </div>
-                     </div>
-                  </div>
-               </a>
-            </div>
+
             <div class="col-sm-6 col-lg-4">
                <a href="{{url('/user/redeem-order')}}">
                   <div class="card-new card-1">  
                      <div class="card-header-new">
-                        <span class="title-lite">Redeem Gift Card Amount</span>
+                        <span class="title-lite">Redeem Gift Card</span>
                      </div>
                      <div class="card-body-new">
                         <div class="dash-icon-wrap icon-1">
@@ -96,21 +83,7 @@
                   </div>   
                </a>
             </div>
-            <div class="col-sm-6 col-lg-4">
-               <a href="{{url('/user/orders')}}">
-                  <div class="card-new card-1">
-                     <div class="card-header-new">
-                        {{$ordersCount}}
-                        <span class="title-lite">Total Orders</span>
-                     </div>
-                     <div class="card-body-new">
-                        <div class="dash-icon-wrap icon-1">
-                           <span class="icon-shopping-bag"></span>
-                        </div>
-                     </div>
-                  </div>
-               </a>
-            </div>
+
             <div class="col-sm-6 col-lg-4">
                <a href="{{url('/user/orders')}}">
                   <div class="card-new card-1">
@@ -126,21 +99,7 @@
                   </div>
                </a>
             </div>
-            <div class="col-sm-6 col-lg-4">
-               <a href="{{url('/user/orders')}}">
-                  <div class="card-new card-1">
-                     <div class="card-header-new">
-                        ${{$ordersSaleCount}}
-                        <span class="title-lite">Total Sales</span>
-                     </div>
-                     <div class="card-body-new">
-                        <div class="dash-icon-wrap icon-1">
-                           <span class="icon-calendar1"></span>
-                        </div>
-                     </div>
-                  </div>
-               </a>
-            </div>
+
             <div class="col-sm-6 col-lg-4">
                <a href="{{url('/user/orders')}}">
                   <div class="card-new card-1">  
@@ -156,6 +115,54 @@
                   </div>   
                </a>
             </div>
+
+            <div class="col-sm-6 col-lg-4">
+               <a href="{{url('/user/manage-profile')}}">
+                  <div class="card-new card-1">
+                     <div class="card-header-new">
+                        <span class="title-lite">Manage Profile</span>
+                     </div>
+                     <div class="card-body-new">
+                        <div class="dash-icon-wrap icon-1">
+                           <span class="icon-add-user"></span>
+                        </div>
+                     </div>
+                  </div>
+               </a>
+            </div>
+            
+            <div class="col-sm-6 col-lg-4">
+               <a href="{{url('/user/orders')}}">
+                  <div class="card-new card-1">
+                     <div class="card-header-new">
+                        {{$ordersCount}}
+                        <span class="title-lite">Total Orders</span>
+                     </div>
+                     <div class="card-body-new">
+                        <div class="dash-icon-wrap icon-1">
+                           <span class="icon-shopping-bag"></span>
+                        </div>
+                     </div>
+                  </div>
+               </a>
+            </div>
+            
+            <div class="col-sm-6 col-lg-4">
+               <a href="{{url('/user/orders')}}">
+                  <div class="card-new card-1">
+                     <div class="card-header-new">
+                        ${{$ordersSaleCount}}
+                        <span class="title-lite">Total Sales</span>
+                     </div>
+                     <div class="card-body-new">
+                        <div class="dash-icon-wrap icon-1">
+                           <span class="icon-calendar1"></span>
+                        </div>
+                     </div>
+                  </div>
+               </a>
+            </div>
+            
                
             <!-- <div class="col-sm-6 col-lg-4">
                <a href="javascript:(void)">
