@@ -44,9 +44,9 @@
               <li><b>:</b> {{$data->customer_email}}</li>
               <li><b>:</b> {{$data->recipient_name}}</li>
               <li><b>:</b> {{$data->recipient_email}}</li>
-              <li><b>:</b> $<?php echo round($data->balance,2);?></li>
-              <li><b>:</b> $<?php echo round($data->used_amount,2);?></li>
-              <li><b>:</b> $<?php echo $remainingAmount;;?></li>
+              <li><b>:</b> $<?php echo number_format($data->balance,2);?></li>
+              <li><b>:</b> $<?php echo number_format($data->used_amount,2);?></li>
+              <li><b>:</b> $<?php echo number_format($remainingAmount,2);?></li>
             </ul>
           </div>
           <br>

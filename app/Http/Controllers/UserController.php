@@ -730,7 +730,7 @@ class UserController extends Controller
                 'recipient_email'  => $data->recipient_email,
                 'total_amount'     => $data->balance,
                 'used_amount'      => $data->used_amount,
-                'remaining_amount' => $data->balance - $data->used_amount,
+                'remaining_amount' => number_format($data->balance - $data->used_amount,2),
             ];
         }else{
             $response = [

@@ -52,7 +52,7 @@
                               <td id="used"></td>
                            </tr>
                            <tr>
-                              <th>Remaing</th>
+                              <th>Remaining</th>
                               <td id="remaining"></td>
                            </tr>
                         </tbody>
@@ -80,6 +80,9 @@
   var ajaxUrl            = "{{url('/user/redeem-order-ajax')}}";
   var transactionAjaxUrl = "{{url('/user/transaction-order-ajax')}}";
   var orderID;
+  var used_amount;
+  var remaining_amount;
+  var redeem_amount;
 
   var gift_code = [{ "mask": "####-####"}];
   $('#gift_code').inputmask({ 
@@ -132,7 +135,9 @@
                     $("#total").text("$"+response.total_amount);
                     $("#used").text("$"+response.used_amount);
                     $("#remaining").text("$"+response.remaining_amount);
-                    orderID   = response.order_id;
+                    orderID          = response.order_id;
+                    used_amount      = response.used_amount;
+                    remaining_amount = response.remaining_amount;
 
                     if(response.used_amount==response.total_amount){
                       $("#redeem").hide();
@@ -191,6 +196,7 @@
             cancelButtonColor: '#d33',
             showLoaderOnConfirm: true,
             preConfirm: (Amount) => {
+              redeem_amount = Amount;
               return fetch(redeemUrl+'/'+orderID+'/'+Amount)
                 .then(response => {
                   if (!response.ok) {
@@ -216,7 +222,12 @@
                   text: result.value.message,
                   icon: 'success',
                 }).then((e)=>{
-                  location.reload();
+                  var am1 = parseInt(used_amount)+parseInt(redeem_amount);
+                  var am2 = parseInt(remaining_amount)-parseInt(redeem_amount);
+                  am1 = am1.toFixed(2);
+                  am2 = am2.toFixed(2);
+                  $("#used").text("$"+am1);
+                  $("#remaining").text("$"+am2);
                 });
 
               }
