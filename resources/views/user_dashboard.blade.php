@@ -83,6 +83,20 @@
                </a>
             </div>
             <div class="col-sm-6 col-lg-4">
+               <a href="{{url('/user/redeem-order')}}">
+                  <div class="card-new card-1">  
+                     <div class="card-header-new">
+                        <span class="title-lite">Redeem Card Amount</span>
+                     </div>
+                     <div class="card-body-new">
+                        <div class="dash-icon-wrap icon-1">
+                           <span class="icon-vip-card"></span>
+                        </div>
+                     </div>
+                  </div>   
+               </a>
+            </div>
+            <div class="col-sm-6 col-lg-4">
                <a href="{{url('/user/orders')}}">
                   <div class="card-new card-1">
                      <div class="card-header-new">
@@ -141,7 +155,8 @@
                      </div>
                   </div>   
                </a>
-            </div>   
+            </div>
+               
             <!-- <div class="col-sm-6 col-lg-4">
                <a href="javascript:(void)">
                   <div class="card-new card-1">
