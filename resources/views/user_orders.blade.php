@@ -47,7 +47,7 @@
                <table class="table order-detail-table cstm-table">
                   <thead>
                      <tr>
-                        <th>Order No</th>
+                        <th>Busniess Name</th>
                         <th>Customer</th>
                         <th>Recipent</th>
                         <th>Gift Card Amount</th>
@@ -60,11 +60,14 @@
                      
                         @foreach( $data as $order )
                         <tr>
-                           <td style="width: 10%;">#{{$order->id}}</td>
-                           <td style="width: 15%;">{{$order->customer_full_name}}</td>
-                           <td style="width: 15%;">{{$order->recipient_name}}</td>
-                           <td style="width: 16%;text-align: center;">$<?php echo round($order->balance,2) ?></td>
-                           <td style="width: 17%;text-align: center;">$<?php echo round($order->balance-$order->used_amount,2) ?></td>
+                           <?php
+                              $businessinfos = DB::table('businessinfos')->select("business_name")->where('id', $order->business_id)->first(); 
+                           ?>
+                           <td><a href="{{url('user/edit-business/'.$order->business_id)}}" target="_blank">{{$businessinfos->business_name}}</a></td>
+                           <td >{{$order->customer_full_name}}</td>
+                           <td >{{$order->recipient_name}}</td>
+                           <td style="text-align: center;">$<?php echo number_format($order->balance,2) ?></td>
+                           <td style="text-align: center;">$<?php echo number_format($order->balance-$order->used_amount,2) ?></td>
                            <?php
                               $createDate = new DateTime($order->created_at);
                               $createDate = $createDate->format('Y-m-d'); 

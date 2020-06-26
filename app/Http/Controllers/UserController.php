@@ -258,9 +258,9 @@ class UserController extends Controller
     public function ordersList()
     {
         
-        $query = Input::get('q');
+        $query      = Input::get('q');
         $datefilter = Input::get('datefilter');
-        $id    = Auth::user()->id;
+        $id         = Auth::user()->id;
 
         if($query != '' && strlen( $query ) > 2 || $datefilter!= '' && !empty($datefilter )) {
 
@@ -296,18 +296,18 @@ class UserController extends Controller
 
     public function orderDetail($id)
     {
-        $data = Order::find($id);
-
-        $user = DB::table('users as u')->select('u.id','u.name','b.business_name')->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')->where('u.id', Auth::user()->id)->first();
-
+        $data         = Order::find($id);
+        
+        $user         = DB::table('users as u')->select('u.id','u.name','b.business_name')->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')->where('u.id', Auth::user()->id)->first();
         $transactions = DB::table('transactions')->where('order_id','=',$id)->where('user_id','=',Auth::user()->id)->get();
+        $businessinfo = DB::table('businessinfos')->select("*")->where('id',$data->business_id)->first();
 
         $is_business_profile_complete = Auth::user()->is_business_profile_complete;
         if($is_business_profile_complete == '0'){
             return redirect('/user');  
         }else{  
             if(!empty($data)){
-                return view('user_order_detail',['data' => $data,'user' => $user,'transactions'=>$transactions]);
+                return view('user_order_detail',['data' => $data,'user' => $user,'transactions'=>$transactions,'businessinfo'=>$businessinfo]);
             }else{
                 return redirect('/user/orders');
             }

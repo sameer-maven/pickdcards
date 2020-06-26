@@ -17,6 +17,30 @@
 <div class="consumer-detail-sec">
   <div class="container">
     <div class="consumer-detail">
+      <div class="consumer-head">Business Details</div>
+      <div class="row">
+        <div class="col-lg-6 pr-0">
+          <div class="consumer-info d-flex">
+            <ul class="consumer-info-list list-unstyled mb-0">
+              <li><b>Business Name</b> </li>
+              <li><b>Address </b></li>
+              <li><b>City </b></li>
+              <li><b>State </b></li>
+              <li><b>Zip Code </b></li>
+            </ul>
+            <ul class="consumer-info-list list-unstyled flex-grow-1 mb-0">
+              <li><b>:</b> {{$businessinfo->business_name}}</li>
+              <li><b>:</b> {{$businessinfo->address}}</li>
+              <li><b>:</b> {{$businessinfo->city}}</li>
+              <li><b>:</b> {{$businessinfo->state}}</li>
+              <li><b>:</b> {{$businessinfo->pincode}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  </div>
+  <hr>
+    <div class="consumer-detail">
       <div class="consumer-head">
         Order Details
       </div>

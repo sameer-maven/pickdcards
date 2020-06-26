@@ -238,41 +238,54 @@ class AdminController extends Controller
             'business_email' => 'required'
         ]);
 
-        $usersBusInfo                  = Businessinfo::find($id);
+        $usersBusInfo                  = Businessinfo::find($id);                                                                                                                                                                                                
+        
         if(!empty($input['business_name'])){
             $usersBusInfo->business_name   = $input['business_name'];
         }
 
         if(!empty($input['address'])){
-            $usersBusInfo->address         = $input['address'];
+            $usersBusInfo->address         = $input['address'];                                                                                                                                                                                                                        
+        }
+
+        if(!empty($input['city'])){
+            $usersBusInfo->city         = $input['city'];
+        }
+
+        if(!empty($input['state'])){
+            $usersBusInfo->state         = $input['state'];                                                                                                                                                                                                                                                                        
+        }
+
+        if(!empty($input['pincode'])){
+            $usersBusInfo->pincode         = $input['pincode'];                                                                                                                                                                                                                        
         }
 
         if(!empty($input['phone_number'])){
-            $usersBusInfo->phone_number    = $input['phone_number'];
+            $usersBusInfo->phone_number    = $input['phone_number'];                                                                                                                                                            
         }
 
         if(!empty($input['business_email'])){
-            $usersBusInfo->business_email  = $input['business_email'];
+            $usersBusInfo->business_email  = $input['business_email'];                                                                                                                                    
         }
 
         if(!empty($input['url'])){
-            $usersBusInfo->url = $input['url'];
+            $usersBusInfo->url = $input['url'];                                                                                                                                                                                                                                                                                                                                                                                                                        
         }
 
         if(!empty($input['tax_id_number'])){
-            $usersBusInfo->tax_id_number   = $input['tax_id_number'];
+            $usersBusInfo->tax_id_number   = $input['tax_id_number'];                                                                                                                                                
         }
 
         if(!empty($input['business_industry'])){
-            $usersBusInfo->industry_id     = $input['business_industry'];
+            $usersBusInfo->industry_id     = $input['business_industry'];                                                                                                
         }
 
         if(!empty($input['business_type'])){
-            $usersBusInfo->type_id         = $input['business_type'];
+            $usersBusInfo->type_id         = $input['business_type'];                                                                                                                                                
         }
         
         if(!empty($input['customer_charge'])){
-            $usersBusInfo->customer_charge = $input['customer_charge'];
+            $usersBusInfo->customer_charge = $input['customer_charge'];                                                                                                                        
         }
 
         if(!empty($input['customer_cent_charge'])){
@@ -280,7 +293,7 @@ class AdminController extends Controller
         }
 
         if(!empty($input['business_charge'])){
-            $usersBusInfo->business_charge = $input['business_charge'];
+            $usersBusInfo->business_charge = $input['business_charge'];                                                                                                                        
         }
 
         if(!empty($input['business_cent_charge'])){

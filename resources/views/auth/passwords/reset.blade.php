@@ -81,7 +81,7 @@
    <div class="container-contact">
       <div class="wrap-contact">
          <h2 class="contact-title">{{ __('Reset Password') }}</h2>
-         <p class="contact-subtitle">Please fill the following details. To reset your password</p>
+         <p class="contact-subtitle">Please enter your email address to receive the reset link.</p>
         <form class="mt-4" method="POST" action="{{ route('password.update') }}" id="reset-final-form">
             @csrf
             <input type="hidden" name="token" value="{{ $token }}">
