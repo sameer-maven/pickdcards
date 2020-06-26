@@ -64,11 +64,12 @@ class OrderController extends Controller
 
         $businessInfo = Businessinfo::find($id);
 
-        $order = new Order;
-        $order->user_id                  = $businessInfo->user_id;
-        $order->customer_full_name       = $input['name'];
-        $order->customer_email           = $input['email'];
-        $order->customer_phone           = "";
+        $order                     = new Order;
+        $order->user_id            = $businessInfo->user_id;
+        $order->business_id        = $businessInfo->id;
+        $order->customer_full_name = $input['name'];
+        $order->customer_email     = $input['email'];
+        $order->customer_phone     = "";
 
         $user = DB::table('businessinfos')->select('*')->where('id', $id)->first();
 
