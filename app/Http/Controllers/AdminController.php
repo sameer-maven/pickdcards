@@ -23,6 +23,7 @@ use Session;
 use Stripe;
 use QrCode;
 use App\Transaction;
+use App\Newsletter;
 
 
 class AdminController extends Controller
@@ -463,6 +464,12 @@ class AdminController extends Controller
         \Session::flash('notification',"The card has been re-sent to the customer and the recipient. ");
         return redirect('/admin/order-detail/'.$order_id);
         
+    }
+
+    public function newsLetters()
+    {
+        $data['newsletters'] = Newsletter::orderBy('email','asc')->paginate(25);
+        return view('admin.newsletter-list')->with($data);
     }
 
 }

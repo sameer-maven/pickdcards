@@ -42,9 +42,11 @@
             <div class="form-group">
                <input type="password" class="form-control" id="password" name="password" aria-describedby="" placeholder="Enter New Password*">
             </div>
+
             <div class="form-group">
                <input type="password" class="form-control" id="con_password" name="con_password" aria-describedby="" placeholder="Confirm Password*">
             </div>
+            <p class="sign-small-txt mt-3"><strong>Password must contain 8 characters (1 lowercase, 1 uppercase, 1 number)</strong></p>
             <button type="submit" class="btn btn-primary signin-btn user-change-password-btn">Apply Changes</button>
             <p class="text-center mt-4"><strong><a href="{{ url('/user') }}" style="color: #919191;font-size: 16px;">Cancel</a></strong></p>
          </form>

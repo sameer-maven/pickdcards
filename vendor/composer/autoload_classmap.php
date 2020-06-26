@@ -37,6 +37,7 @@ return array(
     'App\\Mail\\SendEmail' => $baseDir . '/app/Mail/SendEmail.php',
     'App\\Mail\\SendEmailAdmin' => $baseDir . '/app/Mail/SendEmailAdmin.php',
     'App\\Mail\\SendEmailUser' => $baseDir . '/app/Mail/SendEmailUser.php',
+    'App\\Newsletter' => $baseDir . '/app/Newsletter.php',
     'App\\Order' => $baseDir . '/app/Order.php',
     'App\\Pages' => $baseDir . '/app/Pages.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',

@@ -437,6 +437,7 @@ class ComposerStaticInitd4dd050b2ce4ecaba410f114ac9f8572
         'App\\Mail\\SendEmail' => __DIR__ . '/../..' . '/app/Mail/SendEmail.php',
         'App\\Mail\\SendEmailAdmin' => __DIR__ . '/../..' . '/app/Mail/SendEmailAdmin.php',
         'App\\Mail\\SendEmailUser' => __DIR__ . '/../..' . '/app/Mail/SendEmailUser.php',
+        'App\\Newsletter' => __DIR__ . '/../..' . '/app/Newsletter.php',
         'App\\Order' => __DIR__ . '/../..' . '/app/Order.php',
         'App\\Pages' => __DIR__ . '/../..' . '/app/Pages.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',

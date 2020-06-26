@@ -26,6 +26,8 @@ use Session;
 use Stripe;
 use QrCode;
 use Carbon\Carbon;
+use App\Mail\ResetPasswordEmail;
+use App\Newsletter;
 
 class UserController extends Controller
 {
@@ -183,10 +185,11 @@ class UserController extends Controller
         $user = User::find($id);
         $user->password  = Hash::make($input[ "password"] );
         $user->save();
-       
+
+        Mail::to($user->email)->send(new ResetPasswordEmail($user));
+        
         \Session::flash('notification',"Password Changed Successfully");
-       
-        return redirect('user/change-password');
+        return redirect('/user');
 
     }
 

@@ -43,6 +43,10 @@ $(document).ready(function() {
         });
     }); 
 
+    $.validator.addMethod("pwcheck", function (value) {
+        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value)
+    });
+
     //Change profile password: (url:/user/change-password)     
     $(".user-change-password-btn").click(function(e){
         $('#userChangePassFrm').validate({ // initialize the plugin
@@ -52,7 +56,8 @@ $(document).ready(function() {
                 },
                 password: {
                     required: true,
-                    minlength : 8
+                    minlength : 8,
+                    pwcheck :true
                 },
                 con_password: {
                     required: true,
@@ -65,7 +70,9 @@ $(document).ready(function() {
                     required: "Please enter current password"
                 },
                 password: {
-                    required: "Please enter password"
+                    required: "Please enter a valid password.",
+                    minlength :"Please enter a valid password.",
+                    pwcheck :"Please enter a valid password."
                 },
                 con_password: {
                     required: "Please enter password confirmation",
