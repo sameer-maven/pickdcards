@@ -144,22 +144,7 @@
                </ul>
             </div>
          </div>
-         <div class="col-lg-3">
-            <div class="footer-col">
-               <h3 class="footer-title">Newsletter</h3>
-               <p>Connect below for our latest updates and offers</p>
-               <form class="">
-                  <div class="form-group mb-3">
-                     <div class="custom-file" style="min-height: 46px;">
-                        <input type="text" class="form-control" placeholder="Enter Email Address" id="" style="padding-right: 45px">
-                        <div class="input-group-prepend">
-                           <button class="input-group-text send-btn" type="submit"><span class="icon-paper-plane"></span></button>
-                        </div>
-                     </div>
-                  </div>
-               </form>
-            </div>
-         </div>
+         @include('includes.newsletter')
       </div>
       <div class="footer-btm text-center py-4 mt-4" style="color:#919191;">
          <p class="mb-0">© 2020 Pickd Cards, All Rights Reserved. <a href="{{ url('/page/legal') }}" class="text-white">Terms of Use</a>  &#124;  <a href="{{ url('/page/legal') }}" class="text-white">Privacy Policy</a></p>
@@ -215,5 +200,6 @@
       }
     }
 </script>
+@yield('javascript')
 </body>
 </html>

@@ -160,6 +160,9 @@
             <a class="nav-link @if(Request::is('admin/profile-socials'))  active @endif" href="{{url('admin/profile-socials')}}"><i class="nav-icon fas fa-share-alt"></i> Social Media</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link @if(Request::is('admin/news-letters'))  active @endif" href="{{url('admin/news-letters')}}"><i class="nav-icon fas fa-envelope"></i> Newsletter Emails</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link @if(Request::is('admin/change-password'))  active @endif" href="{{url('admin/change-password')}}"><i class="nav-icon fas fa-key"></i> Change Password</a>
           </li>
           <li class="nav-item">

@@ -55,6 +55,8 @@ Route::post('/user/transaction-order-ajax','UserController@AllOrderTransactionsA
 Route::get('/user/stripe-authorization', 'UserController@stripeAuthorization');
 Route::get('/user/stripe-deauthorization/{id}', 'UserController@stripeDeauthorization');
 
+Route::post('/user/newsletter-email','HomeController@newsLetterSave');
+
 //Admin Routes
 
 Route::group(['middleware' => 'admin'], function() {
@@ -96,5 +98,6 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::post('/admin/commission-settings/update','AdminController@updateCommissionSettings');
 	Route::get('/admin/profile-socials','AdminController@profileSocials');
 	Route::post('/admin/profile-socials/update','AdminController@updateSocialSettings');
+	Route::get('/admin/news-letters','AdminController@newsLetters');
 });
 //<--- End Group Role

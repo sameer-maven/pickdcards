@@ -57,6 +57,18 @@
                 <input type="text" class="form-control" name="address" placeholder="Enter Address" value="{{$users->address}}">
               </div>
               <div class="form-group">
+                <label for="exampleInputEmail1">City</label>
+                <input type="text" class="form-control" name="city" placeholder="Enter City" value="{{$users->city}}">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">State</label>
+                <input type="text" class="form-control" name="state" placeholder="Enter State" value="{{$users->state}}">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Zip Code</label>
+                <input type="text" class="form-control" name="pincode" placeholder="Enter Zip Code" value="{{$users->pincode}}">
+              </div>
+              <div class="form-group">
                 <label for="exampleInputEmail1">Phone Number</label>
                 <input type="text" class="form-control" name="phone_number" placeholder="Enter Phone Number" value="{{$users->phone_number}}">
               </div>

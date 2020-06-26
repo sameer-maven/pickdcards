@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input as Input;
 use App\User;
 use App\Businessinfo;
+use App\Newsletter;
 use App\Helper;
 use Auth;
 use Image;
@@ -83,8 +84,18 @@ class HomeController extends Controller
             ->orderBy('business_name','asc')
             ->paginate(16);
          }
-        
         return view('search', ['data' => $data,'query' => $query,'Industries'=>$Industries,'Types'=>$Types,'States'=>$States]);
+    }
 
+    public function newsLetterSave(Request $request)
+    {
+        $input             = $request->all();
+        $newsLetter        = New Newsletter;
+        $newsLetter->email = $input['email'];
+        $save              = $newsLetter->save();
+        if($save){
+            \Session::flash('newsSuccess',"Newsletter Subscribed Successfully");
+            return redirect('/');
+        }
     }
 }
