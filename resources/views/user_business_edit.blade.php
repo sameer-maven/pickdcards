@@ -285,7 +285,9 @@
                  required: true
              },
              pincode: {
-                 required: true
+                required: true,
+                minlength : 5,
+                maxlength:5,
              },
              phone_number: {
                  required: true,
@@ -326,14 +328,16 @@
    var phones = [{ "mask": "(###) ###-####"}];
    $('#phone_number').inputmask({ 
       mask: phones, 
-      greedy: false, 
+      greedy: false,
+      clearIncomplete: true, 
       definitions: { '#': { validator: "[0-9]", cardinality: 1}} 
    });
 
    var tax = [{ "mask": "##-#######"}];
    $('#tax_id_number').inputmask({ 
       mask: tax, 
-      greedy: false, 
+      greedy: false,
+      clearIncomplete: true, 
       definitions: { '#': { validator: "[0-9]", cardinality: 1}} 
    });
 

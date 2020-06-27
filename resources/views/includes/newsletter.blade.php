@@ -6,7 +6,7 @@
          @csrf
          <div class="form-group mb-3">
             <div class="custom-file" style="min-height: 46px;">
-               <input type="text" class="form-control" placeholder="Enter Email Address" id="emai" name="email" style="padding-right: 45px">
+               <input type="text" class="form-control" placeholder="Enter Email Address" id="email" name="email" style="padding-right: 45px">
                <div class="input-group-prepend">
                   <button class="input-group-text send-btn" type="submit"><span class="icon-paper-plane"></span></button>
                </div>
@@ -16,30 +16,7 @@
    </div>
 </div>
 
-@section('javascript') 
-<script type="text/javascript">
-
-   $(document).ready(function(){
-
-        $(".send-btn").click(function(e){
-            $('#newsletterFrm').validate({ // initialize the plugin
-                rules: {
-                 email: {
-                     required: true,
-                     email: true
-                 }
-                },
-                messages: {
-                 email: {
-                     required: "Please enter email Id"
-                 }
-                }
-            });
-        });
-
-    });
-</script>
-
+@section('javascript')
 @if (Session::has('newsSuccess'))
 <script type="text/javascript">
    Swal.fire({

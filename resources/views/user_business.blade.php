@@ -57,7 +57,7 @@
                <table class="table order-detail-table cstm-table">
                   <thead>
                      <tr>
-                        <th>No</th>
+                        <!-- <th>No</th> -->
                         <th>Business Name</th>
                         <th>Address</th>
                         <th>Status</th>
@@ -70,9 +70,9 @@
                      
                         @foreach( $data as $business )
                         <tr>
-                           <td style="width: 10%;">#{{$business->id}}</td>
-                           <td style="width: 15%;">{{$business->business_name}}</td>
-                           <td style="width: 25%;"><?php echo $business->address.", ".$business->city.", ".$business->state.", ".$business->pincode; ?></td>
+                           <!-- <td style="width: 10%;">#{{$business->id}}</td> -->
+                           <td style="width: 25%;">{{$business->business_name}}</td>
+                           <td style="width: 50%;"><?php echo $business->address.", ".$business->city.", ".$business->state.", ".$business->pincode; ?></td>
                            <?php 
                              if( $business->status == '1' ) {
                                  $mode    = 'success';

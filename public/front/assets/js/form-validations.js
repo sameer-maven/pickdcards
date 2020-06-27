@@ -17,7 +17,9 @@ $(document).ready(function() {
                     required: true
                 },
                 pincode: {
-                    required: true
+                    required: true,
+                    minlength : 5,
+                    maxlength:5,
                 },
                 phone_number: {
                     required: true,

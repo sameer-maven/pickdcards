@@ -70,9 +70,10 @@
                 <a class="dropdown-item" href="{{ url('/admin/dashboard') }}"><span class="icon-account s7-icon"></span>Admin Panel</a>
                 <?php }else{?>
                 <a class="dropdown-item" href="{{ url('/user') }}"><span class="icon-calendar1 s7-icon"></span>Dashboard</a>
-                <a class="dropdown-item" href="{{ url('/user/orders') }}"><span class="icon-gear s7-icon"></span>Manage Orders</a>
-                <a class="dropdown-item" href="{{ url('/user/manage-profile') }}"><span class="icon-add-user s7-icon"></span>Manage Profile</a>
-                <a class="dropdown-item" href="{{ url('/user/businesses') }}"><span class="icon-vip-card s7-icon"></span>Manage Business</a>
+                <a class="dropdown-item" href="{{ url('/user/redeem-order') }}"><span class="icon-shopping-bag s7-icon"></span>Redeem</a>
+                <a class="dropdown-item" href="{{ url('/user/orders') }}"><span class="icon-gear s7-icon"></span>Orders</a>
+                <a class="dropdown-item" href="{{ url('/user/businesses') }}"><span class="icon-vip-card s7-icon"></span>Business</a>
+                <a class="dropdown-item" href="{{ url('/user/manage-profile') }}"><span class="icon-add-user s7-icon"></span>Profile</a>
                 <a class="dropdown-item" href="{{ url('/user/change-password') }}"><span class="icon-key s7-icon"></span>Change Password </a>
                 <?php } ?>
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><span class="icon-account s7-icon"></span>{{ __('Logout') }}</a>
@@ -141,6 +142,25 @@
 <script src="{{ asset('public/front/assets/js/slick.min.js') }}"></script>
 <script src="{{ asset('public/front/assets/js/select2.min.js') }}"></script>
 <script src="{{ asset('public/front/assets/js/app.js') }}"></script>
+<script type="text/javascript">
+   $(document).ready(function(){
+        $(".send-btn").click(function(e){
+            $('#newsletterFrm').validate({ // initialize the plugin
+                rules: {
+                 email: {
+                     required: true,
+                     email: true
+                 }
+                },
+                messages: {
+                 email: {
+                     required: "Please enter email Id"
+                 }
+                }
+            });
+        });
+    });
+</script>
 @yield('javascript')
 </body>
 </html>

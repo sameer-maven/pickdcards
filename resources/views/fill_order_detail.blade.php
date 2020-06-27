@@ -23,7 +23,7 @@
                <input type="email" class="form-control" id="business_email" name="business_email" aria-describedby="" placeholder="Business Email">
             </div> -->
             <div class="form-group">
-               <input type="number" class="form-control" id="card_amount" name="card_amount" aria-describedby="" placeholder="Gift Card Amount">
+               <input type="number" class="form-control" id="card_amount" name="card_amount" placeholder="Gift Card Amount">
             </div>
             <div class="form-group">
                <input type="text" class="form-control" id="recipient_name" name="recipient_name" aria-describedby="" placeholder="Receipt Name">
@@ -45,7 +45,12 @@
 
 @section('javascript') 
 <script type="text/javascript">
-  //Add order form    
+  //Add order form  
+    
+    $(document).on("change","#card_amount",function(){
+      this.value = parseFloat(this.value).toFixed(2);
+    });
+    
     $(".add-order-btn").click(function(e){
         $('#addOrderFrm').validate({ // initialize the plugin
             rules: {
