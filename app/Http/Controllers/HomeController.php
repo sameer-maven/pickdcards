@@ -26,7 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     { 
-        return view('home');   
+        
+        $socials = DB::table('generalsettings')->where('id',1)->first();
+        return view('home',['socials' => $socials]);   
     }
 
     public function getSearch()
@@ -40,7 +42,7 @@ class HomeController extends Controller
         $Industries = Industry::where('status','1')->orderBy('industry')->get();
         $Types      = Type::where('status','1')->orderBy('type')->get();
         $States     = State::where('status','1')->orderBy('state_name')->get();
-
+        $socials    = DB::table('generalsettings')->where('id',1)->first();
         if($query != '' && strlen($query) > 2) {
            
             $data = DB::table('businessinfos')->select("*")
@@ -84,7 +86,7 @@ class HomeController extends Controller
             ->orderBy('business_name','asc')
             ->paginate(16);
          }
-        return view('search', ['data' => $data,'query' => $query,'Industries'=>$Industries,'Types'=>$Types,'States'=>$States]);
+        return view('search', ['data' => $data,'query' => $query,'Industries'=>$Industries,'Types'=>$Types,'States'=>$States,'socials' => $socials]);
     }
 
     public function newsLetterSave(Request $request)

@@ -122,7 +122,7 @@
 <!-- support-sec -->
 
 <!-- testimonial-sec -->
-<!-- <div class="testimonial-sec sec-padding">
+<div class="testimonial-sec sec-padding">
    <div class="container">
       <div class="row">
          <div class="col-lg-12">
@@ -131,7 +131,7 @@
                   <div class="client-info">
                      <div class="client-img"><img src="{{ asset('public/front/assets/images/client-img.jpg') }}"></div>
                      <h4 class="client-title">Cody Marchant</h4>
-                     <p>Company Client</p>
+                     <p>Company Client1</p>
                   </div>
                   <div class="client-review-txt">
                      “I am at an age where I just want to be fit and healthy our bodies 
@@ -143,7 +143,7 @@
                   <div class="client-info">
                      <div class="client-img"><img src="{{ asset('public/front/assets/images/client-img.jpg') }}"></div>
                      <h4 class="client-title">Cody Marchant</h4>
-                     <p>Company Client</p>
+                     <p>Company Client2</p>
                   </div>
                   <div class="client-review-txt">
                      “I am at an age where I just want to be fit and healthy our bodies 
@@ -155,7 +155,7 @@
                   <div class="client-info">
                      <div class="client-img"><img src="{{ asset('public/front/assets/images/client-img.jpg') }}"></div>
                      <h4 class="client-title">Cody Marchant</h4>
-                     <p>Company Client</p>
+                     <p>Company Client3</p>
                   </div>
                   <div class="client-review-txt">
                      “I am at an age where I just want to be fit and healthy our bodies 
@@ -167,7 +167,7 @@
          </div>
       </div>
    </div>
-</div> -->
+</div>
 <div class="contact-info-wrap py-4">
    <div class="container">
       <div class="row">
@@ -175,11 +175,11 @@
             <div class="d-flex flex-wrap align-items-center">
                <a href="{{ url('/register') }}" class="btn pickd-btn picked-btn-white">Get Started</a>
                <ul class="social-icons d-flex flex-wrap list-unstyled mb-0">
-                  <li><a href="https://www.facebook.com/pickdcards" target="__blank"><span class="icon-facebook-1"></span></a></li>
-                  <li><a href="https://twitter.com/pickdcards" target="__blank"><span class="icon-twitter-black-shape"></span></a></li>
-                  <li><a href="https://www.linkedin.com/company/pickd-cards" target="__blank"><span class="icon-linkedin"></span></a></li>
-                  <li><a href="https://www.instagram.com/pickdcards" target="__blank"><span class="icon-instagram"></span></a></li>
-                  <li><a href="https://www.pinterest.com/pickdcards" target="__blank"><span class="icon-pinterest"></span></a></li>
+                  <li><a href="{{$socials->facebook}}" target="__blank"><span class="icon-facebook-1"></span></a></li>
+                  <li><a href="{{$socials->twitter}}" target="__blank"><span class="icon-twitter-black-shape"></span></a></li>
+                  <li><a href="{{$socials->linkedin}}" target="__blank"><span class="icon-linkedin"></span></a></li>
+                  <li><a href="{{$socials->instagram}}" target="__blank"><span class="icon-instagram"></span></a></li>
+                  <li><a href="{{$socials->pinterest}}" target="__blank"><span class="icon-pinterest"></span></a></li>
                   <!-- <li><a href="#"><span class="icon-youtube-1"></span></a></li> -->
                </ul>
             </div>

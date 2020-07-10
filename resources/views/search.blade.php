@@ -123,11 +123,11 @@
             <div class="d-flex flex-wrap align-items-center">
                <a href="{{ url('/register') }}" class="btn pickd-btn picked-btn-white">Sign Your Business Up</a>
                <ul class="social-icons d-flex flex-wrap list-unstyled mb-0">
-                  <li><a href="https://www.facebook.com/pickdcards" target="__blank"><span class="icon-facebook-1"></span></a></li>
-                  <li><a href="https://twitter.com/pickdcards" target="__blank"><span class="icon-twitter-black-shape"></span></a></li>
-                  <li><a href="https://www.linkedin.com/company/pickd-cards" target="__blank"><span class="icon-linkedin"></span></a></li>
-                  <li><a href="https://www.instagram.com/pickdcards" target="__blank"><span class="icon-instagram"></span></a></li>
-                  <li><a href="https://www.pinterest.com/pickdcards" target="__blank"><span class="icon-pinterest"></span></a></li>
+                  <li><a href="{{$socials->facebook}}" target="__blank"><span class="icon-facebook-1"></span></a></li>
+                  <li><a href="{{$socials->twitter}}" target="__blank"><span class="icon-twitter-black-shape"></span></a></li>
+                  <li><a href="{{$socials->linkedin}}" target="__blank"><span class="icon-linkedin"></span></a></li>
+                  <li><a href="{{$socials->instagram}}" target="__blank"><span class="icon-instagram"></span></a></li>
+                  <li><a href="{{$socials->pinterest}}" target="__blank"><span class="icon-pinterest"></span></a></li>
                   <!-- <li><a href="#"><span class="icon-youtube-1"></span></a></li> -->
                </ul>
             </div>
