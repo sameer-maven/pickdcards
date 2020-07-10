@@ -2,3 +2,4 @@
 .env.backup
 pickdCards.zip
 /public/qrcode/
+/public/avatar/
