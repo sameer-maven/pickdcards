@@ -248,19 +248,21 @@
 <script src="{{ asset('public/admin/dist/js/demo.js') }}"></script>
 <script src="{{ asset('public/admin/dist/js/form-validations.js') }}"></script>
 
-@yield('javascript')
-
-@if (Session::has('notification'))
-<script>
-  $(document).ready(function(){
+<script type="text/javascript">
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
     timer: 3000
   });
+</script>
 
-  Toast.fire({
+@yield('javascript')
+
+@if (Session::has('notification'))
+<script>
+  $(document).ready(function(){
+    Toast.fire({
       icon: 'success',
       title: "{{ Session::get('notification') }}"
     });

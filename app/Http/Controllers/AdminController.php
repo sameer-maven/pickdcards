@@ -487,19 +487,21 @@ class AdminController extends Controller
 
     public function isFeatured( Request $request ){
         
-        $business = Businessinfo::find('following',$request->id);
-        echo "<pre>";print_r($business);die;
-        if($business->exists) {  
-            if( $business->status == '1' ) {
-                $business->status = '0';
+        $business = Businessinfo::find($request->id);
+
+        if($business->exists) { 
+
+            if( $business->is_featured == '1' ) {
+                $business->is_featured = '0';
                 $business->update();
             }else{
-                $business->status = '1';
+                $business->is_featured = '1';
                 $business->update();
             }
             return response()->json([
                 'status' => true,
             ]);
+            
         }else{
             return response()->json([
                 'status' => false,

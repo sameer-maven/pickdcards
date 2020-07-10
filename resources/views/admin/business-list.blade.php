@@ -80,7 +80,7 @@
                         <td>{{ $user->business_name }}</td>
                         <td>{{ $user->business_email }}</td>
                         <td>{{ $user->created_at }}</td>
-                        <td style="text-align: center;"><input type="checkbox" name="is_featured" id="is_featured" value="0"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="is_featured" id="is_featured" value="{{ $user->is_featured }}" data-id="{{ $user->id }}"  @if($user->is_featured == 1)  checked @endif ></td>
                         <?php 
                           if( $user->status == '1' ) {
                               $mode    = 'success';
@@ -144,7 +144,29 @@
 @section('javascript')
 <script type="text/javascript">
     $(document).on("click","#is_featured",function(){
-      alert($(this).val());
+
+      var businessId =  $(this).data("id");
+
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': "{{ csrf_token() }}"
+        },
+        type: 'POST',
+        url: "{{ URL::to("/") }}/admin/business-isfeatured",
+        data:{
+          id:businessId
+        },
+        dataType:"json",
+        success: function(result) { 
+          if(result.status){
+            Toast.fire({
+              icon: 'success',
+              title: " Data updated successfully."
+            });
+          }
+        }
+      });
+
     });
 </script>
 @endsection

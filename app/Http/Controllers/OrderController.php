@@ -32,7 +32,7 @@ class OrderController extends Controller
     public function index()
     {
         $filename  = 'qrcode_order_501_user_SameerTeast_'.time().str_random(10).'.png';
-        $logoImg   = asset('public/qrcode/logo1.png');
+        $logoImg   = asset('public/qrcode/Logo.png');
         $randstr   = Helper::generateRandomString(4);
         $randstr2  = Helper::generateRandomString(4);
         $card_code = $randstr.'-'.$randstr2;

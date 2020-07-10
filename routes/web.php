@@ -103,5 +103,7 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::get('/admin/profile-socials','AdminController@profileSocials');
 	Route::post('/admin/profile-socials/update','AdminController@updateSocialSettings');
 	Route::get('/admin/news-letters','AdminController@newsLetters');
+	
+	Route::post('/admin/business-isfeatured','AdminController@isFeatured');
 });
 //<--- End Group Role
