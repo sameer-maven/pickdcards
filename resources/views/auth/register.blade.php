@@ -83,7 +83,7 @@
          <form class="mt-4" id="reg-form" method="POST" action="{{ route('register') }}">
             @csrf
             <div class="form-group">
-               <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="{{ __('Name') }}" required autocomplete="name" autofocus>
+               <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Your Name" required autocomplete="name" autofocus>
                 @error('name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -199,7 +199,7 @@
 
             $.validator.addMethod("pwcheck", function (value) {
 
-                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value)
+                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z!@#$&()\d]{8,}$/.test(value)
             });
 
             $('#reg-form').validate({ // initialize the plugin

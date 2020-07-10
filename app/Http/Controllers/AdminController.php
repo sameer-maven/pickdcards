@@ -47,7 +47,7 @@ class AdminController extends Controller
         $date = date('Y-m-d');
         $data['total_today_orders'] = $sql->where('created_at', 'LIKE', '%'.$date.'%')->count();
         $data['total_today_sale'] = number_format($sql->where('created_at', 'LIKE', '%'.$date.'%')->sum("balance"),2);
-         $data['total_users'] = User::where('is_admin','=',null)->orderBy('id','desc')->count();
+        $data['total_users'] = User::where('is_admin','=',null)->orderBy('id','desc')->count();
         
         return view('admin.dashboard')->with($data); 
     }
@@ -483,6 +483,28 @@ class AdminController extends Controller
     {
         $data['newsletters'] = Newsletter::orderBy('email','asc')->paginate(25);
         return view('admin.newsletter-list')->with($data);
+    }
+
+    public function isFeatured( Request $request ){
+        
+        $business = Businessinfo::find('following',$request->id);
+        echo "<pre>";print_r($business);die;
+        if($business->exists) {  
+            if( $business->status == '1' ) {
+                $business->status = '0';
+                $business->update();
+            }else{
+                $business->status = '1';
+                $business->update();
+            }
+            return response()->json([
+                'status' => true,
+            ]);
+        }else{
+            return response()->json([
+                'status' => false,
+            ]);  
+        }
     }
 
 }

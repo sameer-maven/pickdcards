@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmail;
@@ -30,7 +31,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //  
+        $filename  = 'qrcode_order_501_user_SameerTeast_'.time().str_random(10).'.png';
+        $logoImg   = asset('public/qrcode/logo1.png');
+        $randstr   = Helper::generateRandomString(4);
+        $randstr2  = Helper::generateRandomString(4);
+        $card_code = $randstr.'-'.$randstr2;
+        $image     = QrCode::format('png')->merge($logoImg,0.3,true)->size(300)->errorCorrection('H')->generate('GIFT CARD CODE: '.$card_code, public_path('qrcode/'.$filename));  
     }
 
     /**

@@ -61,6 +61,7 @@
                       <th>Business Name</th>
                       <th>Email</th>
                       <th>Date</th>
+                      <th>Featured</th>
                       <th>Status</th>
                       <th>Approval</th>
                       <th>Stripe Connect</th>
@@ -79,6 +80,7 @@
                         <td>{{ $user->business_name }}</td>
                         <td>{{ $user->business_email }}</td>
                         <td>{{ $user->created_at }}</td>
+                        <td style="text-align: center;"><input type="checkbox" name="is_featured" id="is_featured" value="0"></td>
                         <?php 
                           if( $user->status == '1' ) {
                               $mode    = 'success';
@@ -99,7 +101,6 @@
                             }     
                         ?> 
                         <td><span class="badge bg-{{$mode}}">{{ $_status }}</span></td>
-
                         <?php 
                           if( $user->connected_stripe_account_id != NULL ) {
                               $mode    = 'success';
@@ -138,4 +139,12 @@
   <!-- /.container-fluid -->
 </section>
 <!-- /.content -->
+@endsection
+
+@section('javascript')
+<script type="text/javascript">
+    $(document).on("click","#is_featured",function(){
+      alert($(this).val());
+    });
+</script>
 @endsection
