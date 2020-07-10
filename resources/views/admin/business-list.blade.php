@@ -152,7 +152,7 @@
           'X-CSRF-TOKEN': "{{ csrf_token() }}"
         },
         type: 'POST',
-        url: "{{ URL::to("/") }}/admin/business-isfeatured",
+        url: "{{ URL::to('/') }}/admin/business-isfeatured",
         data:{
           id:businessId
         },
