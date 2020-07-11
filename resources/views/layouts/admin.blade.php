@@ -59,23 +59,23 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{url('admin/dashboard')}}" class="brand-link">
-      <img src="{{ asset('public/admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+    <a href="{{url('admin/profile')}}" class="brand-link">
+      <img src="{{ asset('public/avatar/'.Auth::user()->avatar) }}" alt="Admin" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Pickd Cards</span>
+      <span class="brand-text font-weight-light">{{ Auth::user()->name }}</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="{{ asset('public/avatar/'.Auth::user()->avatar) }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="{{url('admin/profile')}}" class="d-block">{{ Auth::user()->name }}</a>
         </div>
-      </div>
+      </div> -->
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -153,6 +153,29 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item has-treeview @if(Request::is('admin/testimonials')||Request::is('admin/testimonials/create'))  menu-open @endif ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-quote-left"></i>
+              <p>
+                Testimonials
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('admin/testimonials')}}" class="nav-link @if(Request::is('admin/testimonials')) active @endif ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Testimonials List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('admin/testimonials/create')}}" class="nav-link @if(Request::is('admin/testimonials/create')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Testimonial</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           <!-- <li class="nav-item">
             <a class="nav-link @if(Request::is('admin/commission-settings'))  active @endif" href="{{url('admin/commission-settings')}}"><i class="nav-icon fas fa-cogs"></i> Commission Settings</a>
           </li> -->
@@ -166,9 +189,7 @@
             <a class="nav-link @if(Request::is('admin/change-password'))  active @endif" href="{{url('admin/change-password')}}"><i class="nav-icon fas fa-key"></i> Change Password</a>
           </li>
           <li class="nav-item">
-          	<a class="nav-link" href="{{ route('logout') }}"
-               onclick="event.preventDefault();
-                             document.getElementById('logout-form').submit();">
+          	<a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
             <i class="nav-icon fas fa-sign-in-alt text-danger"></i>                
                 {{ __('Logout') }}
             </a>

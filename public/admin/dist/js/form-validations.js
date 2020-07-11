@@ -62,4 +62,18 @@ $(document).ready(function(){
         });
     });
 
+    //Add Testimonials: (url:/testimonials/create)     
+    $(".adminTestimonialbtn").click(function(e){
+        $('#adminTestimonialFrm').validate({
+            rules: {
+                title: {
+                    required: true
+                },
+                company_name: {
+                    required: true
+                }
+            }
+        });
+    });
+
 });

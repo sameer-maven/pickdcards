@@ -105,5 +105,14 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::get('/admin/news-letters','AdminController@newsLetters');
 	
 	Route::post('/admin/business-isfeatured','AdminController@isFeatured');
+
+	// Testimonial
+	Route::resource('/admin/testimonials', 'TestimonialsController', 
+		[
+			'names' => ['edit' => 'testimonials.edit']
+		]
+	);
+	Route::get('/admin/testimonials/delete/{id}','TestimonialsController@destroyPage')->where(array( 'id' => '[0-9]+'));
+
 });
 //<--- End Group Role
