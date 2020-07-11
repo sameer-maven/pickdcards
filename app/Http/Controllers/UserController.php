@@ -380,7 +380,6 @@ class UserController extends Controller
             'u.email',
             'u.avatar',
             'u.status',
-            'u.is_verify',
             'b.business_name',
             'b.address',
             'b.city',

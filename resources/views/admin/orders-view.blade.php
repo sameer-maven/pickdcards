@@ -74,9 +74,9 @@
                       $gift_card_amount = round($order->balance,2);
                       $remaining = round($order->balance-$order->used_amount,2); 
                     ?>
-                    <b>Gift Card Amount: $</b> {{$gift_card_amount}}<br><br>
-                    <b>Used Amount: $</b> {{$order->used_amount}}<br>
-                    <b>Remaining Amount: $</b> {{$remaining}}<br>
+                    <b>Gift Card Amount: $</b> {{ number_format($gift_card_amount, 2) }}<br><br>
+                    <b>Used Amount: $</b> {{ number_format($order->used_amount, 2) }}<br>
+                    <b>Remaining Amount: $</b> {{ number_format($remaining, 2) }}<br>
                   </div>
                   <!-- /.col -->
                 </div>

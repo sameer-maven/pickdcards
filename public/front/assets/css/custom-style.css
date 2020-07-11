@@ -180,3 +180,48 @@ strong {
 .CardField-cvc span.InputContainer input {
     padding-left: 5px;
 }
+
+.sbm-small-title {
+   font-size: 23px;
+    font-weight: 700;
+    color: #585858;
+}
+.btn.sbm-btn {
+   background:#86C959;
+   color:#ffffff;
+   padding:10px 20px;
+   border:1px solid #86C959;
+   border-radius:30px;
+}
+.btn.sbm-btn:hover {
+   background:#000000;
+   border-color:#86C959;
+   color:#ffffff;
+}
+.sbm-table-bordered.table-light tbody+tbody, .sbm-table-bordered.table-light td, .sbm-table-bordered.table-light th, .sbm-table-bordered.table-light thead th {
+   border-color: #dcdcdc;
+}
+.sbm-table-bordered tbody td:first-child {
+   font-weight: 600;
+}
+.sbm-logo-holder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding:20px;
+
+    -ms-flex-align: center !important;
+    align-items: center !important;
+    text-align: center;
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+    background: #fff;
+}
+.sbm-logo-holder img { 
+   width: 80%;
+   max-width: 355px;
+   object-fit:content;
+}
+.sbm-table-bordered {
+   margin-bottom:0px;
+}

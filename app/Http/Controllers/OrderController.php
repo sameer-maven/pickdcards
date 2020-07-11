@@ -276,10 +276,7 @@ class OrderController extends Controller
     public function storeDetail($id) {
         
         $id = base64_decode($id);
-
-        $data['users'] = DB::table('businessinfos')->select("*")
-        ->where('id', $id)->first();
-
+        $data['users'] = DB::table('businessinfos')->select("*")->where('id', $id)->first();
         return view('store_detail')->with($data);
     }
 

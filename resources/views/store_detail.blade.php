@@ -17,14 +17,66 @@
 <!-- product-detail -->
 <section class="product-detail-sec sec-padding py-5">
    <div class="container">
-      <div class="product-detail-wrap text-center"> 
-         <div class="product-img-2 mb-4">
-            <img src="{{ asset('public/avatar/'.$users->avatar) }}" class="img-fluid" alt="" width="180" height="180">
+      <div class="row justify-content-center">
+         <div class="col-md-6 col-lg-5">
+            <div class="sbm-logo-holder">
+               <img src="{{ asset('public/avatar/'.$users->avatar) }}" alt="">
+            </div>
          </div>
-         <div class="product-txt" style="text-align: justify;">{{ $users->about_business }}</div><br>
-         <div class="product-txt"><a href="{{ url('/fill-order-details') }}<?php echo "/".base64_encode($users->id); ?>" class="btn pickd-btn text-white btn-green">Purchase Gift Card</a></div>
-         
+         <div class="col-md-6 col-lg-5">
+            <div class="sbm-logo-table">
+               <table class="table table-light sbm-table-bordered table-strip table-striped table-bordered">
+                  <tbody>
+                     <tr>
+                        <td>Business Name:</td>
+                        <td>{{$users->business_name}}</td>
+                     </tr>
+                     <tr>
+                        <td>Street Address:</td>
+                        <td>{{$users->address}}</td>
+                     </tr>
+                     <tr>
+                        <td>City:</td>
+                        <td>{{$users->city}}</td>
+                     </tr>
+                     <tr>
+                        <td>State:</td>
+                        <td>{{$users->state}}</td>
+                     </tr>
+                     <tr>
+                        <td>Zip Code:</td>
+                        <td>{{$users->pincode}}</td>
+                     </tr>
+                     <tr>
+                        <td>Phone Number:</td>
+                        <td>{{$users->phone_number}}</td>
+                     </tr>
+                     <tr>
+                        <td>Business URL:</td>
+                        <td>{{$users->url}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
       </div>
+   </div>
+</section>
+<section class="product-detail-sec sec-padding py-5" style="background: #f1f1f1;">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-md-10">
+         <div class="product-detail-wrap text-center"> 
+            <h3 class="sbm-small-title mb-4">About The Business</h3>
+            <div class="product-txt" style="text-align: justify;">{{ $users->about_business }}</div>
+            <div class="text-center mt-4">
+               <a href="{{ url('/fill-order-details') }}<?php echo "/".base64_encode($users->id); ?>" class="btn sbm-btn">Purchase Gift Card</a>
+            </div>
+         </div>
+         </div>
+      </div>
+         
+      
    </div>
 </section>
 
