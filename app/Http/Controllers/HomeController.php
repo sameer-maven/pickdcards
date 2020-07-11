@@ -26,9 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     { 
-        
-        $socials = DB::table('generalsettings')->where('id',1)->first();
-        return view('home',['socials' => $socials]);   
+        $socials      = DB::table('generalsettings')->where('id',1)->first();
+        $testimonials = DB::table('testimonials')->get();
+        return view('home',['socials' => $socials,'testimonials' => $testimonials]);   
     }
 
     public function getSearch()

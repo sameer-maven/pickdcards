@@ -55,7 +55,19 @@
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Content</label>
-                <textarea rows="5" cols="40" class="textarea" placeholder="Place some text here" name="content">{{$data->content}}</textarea>
+                <textarea rows="5" cols="40" class="form-control" placeholder="Place some text here" name="content">{{$data->content}}</textarea>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputFile">Photo</label>
+                <div class="input-group">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="photo" name="photo">
+                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                  <img class="profile-user-img img-fluid img-circle" src="{{ asset('public/testimonials/'.$data->photo) }}" alt="User profile picture">
               </div>
             </div>
             <!-- /.card-body -->

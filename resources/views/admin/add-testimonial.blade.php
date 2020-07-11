@@ -56,7 +56,7 @@
               
               <div class="form-group">
                 <label for="exampleInputPassword1">Content</label>
-                <textarea class="textarea" rows="10" cols="40" placeholder="Place some text here" name="content"></textarea>
+                <textarea class="form-control" placeholder="Place some text here" name="content"></textarea>
               </div>
               <div class="form-group">
                 <label for="exampleInputFile">Photo</label>

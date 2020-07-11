@@ -42,9 +42,9 @@ class TestimonialsController extends Controller
         if( $query != '' && strlen( $query ) > 2 ) {
             $data = Testimonial::where('title', 'LIKE', '%'.$query.'%')
             ->orWhere('company_name', 'LIKE', '%'.$query.'%')
-            ->orderBy('id','desc')->paginate(10);
+            ->orderBy('id','desc')->paginate(15);
          } else {
-            $data = Testimonial::orderBy('title','asc')->paginate(25);
+            $data = Testimonial::orderBy('title','asc')->paginate(15);
          }
         
         return view('admin.testimonials', ['data' => $data,'query' => $query]);
@@ -62,30 +62,30 @@ class TestimonialsController extends Controller
             'title'        => 'required',
             'company_name' => 'required'
         ]);
+  
+        $temp          = 'public/temp/';
+        $path          = 'public/testimonials/';
 
-        $temp      = 'public/temp/';
-        $path      = 'public/testimonials/';
-        $photoName = '';
+        $data          = array(
+            "title"        => $input['title'],
+            "company_name" => $input['company_name'],
+            "content"      => $input['content']
+        );
+
         //<--- HASFILE PHOTO
         if( $request->hasFile('photo') ){
-            $validator = Validator::make($request->all(), ['photo' => 'required|mimes:jpg,gif,png,jpe,jpeg|image_size:>=180,>=180|max:2MB']);
+            $validator = Validator::make($request->all(), ['photo' => 'required|mimes:jpg,png,jpe,jpeg|max:10000']);
             $extension = $request->file('photo')->getClientOriginalExtension();
             $avatar    = strtolower(Auth::user()->id.time().str_random(10).'.'.$extension );
             if($request->file('photo')->move($temp, $avatar) ) {
                 if (\File::exists($temp.$avatar) ) { 
-                    $img = \Image::make($temp.$avatar)->resize(100, 120);
-                    $img->save($path.$avatar, 60);
+                    $img = \Image::make($temp.$avatar)->resize(140, 140);
+                    $img->save($path.$avatar);
                     \File::delete($temp.$avatar);
                 }    
             }
-        }//<--- HASFILE PHOTO 
-
-        $data = array(
-            "title"        => $input['title'],
-            "company_name" => $input['company_name'],
-            "content"      => $input['content'],
-            "photo"        => $avatar
-        );
+            $data['photo'] = $avatar;
+        }//<--- HASFILE PHOTO
 
         Testimonial::create($data);
         \Session::flash('notification',"Testimonial Added Successfully.");
@@ -109,8 +109,41 @@ class TestimonialsController extends Controller
             'title'        => 'required',
             'company_name' => 'required'
         ]);
-            
-        $lang->fill($input)->save();
+
+        $temp   = 'public/temp/';
+        $path   = 'public/testimonials/';
+        $imgOld = $path.$lang->photo;
+
+        $data = array(
+            "title"        => $input['title'],
+            "company_name" => $input['company_name'],
+            "content"      => $input['content']
+        );
+
+        //<--- HASFILE PHOTO
+        if( $request->hasFile('photo') ){
+            $validator = Validator::make($request->all(), ['photo' => 'required|mimes:jpg,gif,png,jpe,jpeg|image_size:>=180,>=180|max:2MB']);
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            $avatar    = strtolower(Auth::user()->id.time().str_random(10).'.'.$extension );
+            if($request->file('photo')->move($temp, $avatar) ) {
+
+                if (\File::exists($temp.$avatar) ) { 
+                    $img = \Image::make($temp.$avatar)->resize(140, 140);
+                    $img->save($path.$avatar);
+                    \File::delete($temp.$avatar);
+                }
+                
+                //<<<-- Delete old image -->>>/
+                if ( \File::exists($imgOld) && $imgOld != $path.'default.jpg' ) {  
+                    \File::delete($imgOld);
+                }//<--- IF FILE EXISTS #1
+            }
+            $data['photo'] = $avatar;
+        }//<--- HASFILE PHOTO
+        
+        
+
+        $lang->fill($data)->save();
 
         \Session::flash('notification',"Testimonial Edited Successfully.");
 

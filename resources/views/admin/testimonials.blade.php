@@ -69,6 +69,7 @@
                       <th>ID</th>
                       <th>Title</th>
                       <th>Company Name</th>
+                      <th>Pic</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -79,6 +80,7 @@
                         <td>{{ $testimonial->id }}</td>
                         <td>{{ $testimonial->title }}</td>
                         <td>{{ $testimonial->company_name }}</td>
+                        <td><div class="form-group"><img class="profile-user-img img-fluid img-circle" src="{{ asset('public/testimonials/'.$testimonial->photo) }}" alt="User profile picture"></div></td>
                         <td>
                           <a href="{{ route('testimonials.edit', $testimonial->id) }}" class="btn btn-success btn-xs padding-btn"> <i class="nav-icon fas fa-edit"></i> Edit</a>
                           <a href="javascript:void(0);" data-uid="{{$testimonial->id}}" data-url="{{url('admin/testimonials/delete/'.$testimonial->id)}}" class="btn btn-danger btn-xs padding-btn deleteUser"> <i class="nav-icon fas fa-trash-alt"></i> Delete</a>

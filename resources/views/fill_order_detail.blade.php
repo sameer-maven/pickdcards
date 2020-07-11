@@ -4,7 +4,7 @@
 <div class="bg-contact overlay-2" style="background-image: url({{ asset('public/front/assets/images/sign-in-bg.jpg') }});">
    <div class="container-contact">
       <div class="wrap-contact" style="max-width: 500px;margin-top: 50px;">
-        <img src="{{ asset('public/avatar/'.$users->avatar) }}" class="img-fluid d-block mx-auto" width="100" height="100"><br>
+        <img src="{{ asset('public/avatar/'.$users->avatar) }}" class="img-fluid d-block mx-auto" width="150" height="150"><br>
          <h2 class="contact-title text-center">{{ $users->business_name }}</h2>
          <p class="contact-subtitle">Purchase a gift card for any amount between $15 and $500.</p>
          <form class="mt-4" id="addOrderFrm" method="POST" action="{{ url('/order/add') }}" enctype="multipart/form-data">

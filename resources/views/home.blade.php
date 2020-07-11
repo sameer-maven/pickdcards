@@ -127,42 +127,16 @@
       <div class="row">
          <div class="col-lg-12">
             <div class="testimonial-slider">
+               @foreach ($testimonials as $testimonial)
                <div class="item">
                   <div class="client-info">
-                     <div class="client-img"><img src="{{ asset('public/front/assets/images/client-img.jpg') }}"></div>
-                     <h4 class="client-title">Cody Marchant</h4>
-                     <p>Company Client1</p>
+                     <div class="client-img"><img style="border-radius: 50%;" src="{{ asset('public/testimonials/'.$testimonial->photo) }}"></div>
+                     <h4 class="client-title">{{$testimonial->title}}</h4>
+                     <p>{{$testimonial->company_name}}</p>
                   </div>
-                  <div class="client-review-txt">
-                     “I am at an age where I just want to be fit and healthy our bodies 
-                     are our responsibility! So start caring for your body and it will care for you. 
-                     Eat clean it will care for you and workout hard.”
-                  </div>
+                  <div class="client-review-txt">{{$testimonial->content}}</div>
                </div>
-               <div class="item">
-                  <div class="client-info">
-                     <div class="client-img"><img src="{{ asset('public/front/assets/images/client-img.jpg') }}"></div>
-                     <h4 class="client-title">Cody Marchant</h4>
-                     <p>Company Client2</p>
-                  </div>
-                  <div class="client-review-txt">
-                     “I am at an age where I just want to be fit and healthy our bodies 
-                     are our responsibility! So start caring for your body and it will care for you. 
-                     Eat clean it will care for you and workout hard.”
-                  </div>
-               </div>
-               <div class="item">
-                  <div class="client-info">
-                     <div class="client-img"><img src="{{ asset('public/front/assets/images/client-img.jpg') }}"></div>
-                     <h4 class="client-title">Cody Marchant</h4>
-                     <p>Company Client3</p>
-                  </div>
-                  <div class="client-review-txt">
-                     “I am at an age where I just want to be fit and healthy our bodies 
-                     are our responsibility! So start caring for your body and it will care for you. 
-                     Eat clean it will care for you and workout hard.”
-                  </div>
-               </div>
+               @endforeach
             </div>
          </div>
       </div>

@@ -673,7 +673,14 @@ class UserController extends Controller
         //<--- HASFILE PHOTO
         if( $request->hasFile('photo') )    {
 
-            $validator = Validator::make($request->all(), ['photo' => 'required|mimes:jpg,gif,png,jpe,jpeg|image_size:>=180,>=180|max:2MB']);
+            $validator = Validator::make($request->all(), ['photo' => 'mimes:png|max:10000']);
+            
+            if ($validator->fails())
+            {
+                \Session::flash('error','Only PNG files allowed!');
+                return redirect('/user/edit-business/'.$id);die();
+            }
+
             $extension = $request->file('photo')->getClientOriginalExtension();
             $avatar    = strtolower($id.time().str_random(10).'.'.$extension );
             
@@ -685,8 +692,10 @@ class UserController extends Controller
                 
                 // Copy folder
                 if ( \File::exists($temp.$avatar) ) {
-                    /* Avatar */    
-                    \File::copy($temp.$avatar, $path.$avatar);
+                    /* Avatar */
+                    $img = \Image::make($temp.$avatar)->resize(512, 512);
+                    $img->save($path.$avatar);    
+                    
                     \File::delete($temp.$avatar);
                 }//<--- IF FILE EXISTS
                 

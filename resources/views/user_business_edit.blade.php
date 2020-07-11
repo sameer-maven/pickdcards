@@ -233,6 +233,7 @@
                                     </span>
                                     </label>
                                  </div>
+                                 <span style="color: red;">(* Only PNG image allowed)</span>
                                  <div class="photo-preview">
                                     <img src="" alt="Image Preview" id="img-preview" class="img-responsive" style="display: none; width: 100px; height: 100px">
                                  </div>
@@ -313,12 +314,21 @@
 <script>
   function readURL(input) {
     if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        $('#img-preview').attr('src', e.target.result);
-        $('#img-preview').show();
+      console.log(input.files[0]);
+      if(input.files[0].type=="image/png"){
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          $('#img-preview').attr('src', e.target.result);
+          $('#img-preview').show();
+        }
+        reader.readAsDataURL(input.files[0]); // convert to base64 string
+      }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text:"Only PNG files allowed!"
+          });
       }
-      reader.readAsDataURL(input.files[0]); // convert to base64 string
     }
   }
   $(".input-image-preview").change(function(){

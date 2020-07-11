@@ -31,7 +31,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $filename  = 'qrcode_order_501_user_SameerTeast_'.time().str_random(10).'.png';
+        $filename  = 'qrcode_order_501_user_SameerTest_'.time().str_random(10).'.png';
         $logoImg   = asset('public/qrcode/Logo.png');
         $randstr   = Helper::generateRandomString(4);
         $randstr2  = Helper::generateRandomString(4);
@@ -188,8 +188,7 @@ class OrderController extends Controller
             
             $order = Order::find($order_id);
             
-            $user = DB::table('businessinfos')->select("*")
-            ->where('id', $order->user_id)->first();
+            $user = DB::table('businessinfos')->select("*")->where('id', $order->user_id)->first();
 
             $business_name = str_replace(' ', '', $user->business_name);
 
@@ -197,9 +196,16 @@ class OrderController extends Controller
             $randstr   = Helper::generateRandomString(4);
             $randstr2  = Helper::generateRandomString(4);
             $card_code = $randstr.'-'.$randstr2;
+            
+            $logoImg   = asset('public/qrcode/Logo.png');
+            $logoSize  = 0.3;
 
-            QrCode::format('png')->size(300)->generate('GIFT CARD CODE: '.$card_code, public_path('qrcode/'.$filename));
-
+            if($user->avatar!='' && $user->avatar!='default.jpg'){
+                $logoImg  = asset('/public/avatar/'.$user->avatar);
+                $logoSize = 0.2;
+            }
+            
+            QrCode::format('png')->merge($logoImg,$logoSize,true)->size(300)->errorCorrection('H')->generate('GIFT CARD CODE: '.$card_code, public_path('qrcode/'.$filename));
             $order            = Order::find($order_id);
             $order->status    = 1;
             $order->qrcode    = $filename;
