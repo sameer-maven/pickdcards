@@ -115,7 +115,7 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-               <p class="sign-small-txt mt-3"><strong>Password must contain 8 characters (1 lowercase, 1 uppercase, 1 number)</strong></p>
+               <p class="sign-small-txt mt-3"><strong>Password must contain 8 characters (1 lowercase, 1 uppercase, 1 number, 1 special)</strong></p>
             </div>
             <div class="form-group">
                <div class="form-check">
@@ -199,7 +199,7 @@
 
             $.validator.addMethod("pwcheck", function (value) {
 
-                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z!@#$&()\d]{8,}$/.test(value)
+                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z!@#$%^&*()\d]{8,}$/.test(value)
             });
 
             $('#reg-form').validate({ // initialize the plugin

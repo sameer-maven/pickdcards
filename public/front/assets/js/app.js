@@ -70,4 +70,39 @@ $(document).ready(function() {
     });
 
     // Business Profile page validation
+
+    $('.slide-4').slick({
+         dots: false,
+         infinite: false,
+         speed: 300,
+         slidesToShow: 4,
+         slidesToScroll: 1,
+         nextArrow: '<span class="slick-next"> <i class="fa fa-angle-right" aria-hidden="true"></i></span>',
+         prevArrow: '<span class="slick-prev"><i class="fa fa-angle-left" aria-hidden="true"></i></span>',
+         responsive: [
+            {
+               breakpoint: 1200,
+               settings: {
+               slidesToShow: 3,
+               infinite: true,
+               dots: true
+               }
+            },
+            {
+               breakpoint: 992,
+               settings: {
+               slidesToShow: 2,
+               }
+            },
+            {
+               breakpoint: 768,
+               settings: {
+               slidesToShow: 1,
+               }
+            }
+            // You can unslick at a given breakpoint now by adding:
+            // settings: "unslick"
+            // instead of a settings object
+         ]
+      });
 });

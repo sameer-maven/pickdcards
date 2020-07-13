@@ -28,7 +28,15 @@ class HomeController extends Controller
     { 
         $socials      = DB::table('generalsettings')->where('id',1)->first();
         $testimonials = DB::table('testimonials')->get();
-        return view('home',['socials' => $socials,'testimonials' => $testimonials]);   
+        
+        $featuredBusses = DB::table('businessinfos')->select("*")
+        ->where('status','=',1)
+        ->where('is_verify','=',1)
+        ->where('is_featured','=',1)
+        ->where('connected_stripe_account_id','!=',NULL)
+        ->orderBy('business_name','asc')->get();
+
+        return view('home',['socials' => $socials,'testimonials' => $testimonials,'featuredBusses'=>$featuredBusses]);   
     }
 
     public function getSearch()

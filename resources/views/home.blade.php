@@ -1,5 +1,4 @@
 @extends('layouts.home')
-
 @section('content')
 <!-- top-banner -->
 <!-- <div class="top-banner overlay1" style="background-image: url({{ asset('public/front/assets/images/top-banner.jpg') }});"> -->
@@ -97,6 +96,32 @@
 </div>
 <!-- business-signup -->
 
+<!-- Featured business -->
+<div class="featured-business-sec sec-padding oh-hidden">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-8 text-center mx-auto mb-4">
+            <h2 class="sec-title">Featured Business</h2>
+            <p class="sec-subtitle">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..</p>
+         </div>
+         <div class="col-12">
+            <div class="slide-4">
+               @foreach ($featuredBusses as $featuredBus)
+               <div class="slide">
+                  <div class="search-result-col">
+                        <h5 class="result-col-title"><a href="{{ url('/store-detail') }}<?php echo "/".base64_encode($featuredBus->id); ?>" style="color: #3e3e3e;font-size: 17px;font-weight: 700;">{{ $featuredBus->business_name }}</a></h5>
+                        <!-- <p class="result-col-subtitle">{{ $featuredBus->address }}, {{ $featuredBus->city }}, {{ $featuredBus->state }}</p> -->
+                        <p class="result-col-subtitle">{{ $featuredBus->address }}</p>
+                        <a href="{{ url('/fill-order-details') }}<?php echo "/".base64_encode($featuredBus->id); ?>" class="btn pickd-btn1 text-white btn-green">Purchase Gift Card</a>
+                  </div>
+               </div>
+               @endforeach
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Featured business -->
 <!-- support-sec -->
 <!-- <div class="support-sec sec-padding overlay1" style="background-image: url({{ asset('public/front/assets/images/support-bg.jpg') }});">
    <div class="container">
@@ -122,7 +147,7 @@
 <!-- support-sec -->
 
 <!-- testimonial-sec -->
-<div class="testimonial-sec sec-padding">
+<div class="testimonial-sec sec-padding sec-bg-light">
    <div class="container">
       <div class="row">
          <div class="col-lg-12">

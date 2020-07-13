@@ -21,16 +21,12 @@ class TestimonialsController extends Controller
         // Create Rules
         if( $id == null ) {
             return Validator::make($data, [
-                'title'        =>      'required',
-                'company_name' =>      'required',
-                'content'      =>      'required',
+                'title'        =>      'required'
             ]);
         // Update Rules     
         } else {
             return Validator::make($data, [
-                'title'        =>      'required',
-                'company_name' =>      'required',
-                'content'      =>      'required',
+                'title'        =>      'required'
             ]);
         }
         
@@ -60,17 +56,23 @@ class TestimonialsController extends Controller
         $input = $request->all();
         $validatedData = $request->validate([
             'title'        => 'required',
-            'company_name' => 'required'
         ]);
   
         $temp          = 'public/temp/';
         $path          = 'public/testimonials/';
+        
+        
 
         $data          = array(
             "title"        => $input['title'],
-            "company_name" => $input['company_name'],
             "content"      => $input['content']
         );
+
+        if($input['company_name']!=''){
+            $data['company_name'] = $input['company_name'];
+        }else{
+            $data['company_name'] = " "; 
+        }
 
         //<--- HASFILE PHOTO
         if( $request->hasFile('photo') ){
@@ -106,8 +108,7 @@ class TestimonialsController extends Controller
         $input = $request->all();
             
         $validatedData = $request->validate([
-            'title'        => 'required',
-            'company_name' => 'required'
+            'title'        => 'required'
         ]);
 
         $temp   = 'public/temp/';
@@ -119,6 +120,12 @@ class TestimonialsController extends Controller
             "company_name" => $input['company_name'],
             "content"      => $input['content']
         );
+
+        if($input['company_name']!=''){
+            $data['company_name'] = $input['company_name'];
+        }else{
+            $data['company_name'] = " "; 
+        }
 
         //<--- HASFILE PHOTO
         if( $request->hasFile('photo') ){

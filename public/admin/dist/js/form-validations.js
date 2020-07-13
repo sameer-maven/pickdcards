@@ -68,9 +68,6 @@ $(document).ready(function(){
             rules: {
                 title: {
                     required: true
-                },
-                company_name: {
-                    required: true
                 }
             }
         });

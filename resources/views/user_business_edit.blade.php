@@ -54,18 +54,18 @@
                            <td>Street Address</td>
                            <td>{{$users->address}}</td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                            <td>City</td>
                            <td>{{$users->city}}</td>
-                        </tr>
-                        <tr>
+                        </tr> -->
+                        <!-- <tr>
                            <td>State</td>
                            <td>{{$users->state}}</td>
-                        </tr>
-                        <tr>
+                        </tr> -->
+                        <!-- <tr>
                            <td>Zip Code</td>
                            <td>{{$users->pincode}}</td>
-                        </tr>
+                        </tr> -->
                         <tr>
                            <td>Business Phone Number</td>
                            <td>{{$users->phone_number}}</td>
@@ -126,6 +126,17 @@
                             </div>
                           </td>
                         </tr>
+                        <tr>
+                          <td>Business Page Url</td>
+                          <?php
+                            if($users->status==1 && $users->is_verify==1 && $users->is_featured==1){
+                              $buss_url = url('/store-detail/'.base64_encode($users->id));
+                            }else{
+                              $buss_url = "Link will be visible when your account verify.";
+                            }
+                          ?>
+                          <td>{{$buss_url}}</td>
+                        </tr>
                      </tbody>
                   </table>
                </div>
@@ -143,13 +154,13 @@
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Street Address <span style="color: red;">*</span></label></div>
-                           <div class="col-lg-7"><input type="text" name="address" class="form-control" placeholder="Business Address" value="{{$users->address}}"></div>
+                           <div class="col-lg-7"><input type="text" name="address" id="address" class="form-control" placeholder="Business Address" value="{{$users->address}}"></div>
                         </div>
-                        <div class="form-group profile-form-group d-flex align-items-center">
+                        <!-- <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">City <span style="color: red;">*</span></label></div>
                            <div class="col-lg-7"><input type="text" name="city" class="form-control" placeholder="City" value="{{$users->city}}"></div>
-                        </div>
-                        <div class="form-group profile-form-group d-flex align-items-center">
+                        </div> -->
+                        <!-- <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">State <span style="color: red;">*</span></label></div>
                            <div class="col-lg-7">
                               <select class="form-control" name="state" id="state">
@@ -159,11 +170,11 @@
                                 @endforeach
                               </select>
                            </div>
-                        </div>
-                        <div class="form-group profile-form-group d-flex align-items-center">
+                        </div> -->
+                        <!-- <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Zip Code <span style="color: red;">*</span></label></div>
                            <div class="col-lg-7"><input type="text" name="pincode" class="form-control" placeholder="Zip Code" value="{{$users->pincode}}"></div>
-                        </div>
+                        </div> -->
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Business Phone Number <span style="color: red;">*</span></label></div>
                            <div class="col-lg-7"><input type="tel" id="phone_number" name="phone_number" class="form-control" placeholder="Phone Number" value="{{$users->phone_number}}"></div>
@@ -254,9 +265,18 @@
 <!-- consumer-detail -->
 @endsection
 
-@section('javascript') 
+@section('javascript')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ2dYr4UDXo--NFstm8vBB31ax_2qWaME&libraries=places"></script> 
 <script type="text/javascript">
   $(document).ready(function(){
+
+    $(window).keydown(function(event){
+      if(event.keyCode == 13) {
+        event.preventDefault();
+        return false;
+      }
+    });
+
     $("#businessIndustryText").text($("#business_industry option:selected" ).text());
     $("#businessTypeText").text($("#business_type option:selected" ).text());
 
@@ -279,17 +299,17 @@
              address: {
                  required: true
              },
-             city: {
-                 required: true
-             },
-             state: {
-                 required: true
-             },
-             pincode: {
-                required: true,
-                minlength : 5,
-                maxlength:5,
-             },
+             // city: {
+             //     required: true
+             // },
+             // state: {
+             //     required: true
+             // },
+             // pincode: {
+             //    required: true,
+             //    minlength : 5,
+             //    maxlength:5,
+             // },
              phone_number: {
                  required: true,
                  minlength : 8
@@ -351,5 +371,21 @@
       definitions: { '#': { validator: "[0-9]", cardinality: 1}} 
    });
 
+</script>
+
+<script type="text/javascript">
+  var address;
+  function initialize() {
+    var input        = document.getElementById('address');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+      var place = autocomplete.getPlace();
+      console.log(place);
+      document.getElementById('address').value = place.formatted_address;
+      document.getElementById('phone_number').value = place.formatted_phone_number;
+    });
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 @endsection

@@ -27,50 +27,51 @@
                   <input type="text" class="form-control" id="business_name" name="business_name" placeholder="Business Name">
                </div>
                <div class="col-lg-12 form-group">
-                  <input type="text" class="form-control" id="address" name="address" placeholder="Street Address">
+                  <input type="text" class="form-control" id="address" name="address" placeholder="Address">
                </div>
-               <div class="col-lg-12 form-group">
+               <!-- <div class="col-lg-12 form-group">
                   <input type="text" class="form-control" id="city" name="city" placeholder="City">
-               </div>
-               <div class="col-lg-12 form-group">
+               </div> -->
+               <!-- <div class="col-lg-12 form-group">
+                  <input type="text" class="form-control" id="state" name="state" placeholder="State">
                   <select class="cstm-select" name="state" id="state">
                     <option value="">Select State</option>
                     @foreach($States as $state)
                     <option value="{{ $state['state_name'] }}">{{ $state['state_name'] }}</option>
                     @endforeach
                   </select>
-               </div>
-               <div class="col-lg-12 form-group">
+               </div> -->
+               <!-- <div class="col-lg-12 form-group">
                   <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Zip Code">
-               </div>
+               </div> -->
                <div class="col-lg-12 form-group">
                   <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="Phone Number">
                </div>
-               <div class="col-lg-12 form-group">
+               <!-- <div class="col-lg-12 form-group">
                   <input type="email" class="form-control" id="email" name="email" placeholder="Business Email">
-               </div>
+               </div> -->
                <div class="col-lg-12 form-group">
-                  <input type="text" class="form-control" id="business_url" name="business_url" placeholder="Business URL">
+                  <input type="text" class="form-control" id="business_url" name="business_url" placeholder="Business Website">
                </div>
-               <div class="col-lg-12 form-group">
+               <!-- <div class="col-lg-12 form-group">
                   <select class="cstm-select" name="business_industry" id="business_industry">
                     <option value="">Select Industry</option>
                     @foreach($Industries as $industry)
                     <option value="{{ $industry['id'] }}">{{ $industry['industry'] }}</option>
                     @endforeach
                   </select>
-               </div>
-               <div class="col-lg-12 form-group">
+               </div> -->
+               <!-- <div class="col-lg-12 form-group">
                   <select class="cstm-select" name="business_type" id="business_type">
                     <option value="">Select Type</option>
                     @foreach($Types as $type)
                     <option value="{{ $type['id'] }}">{{ $type['type'] }}</option>
                     @endforeach
                   </select>
-               </div>
-               <div class="col-lg-12 form-group">
+               </div> -->
+               <!-- <div class="col-lg-12 form-group">
                   <input type="tel" class="form-control" id="tax_id_number" name="tax_id_number" placeholder="Tax ID">
-               </div>
+               </div> -->
                <div class="col-lg-12 form-group">
                   <textarea class="form-control" id="about_business" name="about_business" rows="4" placeholder="Tell us a little about your business"></textarea>
                </div>
@@ -89,6 +90,7 @@
                                     </span>
                                     </label>
                                  </div>
+                                 <span style="color: red;">(* Only PNG image allowed)</span>
                                  <div class="photo-preview">
                                     <img src="" alt="Image Preview" id="img-preview" class="img-responsive" style="display: none; width: 100px; height: 100px">
                                  </div>
@@ -105,8 +107,16 @@
 </div>
 @endsection
 
-@section('javascript') 
+@section('javascript')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ2dYr4UDXo--NFstm8vBB31ax_2qWaME&libraries=places"></script> 
 <script>
+    $(window).keydown(function(event){
+      if(event.keyCode == 13) {
+        event.preventDefault();
+        return false;
+      }
+    });
+
    function readURL(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
@@ -120,21 +130,22 @@
   $(".input-image-preview").change(function(){
     readURL(this);
   });
-   var phones = [{ "mask": "(###) ###-####"}];
-   $('#phone_number').inputmask({ 
-      mask: phones, 
-      greedy: false,
-      clearIncomplete: true, 
-      definitions: { '#': { validator: "[0-9]", cardinality: 1}} 
-   });
 
-   var tax = [{ "mask": "##-#######"}];
-   $('#tax_id_number').inputmask({ 
-      mask: tax, 
-      greedy: false,
-      clearIncomplete: true,
-      definitions: { '#': { validator: "[0-9]", cardinality: 1}} 
-   });
+  var phones = [{ "mask": "(###) ###-####"}];
+  $('#phone_number').inputmask({ 
+    mask: phones, 
+    greedy: false,
+    clearIncomplete: true, 
+    definitions: { '#': { validator: "[0-9]", cardinality: 1}} 
+  });
+
+   // var tax = [{ "mask": "##-#######"}];
+   // $('#tax_id_number').inputmask({ 
+   //    mask: tax, 
+   //    greedy: false,
+   //    clearIncomplete: true,
+   //    definitions: { '#': { validator: "[0-9]", cardinality: 1}} 
+   // });
 
 </script>
 @endsection

@@ -10,34 +10,34 @@ $(document).ready(function() {
                 address: {
                     required: true
                 },
-                city: {
-                    required: true
-                },
-                state: {
-                    required: true
-                },
-                pincode: {
-                    required: true,
-                    minlength : 5,
-                    maxlength:5,
-                },
+                // city: {
+                //     required: true
+                // },
+                // state: {
+                //     required: true
+                // },
+                // pincode: {
+                //     required: true,
+                //     minlength : 5,
+                //     maxlength:5,
+                // },
                 phone_number: {
                     required: true,
                     minlength : 8
                 },
-                email: {
-                    required: true,
-                    email: true
-                },
-                business_industry: {
-                    required: true,
-                },
-                business_type: {
-                    required: true
-                },
-                tax_id_number: {
-                    required: true
-                },
+                // email: {
+                //     required: true,
+                //     email: true
+                // },
+                // business_industry: {
+                //     required: true,
+                // },
+                // business_type: {
+                //     required: true
+                // },
+                // tax_id_number: {
+                //     required: true
+                // },
                 about_business: {
                     required: false
                 }

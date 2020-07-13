@@ -200,10 +200,10 @@ class OrderController extends Controller
             $logoImg   = asset('public/qrcode/Logo.png');
             $logoSize  = 0.3;
 
-            if($user->avatar!='' && $user->avatar!='default.jpg'){
-                $logoImg  = asset('/public/avatar/'.$user->avatar);
-                $logoSize = 0.2;
-            }
+            // if($user->avatar!='' && $user->avatar!='default.jpg'){
+            //     $logoImg  = asset('/public/avatar/'.$user->avatar);
+            //     $logoSize = 0.2;
+            // }
             
             QrCode::format('png')->merge($logoImg,$logoSize,true)->size(300)->errorCorrection('H')->generate('GIFT CARD CODE: '.$card_code, public_path('qrcode/'.$filename));
             $order            = Order::find($order_id);

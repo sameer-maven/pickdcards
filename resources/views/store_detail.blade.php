@@ -32,21 +32,21 @@
                         <td>{{$users->business_name}}</td>
                      </tr>
                      <tr>
-                        <td>Street Address:</td>
+                        <td>Address:</td>
                         <td>{{$users->address}}</td>
                      </tr>
-                     <tr>
+                     <!-- <tr>
                         <td>City:</td>
                         <td>{{$users->city}}</td>
-                     </tr>
-                     <tr>
+                     </tr> -->
+                     <!-- <tr>
                         <td>State:</td>
                         <td>{{$users->state}}</td>
-                     </tr>
-                     <tr>
+                     </tr> -->
+                     <!-- <tr>
                         <td>Zip Code:</td>
                         <td>{{$users->pincode}}</td>
-                     </tr>
+                     </tr> -->
                      <tr>
                         <td>Phone Number:</td>
                         <td>{{$users->phone_number}}</td>

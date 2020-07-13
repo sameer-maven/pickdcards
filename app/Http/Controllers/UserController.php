@@ -80,35 +80,71 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'business_name'     => 'required',
             'address'           => 'required',
-            'city'              => 'required',
-            'state'             => 'required',
-            'pincode'           => 'required',
+            //'city'              => 'required',
+            //'state'             => 'required',
+            //'pincode'           => 'required',
             'phone_number'      => 'required',
-            'email'             => 'required',
-            'business_industry' => 'required',
-            'business_type'     => 'required',
-            'tax_id_number'     => 'required'
+            //'email'             => 'required',
+            //'business_industry' => 'required',
+            //'business_type'     => 'required',
+            //'tax_id_number'     => 'required'
         ]);
 
         $sql                 = New Businessinfo;
         $sql->business_name  = trim($input['business_name']);
         $sql->user_id        = $id;
         $sql->address        = $input['address'];
-        $sql->city           = $input['city'];
-        $sql->state          = $input['state'];
-        $sql->pincode        = $input['pincode'];
-        $sql->phone_number   = $input['phone_number'];
-        $sql->business_email = $input['email'];
 
+        if(isset($input['city']) && !empty($input['city'])){
+            $sql->city             = $input['city'];
+        }else{
+            $sql->city             = ""; 
+        }
+
+        if(isset($input['state']) && !empty($input['state'])){
+            $sql->state             = $input['state'];
+        }else{
+            $sql->state             = ""; 
+        }
+
+        if(isset($input['pincode']) && !empty($input['pincode'])){
+            $sql->pincode             = $input['pincode'];
+        }else{
+            $sql->pincode             = ""; 
+        }
+
+        $sql->phone_number   = $input['phone_number'];
+        
+        if(isset($input['email']) && !empty($input['email'])){
+            $sql->business_email             = $input['email'];
+        }else{
+            $sql->business_email             = ""; 
+        }
+        
         if(isset($input['business_url']) && !empty($input['business_url'])){
             $sql->url             = $input['business_url'];
         }else{
             $sql->url             = ""; 
         }
 
-        $sql->industry_id    = $input['business_industry'];
-        $sql->type_id        = $input['business_type'];
-        $sql->tax_id_number  = $input['tax_id_number'];
+        if(isset($input['business_industry']) && !empty($input['business_industry'])){
+            $sql->industry_id             = $input['business_industry'];
+        }else{
+            $sql->industry_id             = 0; 
+        }
+
+        if(isset($input['business_type']) && !empty($input['business_type'])){
+            $sql->type_id             = $input['business_type'];
+        }else{
+            $sql->type_id             = 0; 
+        }
+
+        if(isset($input['tax_id_number']) && !empty($input['tax_id_number'])){
+            $sql->tax_id_number             = $input['tax_id_number'];
+        }else{
+            $sql->tax_id_number             = ""; 
+        }
+
         $sql->about_business = $input['about_business'];
         $saved               = $sql->save();
         $savedID             = $sql->id;
@@ -652,9 +688,19 @@ class UserController extends Controller
         }   
         $usersBusInfo->business_name  = ucwords($input['business_name']);
         $usersBusInfo->address        = $input['address'];
-        $usersBusInfo->city           = $input['city'];
-        $usersBusInfo->state          = $input['state'];
-        $usersBusInfo->pincode        = $input['pincode'];
+
+        if(isset($input['city']) && !empty($input['city'])){
+            $usersBusInfo->city = $input['city'];
+        }
+
+        if(isset($input['state']) && !empty($input['state'])){
+            $usersBusInfo->state = $input['state'];
+        }
+
+        if(isset($input['pincode']) && !empty($input['pincode'])){
+            $usersBusInfo->pincode = $input['pincode'];
+        }
+
         $usersBusInfo->about_business = $input['about_business'];
         $usersBusInfo->phone_number   = $input['phone_number'];
         $usersBusInfo->business_email = $input['business_email'];
