@@ -1,129 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-.sbm-small-title {
-   font-size: 23px;
-    font-weight: 700;
-    color: #585858;
-}
-.btn.sbm-btn {
-   background:#86C959;
-   color:#ffffff;
-   padding:10px 20px;
-   border:1px solid #86C959;
-   border-radius:30px;
-}
-.btn.sbm-btn:hover {
-   background:#000000;
-   border-color:#86C959;
-   color:#ffffff;
-}
-.sbm-table-bordered.table-light tbody+tbody, .sbm-table-bordered.table-light td, .sbm-table-bordered.table-light th, .sbm-table-bordered.table-light thead th {
-   border-color: #dcdcdc;
-}
-.sbm-table-bordered tbody td:first-child {
-   font-weight: 600;
-}
-.sbm-logo-holder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    padding:20px;
-
-    -ms-flex-align: center !important;
-    align-items: center !important;
-    text-align: center;
-    -ms-flex-pack: center !important;
-    justify-content: center !important;
-    background: #fff;
-}
-.sbm-logo-holder img { 
-   width: 80%;
-   max-width: 355px;
-   object-fit:contain;
-}
-.sbm-table-bordered {
-   margin-bottom:0px;
-}
-.border-radius-5 {
-   border-radius:5px;
-}
-.verify-form .border-radius-5 {
-   border-radius:5px !important;
-}
-.input-group.verify-form .input-group-append {
-    margin-left: 15px;
-}
-
-.input-group.verify-form .form-control {
-    height: auto;
-    border-radius: 5px;
-    box-shadow: none;
-}
-.sbm-table-2 thead {
-    background: #6FB8AC;
-}
-
-.sbm-table-2 thead td {
-   color: #fff;
-   padding: 20px;
-   font-weight: 700;
-}
-.fw-600 {
-   font-weight:600;
-}
-.mb-30 {
-   margin-bottom:30px;
-}
-.sbm-table-2 {
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    overflow: hidden;
-}
-.input-group.verify-form .sbm-btn {
-    padding-left: 40px;
-    padding-right: 40px;
-}
-@media(min-width:768px) {
-   .sbm-table-2 thead td,
-   .sbm-table-2 tbody td {
-      padding-left: 50px;
-   }
-   .sbm-table-2 td:first-child {
-      width: 30%;
-   }
-}
-
-</style>
-<!-- 17-07-20 -->
-<style>
-.gift-list li {
-    position: relative;
-    padding-left: 30px;
-    padding-bottom: 15px;
-}
-.gift-list li:before {
-    position: absolute;
-    content: '\e91c';
-    font-family: 'icomoon' !important;
-    left: 0;
-    color: #86c959;
-    font-size: 20px;
-    top: -3px;
-}
-.sbm-logo-table {
-    height: 100%;
-    /* padding: 20px 0; */
-    border: 1px solid #dee2e6;
-}
-.table-light th, .table-light td{
-   border: 0 !important;
-}
-</style>
 <!-- 17-07-20 -->
 <!-- support-sec -->
-<div class="support-sec sec-padding overlay1 business-support topbanner-padd default-banner" style="background-image: url({{ asset('public/front/assets/images/search-page.png') }});padding: 50px 0;">
+<div class="support-sec sec-padding overlay1 business-support default-banner" style="background-image: url({{ asset('public/front/assets/images/search-page.png') }});padding: 50px 0;">
    <div class="container">
       <div class="row">
          <div class="col-lg-12">
@@ -208,24 +88,24 @@
               <table class="table table-light table-striped  sbm-table-2">
                 <thead>
                    <tr>
-                      <td>Order Details</td>
+                      <td></td>
                       <td></td>
                    </tr>
                 </thead>
                 <tbody>
-                   <tr>
+                   <tr style="display: none;">
                       <td>Customer Name</td>
                       <td id="customer_name"></td>
                    </tr>
-                   <tr>
+                   <tr style="display: none;">
                       <td>Customer Email</td>
                       <td id="customer_email"></td>
                    </tr>
-                   <tr>
+                   <tr style="display: none;">
                       <td>Recipient  Name</td>
                       <td id="recipient_name"></td>
                    </tr>
-                   <tr>
+                   <tr style="display: none;">
                       <td>Recipient  Email</td>
                       <td id="recipient_email"></td>
                    </tr>
