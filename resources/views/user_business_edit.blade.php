@@ -150,7 +150,7 @@
                      <div class="col-lg-8">
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"><label class="mb-0 label-1">Business Name <span style="color: red;">*</span></label></div>
-                           <div class="col-lg-7"> <input type="text" name="business_name" class="form-control" placeholder="Business Name" value="{{$users->business_name}}"></div>
+                           <div class="col-lg-7"> <input type="text" name="business_name" class="form-control" placeholder="Business Name" value="{{$users->business_name}}" readonly style="background: #e9ecef"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Street Address <span style="color: red;">*</span></label></div>

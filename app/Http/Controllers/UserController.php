@@ -22,12 +22,14 @@ use App\Mail\SendEmail;
 use App\Mail\RecipientSendEmail;
 use Auth;
 use DB;
+use URL;
 use Session;
 use Stripe;
 use QrCode;
 use Carbon\Carbon;
 use App\Mail\ResetPasswordEmail;
 use App\Newsletter;
+use Exception;
 
 class UserController extends Controller
 {
@@ -90,10 +92,14 @@ class UserController extends Controller
             //'tax_id_number'     => 'required'
         ]);
 
-        $sql                 = New Businessinfo;
-        $sql->business_name  = trim($input['business_name']);
-        $sql->user_id        = $id;
-        $sql->address        = $input['address'];
+        $sql                = New Businessinfo;
+        $businessName       = trim($input['business_name']);
+        $slug               = $this->createSlug($businessName);
+        
+        $sql->business_name = $businessName;
+        $sql->slug          = $slug;
+        $sql->user_id       = $id;
+        $sql->address       = $input['address'];
 
         if(isset($input['city']) && !empty($input['city'])){
             $sql->city             = $input['city'];
@@ -127,6 +133,9 @@ class UserController extends Controller
             $sql->url             = ""; 
         }
 
+        $filename         = 'bussiness-'.$slug.'-'.str_random(8).'.png';
+        $sql->buss_qrcode = $filename;
+
         if(isset($input['business_industry']) && !empty($input['business_industry'])){
             $sql->industry_id             = $input['business_industry'];
         }else{
@@ -148,6 +157,14 @@ class UserController extends Controller
         $sql->about_business = $input['about_business'];
         $saved               = $sql->save();
         $savedID             = $sql->id;
+
+        $logoImg          = asset('public/bussiness_qrcode/Logo.png');
+        $logoSize         = 0.2;
+        $bussId           = base64_encode($savedID);
+        $base_url         = URL::to('/');
+        $business_url     = $base_url."/business/".$slug;
+
+        QrCode::format('png')->merge($logoImg,$logoSize,true)->size(300)->errorCorrection('H')->generate($business_url, public_path('bussiness_qrcode/'.$filename));
 
         if($saved){
             $user  = User::find($id);
@@ -559,8 +576,11 @@ class UserController extends Controller
             'tax_id_number'     => 'required'
         ]);
 
+        $businessName        = trim($input['business_name']);
+        $slug                = $this->createSlug($businessName);
         $sql                 = New Businessinfo;
-        $sql->business_name  = trim($input['business_name']);
+        $sql->business_name  = $businessName;
+        $sql->slug           = $slug;
         $sql->user_id        = $id;
         $sql->address        = $input['address'];
         $sql->city           = $input['city'];
@@ -574,13 +594,23 @@ class UserController extends Controller
         }else{
             $sql->url             = ""; 
         }
-
+        
+        $filename            = 'bussiness-'.$slug.'-'.str_random(8).'.png';
+        $sql->buss_qrcode    = $filename;
         $sql->industry_id    = $input['business_industry'];
         $sql->type_id        = $input['business_type'];
         $sql->tax_id_number  = $input['tax_id_number'];
         $sql->about_business = $input['about_business'];
         $saved               = $sql->save();
         $savedID             = $sql->id;
+
+        $logoImg  = asset('public/bussiness_qrcode/Logo.png');
+        $logoSize = 0.2;
+        $bussId   = base64_encode($savedID);
+        $base_url = URL::to('/');
+        
+        $business_url = $base_url."/business/".$slug;
+        QrCode::format('png')->merge($logoImg,$logoSize,true)->size(300)->errorCorrection('H')->generate($business_url, public_path('bussiness_qrcode/'.$filename));
 
         if($saved){
             $user  = User::find($id);
@@ -835,5 +865,40 @@ class UserController extends Controller
         }
         return json_encode($response);
     }
+
+    //Slug Functions 
+    public function createSlug($title, $id = 0)
+    {
+        // Normalize the title
+        $slug = str_slug($title);
+
+        // Get any that could possibly be related.
+        // This cuts the queries down by doing it once.
+        $allSlugs = $this->getRelatedSlugs($slug, $id);
+
+        // If we haven't used it before then we are all good.
+        if (! $allSlugs->contains('slug', $slug)){
+            return $slug;
+        }
+
+        // Just append numbers like a savage until we find not used.
+        for ($i = 1; $i <= 10; $i++) {
+            $newSlug = $slug.'-'.$i;
+            if (! $allSlugs->contains('slug', $newSlug)) {
+                return $newSlug;
+            }
+        }
+
+        throw new Exception('Can not create a unique slug');
+    }
+
+    protected function getRelatedSlugs($slug, $id = 0)
+    {
+        return Businessinfo::select('slug')->where('slug', 'like', $slug.'%')
+            ->where('id', '<>', $id)
+            ->get();
+    }
+
+    //Slug Functions ends
 
 }

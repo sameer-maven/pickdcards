@@ -49,12 +49,17 @@ Route::post('/user/store-edit-business','UserController@storeEditBusiness');
 Route::get('/user/orders', 'UserController@ordersList');
 Route::get('/user/order-detail/{id}', 'UserController@orderDetail');
 Route::get('/user/generate-qrcode/{id}','UserController@generateQrcode');
+
 Route::get('/user/redeem-order','UserController@redeemOrder');
-
 Route::get('/user/redeem-amount/{id}/{amount}','UserController@redeemAmount');
-
 Route::post('/user/redeem-order-ajax','UserController@redeemOrderAjax');
 Route::post('/user/transaction-order-ajax','UserController@AllOrderTransactionsAjax');
+
+//Front Order 
+Route::get('/business/{slug}','OrderController@redeemOrder');
+Route::get('/order/redeem-amount/{id}/{amount}','OrderController@redeemAmount');
+Route::post('/order/redeem-order-ajax','OrderController@redeemOrderAjax');
+Route::post('/order/transaction-order-ajax','OrderController@AllOrderTransactionsAjax');
 
 Route::get('/user/stripe-authorization', 'UserController@stripeAuthorization');
 Route::get('/user/stripe-deauthorization/{id}', 'UserController@stripeDeauthorization');

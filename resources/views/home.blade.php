@@ -101,8 +101,8 @@
    <div class="container">
       <div class="row">
          <div class="col-lg-8 text-center mx-auto mb-4">
-            <h2 class="sec-title">Featured Business</h2>
-            <p class="sec-subtitle">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..</p>
+            <h2 class="sec-title">Featured Businesses</h2>
+            <!-- <p class="sec-subtitle">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..</p> -->
          </div>
          <div class="col-12">
             <div class="slide-4">

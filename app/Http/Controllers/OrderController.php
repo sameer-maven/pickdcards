@@ -13,6 +13,7 @@ use App\Order;
 use App\User;
 use App\Businessinfo;
 use App\Helper;
+use App\Transaction;
 use Auth;
 use Image;
 use DB;
@@ -198,7 +199,7 @@ class OrderController extends Controller
             $card_code = $randstr.'-'.$randstr2;
             
             $logoImg   = asset('public/qrcode/Logo.png');
-            $logoSize  = 0.3;
+            $logoSize  = 0.2;
 
             // if($user->avatar!='' && $user->avatar!='default.jpg'){
             //     $logoImg  = asset('/public/avatar/'.$user->avatar);
@@ -278,6 +279,140 @@ class OrderController extends Controller
         $id = base64_decode($id);
         $data['users'] = DB::table('businessinfos')->select("*")->where('id', $id)->first();
         return view('store_detail')->with($data);
+    }
+
+
+    public function redeemOrder($slug)
+    {
+        $data['business'] = DB::table('businessinfos')->select("*")->where('slug', $slug)->first();
+        return view('business_order_redeem')->with($data);
+    }
+
+    public function redeemOrderAjax(Request $request)
+    {
+        
+        $input     = $request->all();
+        $user_id   = $input['user_id'];
+        $gift_code = $input['gift_code'];
+
+        $data = DB::table('orders')->select('*')
+        ->where('user_id',$user_id)
+        ->where('card_code',$gift_code)
+        ->first();
+
+        if(!empty($data) && $data!=""){
+            $response = [
+                'status'           =>'ok',
+                'message'          =>'Code Applied!',
+                'order_id'         => $data->id,
+                'customer_name'    => $data->customer_full_name,
+                'customer_email'   => $data->customer_email,
+                'recipient_name'   => $data->recipient_name,
+                'recipient_email'  => $data->recipient_email,
+                'total_amount'     => $data->balance,
+                'used_amount'      => $data->used_amount,
+                'remaining_amount' => number_format($data->balance - $data->used_amount,2),
+            ];
+        }else{
+            $response = [
+                'status'  =>'error',
+                'message' =>'Record Not Found',
+            ];
+        }
+        return json_encode($response);
+    }
+
+    public function AllOrderTransactionsAjax(Request $request)
+    {
+        $input    = $request->all();
+        $user_id  = $input['user_id'];
+        $order_id = $input['order_id'];
+
+        $transactions = DB::table('transactions')->select('*')->where('order_id',$order_id)->where('user_id',$user_id)->get();
+        
+        if($transactions->count()>0){
+            $table ='';
+            $table.='<table class="table">';
+            $table.='<thead>';
+            $table.='<tr>';
+            $table.='<th scope="col">Amount</th>';
+            $table.='<th scope="col">Date</th>';
+            $table.='</tr>';
+            $table.='</thead>';
+            $table.='<tbody>';
+            foreach( $transactions as $transaction ){
+                $table.='<tr><td>$'.$transaction->tranx_amount.'</td><td>'.$transaction->created_at.'</td></tr>';
+            }
+            $table.='</tbody>';
+            $table.='</table>';
+
+            $response = [
+                'status'           =>'ok',
+                'message'          =>'Success',
+                'table'            => $table,
+            ];
+        }else{
+            $response = [
+                'status'  =>'error',
+                'message' =>'Record Not Found',
+            ];  
+        }
+        return json_encode($response);
+    }
+
+    public function redeemAmount($order_id,$amount)
+    {
+        
+        $uorder      = Order::find($order_id);
+        $appendsMsg  = "";
+        $finalAmount = $uorder->balance - $uorder->used_amount;
+
+        if($amount >= $finalAmount){
+            $appendsMsg = "remaining amount";
+        }
+        
+        if($amount <= $uorder->balance && $uorder->used_amount == 0){
+            $uorder->used_amount = $amount;
+            $ret                 = $uorder->save();
+            if($ret){                
+                $transaction               = new Transaction;
+                $transaction->order_id     = $order_id;
+                $transaction->user_id      = $uorder->user_id;
+                $transaction->tranx_amount = $amount;
+                $transaction->save();
+                $response = [
+                    'save'=>'yes',
+                    'message'=>'Amount Redeemed Successfully.',
+                ];
+                return json_encode($response);
+            } 
+        }elseif($amount <= $finalAmount){
+
+            $transaction               = new Transaction;
+            $transaction->order_id     = $order_id;
+            $transaction->user_id      = $uorder->user_id;
+            $transaction->tranx_amount = $amount;
+            $transaction->save();
+
+            $amount              = $uorder->used_amount+$amount;
+            $uorder->used_amount = $amount;
+            $ret                 = $uorder->save();
+
+            if($ret){
+                $response = [
+                    'save'=>'yes',
+                    'message'=>'Amount Redeemed Successfully.',
+                ];
+                return json_encode($response);
+            }
+        }
+        else{
+            $response = [
+                'save'=>'no',
+                'message'=>'Amount should be less or equal to '.$appendsMsg,
+            ];
+            return json_encode($response);
+        }          
     }
 
 }
