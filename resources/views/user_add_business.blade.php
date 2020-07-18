@@ -29,20 +29,20 @@
                <div class="col-lg-12 form-group">
                   <input type="text" class="form-control" id="address" name="address" placeholder="Street Address">
                </div>
-               <div class="col-lg-12 form-group">
+               <!-- <div class="col-lg-12 form-group">
                   <input type="text" class="form-control" id="city" name="city" placeholder="City">
-               </div>
-               <div class="col-lg-12 form-group">
+               </div> -->
+               <!-- <div class="col-lg-12 form-group">
                   <select class="cstm-select" name="state" id="state">
                     <option value="">Select State</option>
                     @foreach($States as $state)
                     <option value="{{ $state['state_name'] }}">{{ $state['state_name'] }}</option>
                     @endforeach
                   </select>
-               </div>
-               <div class="col-lg-12 form-group">
+               </div> -->
+               <!-- <div class="col-lg-12 form-group">
                   <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Zip Code">
-               </div>
+               </div> -->
                <div class="col-lg-12 form-group">
                   <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="Phone Number">
                </div>
@@ -105,7 +105,8 @@
 </div>
 @endsection
 
-@section('javascript') 
+@section('javascript')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ2dYr4UDXo--NFstm8vBB31ax_2qWaME&libraries=places"></script> 
 <script>
    function readURL(input) {
     if (input.files && input.files[0]) {
@@ -134,5 +135,21 @@
       definitions: { '#': { validator: "[0-9]", cardinality: 1}} 
    });
 
+</script>
+<script type="text/javascript">
+  var address;
+  function initialize() {
+    var input        = document.getElementById('address');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+      var place = autocomplete.getPlace();
+      console.log(place);
+      document.getElementById('address').value = place.formatted_address;
+      document.getElementById('phone_number').value = place.formatted_phone_number;
+      document.getElementById('business_name').value = place.name;
+    });
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 @endsection

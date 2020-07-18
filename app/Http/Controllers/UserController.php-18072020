@@ -566,9 +566,9 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'business_name'     => 'required',
             'address'           => 'required',
-            // 'city'              => 'required',
-            // 'state'             => 'required',
-            // 'pincode'           => 'required',
+            'city'              => 'required',
+            'state'             => 'required',
+            'pincode'           => 'required',
             'phone_number'      => 'required',
             'email'             => 'required',
             'business_industry' => 'required',
@@ -583,23 +583,9 @@ class UserController extends Controller
         $sql->slug           = $slug;
         $sql->user_id        = $id;
         $sql->address        = $input['address'];
-        if(isset($input['city']) && !empty($input['city'])){
-            $sql->city             = $input['city'];
-        }else{
-            $sql->city             = ""; 
-        }
-
-        if(isset($input['state']) && !empty($input['state'])){
-            $sql->state             = $input['state'];
-        }else{
-            $sql->state             = ""; 
-        }
-
-        if(isset($input['pincode']) && !empty($input['pincode'])){
-            $sql->pincode             = $input['pincode'];
-        }else{
-            $sql->pincode             = ""; 
-        }
+        $sql->city           = $input['city'];
+        $sql->state          = $input['state'];
+        $sql->pincode        = $input['pincode'];
         $sql->phone_number   = $input['phone_number'];
         $sql->business_email = $input['email'];
 
