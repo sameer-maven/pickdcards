@@ -2,6 +2,87 @@
 
 @section('content')
 <!-- support-sec -->
+<style>
+.sbm-small-title {
+   font-size: 23px;
+    font-weight: 700;
+    color: #585858;
+}
+.btn.sbm-btn {
+   background:#86C959;
+   color:#ffffff;
+   padding:10px 20px;
+   border:1px solid #86C959;
+   border-radius:30px;
+}
+.btn.sbm-btn:hover {
+   background:#000000;
+   border-color:#86C959;
+   color:#ffffff;
+}
+.sbm-table-bordered.table-light tbody+tbody, .sbm-table-bordered.table-light td, .sbm-table-bordered.table-light th, .sbm-table-bordered.table-light thead th {
+   border-color: #dcdcdc;
+}
+.sbm-table-bordered tbody td:first-child {
+   font-weight: 600;
+}
+.sbm-logo-holder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding:20px;
+
+    -ms-flex-align: center !important;
+    align-items: center !important;
+    text-align: center;
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+    /*background: #fff;*/
+}
+.sbm-logo-holder img { 
+   width: 60%;
+   max-width: 355px;
+   object-fit:content;
+}
+.sbm-table-bordered {
+   margin-bottom:0px;
+}
+.sbm-icon-list-1 {
+    list-style: none;
+    padding:0px;
+}
+.sbm-icon-list-1 li {
+   position: relative;
+   padding: 8px 8px 8px 36px;
+   border-bottom: 1px solid #f1f1f1;
+   color:#282828;
+}
+.sbm-icon-list-1 li:last-child {
+  border: none;
+}
+.sbm-icon-list-1 li a {
+   color:#282828;
+}
+.sbm-icon-list-1 li i { 
+   position: absolute;
+    top: 11px;
+    left: 10px;
+    font-size: 20px;
+    color: #86c959;
+}
+.sbm-icon-list-1 li:first-child {
+    border-top: none;
+}
+/* .sbm-icon-list-1 li:last-child {
+    border-bottom: none;
+} */
+.sbm-list-wrapper {
+   background: #fff;
+    box-shadow: 0 2px 5px 0px rgb(0 0 0 / 0.2); 
+    -webkit-box-shadow: 0 2px 5px 0px rgb(0 0 0 / 0.2); 
+    padding: 20px;
+}
+</style>
 <div class="support-sec sec-padding overlay1 business-support topbanner-padd default-banner" style="background-image: url({{ asset('public/front/assets/images/page-banner.jpg') }});padding: 50px 0;">
    <div class="container">
       <div class="row">
@@ -24,39 +105,13 @@
             </div>
          </div>
          <div class="col-md-6 col-lg-5">
-            <div class="sbm-logo-table">
-               <table class="table table-light sbm-table-bordered table-strip table-striped table-bordered">
-                  <tbody>
-                     <tr>
-                        <td>Business Name:</td>
-                        <td>{{$users->business_name}}</td>
-                     </tr>
-                     <tr>
-                        <td>Address:</td>
-                        <td>{{$users->address}}</td>
-                     </tr>
-                     <!-- <tr>
-                        <td>City:</td>
-                        <td>{{$users->city}}</td>
-                     </tr> -->
-                     <!-- <tr>
-                        <td>State:</td>
-                        <td>{{$users->state}}</td>
-                     </tr> -->
-                     <!-- <tr>
-                        <td>Zip Code:</td>
-                        <td>{{$users->pincode}}</td>
-                     </tr> -->
-                     <tr>
-                        <td>Phone Number:</td>
-                        <td>{{$users->phone_number}}</td>
-                     </tr>
-                     <tr>
-                        <td>Business URL:</td>
-                        <td>{{$users->url}}</td>
-                     </tr>
-                  </tbody>
-               </table>
+            <div class="sbm-list-wrapper">
+               <ul class="sbm-icon-list-1">
+                  <li><i class="fa fa-map-marker"></i> {{$users->address}}</li>
+                  <li><i class="fa fa-phone"></i> <a href="tel:{{$users->phone_number}}">{{$users->phone_number}}</a></li>
+                  <li><i class="fa fa-globe"></i> <a href="{{$users->url}}" target="_blank">{{$users->url}}</a></li>
+               </ul>
+               <div class="text-center mt-4"> <a href="{{ url('/fill-order-details') }}<?php echo "/".base64_encode($users->id); ?>" class="btn sbm-btn">Purchase Gift Card</a></div>
             </div>
          </div>
       </div>
@@ -69,9 +124,9 @@
          <div class="product-detail-wrap text-center"> 
             <h3 class="sbm-small-title mb-4">About The Business</h3>
             <div class="product-txt" style="text-align: justify;">{{ $users->about_business }}</div>
-            <div class="text-center mt-4">
+            <!-- <div class="text-center mt-4">
                <a href="{{ url('/fill-order-details') }}<?php echo "/".base64_encode($users->id); ?>" class="btn sbm-btn">Purchase Gift Card</a>
-            </div>
+            </div> -->
          </div>
          </div>
       </div>

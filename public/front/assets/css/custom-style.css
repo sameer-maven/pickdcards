@@ -215,7 +215,7 @@ strong {
     text-align: center;
     -ms-flex-pack: center !important;
     justify-content: center !important;
-    background: #fff;
+    /*background: #fff;*/
 }
 .sbm-logo-holder img { 
    width: 60%;
@@ -337,7 +337,7 @@ a.btn.pickd-btn1 {
     text-align: center;
     -ms-flex-pack: center !important;
     justify-content: center !important;
-    background: #fff;
+    /*background: #fff;*/
 }
 .sbm-logo-holder img { 
    width: 60%;

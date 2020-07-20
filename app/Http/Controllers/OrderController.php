@@ -22,6 +22,7 @@ use App\Type;
 use Session;
 use Stripe;
 use QrCode;
+use URL;
 
 class OrderController extends Controller
 {
@@ -36,8 +37,15 @@ class OrderController extends Controller
         $logoImg   = asset('public/qrcode/Logo.png');
         $randstr   = Helper::generateRandomString(4);
         $randstr2  = Helper::generateRandomString(4);
+        
         $card_code = $randstr.'-'.$randstr2;
-        $image     = QrCode::format('png')->merge($logoImg,0.3,true)->size(300)->errorCorrection('H')->generate('GIFT CARD CODE: '.$card_code, public_path('qrcode/'.$filename));  
+        $redeem_page_url = URL::to('/')."/business/".base64_encode(12)."/".$card_code;
+
+        $html = "";
+        $html.= "GIFT CARD CODE: ".$card_code;
+        $html.= "<br><br> REDEEM PAGE URL: ".$redeem_page_url;
+
+        $image     = QrCode::format('png')->merge($logoImg,0.3,true)->size(300)->errorCorrection('H')->generate($html, public_path('qrcode/'.$filename));  
     }
 
     /**
@@ -189,7 +197,7 @@ class OrderController extends Controller
             
             $order = Order::find($order_id);
             
-            $user = DB::table('businessinfos')->select("*")->where('id', $order->user_id)->first();
+            $user = DB::table('businessinfos')->select("*")->where('id', $order->business_id)->first();
 
             $business_name = str_replace(' ', '', $user->business_name);
 
@@ -205,8 +213,14 @@ class OrderController extends Controller
             //     $logoImg  = asset('/public/avatar/'.$user->avatar);
             //     $logoSize = 0.2;
             // }
+
+            $redeem_page_url = URL::to('/')."/business/".base64_encode($user->id)."/".$card_code;
             
-            QrCode::format('png')->merge($logoImg,$logoSize,true)->size(300)->errorCorrection('H')->generate('GIFT CARD CODE: '.$card_code, public_path('qrcode/'.$filename));
+            $html = "";
+            $html.= "GIFT CARD CODE: ".$card_code;
+            $html.= "<br><br>REDEEM AMOUNT: ".$redeem_page_url;
+
+            QrCode::format('png')->merge($logoImg,$logoSize,true)->size(300)->errorCorrection('H')->generate($html, public_path('qrcode/'.$filename));
             $order            = Order::find($order_id);
             $order->status    = 1;
             $order->qrcode    = $filename;
