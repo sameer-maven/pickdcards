@@ -129,7 +129,7 @@
                         <tr>
                           <td>Business Page Url</td>
                           <?php
-                            if($users->status==1 && $users->is_verify==1 && $users->is_featured==1){
+                            if($users->status==1 && $users->is_verify==1){
                               $buss_url = url('/store/'.$users->slug);
                             }else{
                               $buss_url = "Link will be visible when your account verify.";
