@@ -46,9 +46,9 @@
                <div class="col-lg-12 form-group">
                   <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="Phone Number">
                </div>
-               <div class="col-lg-12 form-group">
+               <!-- <div class="col-lg-12 form-group">
                   <input type="email" class="form-control" id="email" name="email" placeholder="Business Email">
-               </div>
+               </div> -->
                <div class="col-lg-12 form-group">
                   <input type="text" class="form-control" id="business_url" name="business_url" placeholder="Business URL">
                </div>
@@ -60,17 +60,17 @@
                     @endforeach
                   </select>
                </div>
-               <div class="col-lg-12 form-group">
+               <!-- <div class="col-lg-12 form-group">
                   <select class="cstm-select" name="business_type" id="business_type">
                     <option value="">Select Type</option>
                     @foreach($Types as $type)
                     <option value="{{ $type['id'] }}">{{ $type['type'] }}</option>
                     @endforeach
                   </select>
-               </div>
-               <div class="col-lg-12 form-group">
+               </div> -->
+               <!-- <div class="col-lg-12 form-group">
                   <input type="tel" class="form-control" id="tax_id_number" name="tax_id_number" placeholder="Tax ID">
-               </div>
+               </div> -->
                <div class="col-lg-12 form-group">
                   <textarea class="form-control" id="about_business" name="about_business" rows="4" placeholder="Tell us a little about your business"></textarea>
                </div>
@@ -97,7 +97,7 @@
                         </div>
             </div>
             <div class="mt-4 text-center">
-              <button type="submit" class="btn btn-primary bus-profile-btn">Confirm</button>
+              <button type="submit" class="btn btn-primary bus-profile-btn">Add Business</button>
             </div>
          </form>
       </div>
@@ -108,6 +108,12 @@
 @section('javascript')
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ2dYr4UDXo--NFstm8vBB31ax_2qWaME&libraries=places"></script> 
 <script>
+    $(window).keydown(function(event){
+      if(event.keyCode == 13) {
+        event.preventDefault();
+        return false;
+      }
+    });
    function readURL(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
@@ -139,15 +145,26 @@
 <script type="text/javascript">
   var address;
   function initialize() {
-    var input        = document.getElementById('address');
+    var input        = document.getElementById('business_name');
     var autocomplete = new google.maps.places.Autocomplete(input);
 
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
       var place = autocomplete.getPlace();
       console.log(place);
-      document.getElementById('address').value = place.formatted_address;
-      document.getElementById('phone_number').value = place.formatted_phone_number;
-      document.getElementById('business_name').value = place.name;
+
+      if(place.formatted_address){
+        document.getElementById('address').value = place.formatted_address;
+      }
+
+      if(place.formatted_phone_number){
+        document.getElementById('phone_number').value = place.formatted_phone_number;
+      }
+      if(place.name){
+        document.getElementById('business_name').value = place.name;
+      }
+      if(place.website){
+        document.getElementById('business_url').value = place.website;
+      }
     });
   }
   google.maps.event.addDomListener(window, 'load', initialize);

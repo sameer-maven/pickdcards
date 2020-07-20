@@ -72,7 +72,7 @@
                         <tr>
                            <!-- <td style="width: 10%;">#{{$business->id}}</td> -->
                            <td style="width: 25%;">{{$business->business_name}}</td>
-                           <td style="width: 50%;"><?php echo $business->address.", ".$business->city.", ".$business->state.", ".$business->pincode; ?></td>
+                           <td style="width: 50%;"><?php echo $business->address; ?></td>
                            <?php 
                              if( $business->status == '1' ) {
                                  $mode    = 'success';

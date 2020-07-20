@@ -280,9 +280,10 @@ class OrderController extends Controller
     }
 
 
-    public function redeemOrder($slug)
+    public function redeemOrder($id)
     {
-        $data['business'] = DB::table('businessinfos')->select("*")->where('slug', $slug)->first();
+        $id = base64_decode($id);
+        $data['business'] = DB::table('businessinfos')->select("*")->where('id', $id)->first();
         return view('business_order_redeem')->with($data);
     }
 

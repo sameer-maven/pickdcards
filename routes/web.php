@@ -57,7 +57,7 @@ Route::post('/user/redeem-order-ajax','UserController@redeemOrderAjax');
 Route::post('/user/transaction-order-ajax','UserController@AllOrderTransactionsAjax');
 
 //Front Order 
-Route::get('/business/{slug}','OrderController@redeemOrder');
+Route::get('/business/{id}','OrderController@redeemOrder');
 Route::get('/order/redeem-amount/{id}/{amount}','OrderController@redeemAmount');
 Route::post('/order/redeem-order-ajax','OrderController@redeemOrderAjax');
 Route::post('/order/transaction-order-ajax','OrderController@AllOrderTransactionsAjax');

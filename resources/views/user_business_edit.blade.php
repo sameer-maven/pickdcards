@@ -130,12 +130,20 @@
                           <td>Business Page Url</td>
                           <?php
                             if($users->status==1 && $users->is_verify==1 && $users->is_featured==1){
-                              $buss_url = url('/store-detail/'.base64_encode($users->id));
+                              $buss_url = url('/store/'.$users->slug);
                             }else{
                               $buss_url = "Link will be visible when your account verify.";
                             }
                           ?>
                           <td>{{$buss_url}}</td>
+                        </tr>
+                        <tr>
+                          <td>Business Redeem Page Qr Code</td>
+                          <td>
+                            <div class="profile-img" style="height: auto;">
+                               <img src="{{ asset('public/bussiness_qrcode/'.$users->buss_qrcode) }}">
+                            </div>
+                          </td>
                         </tr>
                      </tbody>
                   </table>
@@ -150,7 +158,7 @@
                      <div class="col-lg-8">
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"><label class="mb-0 label-1">Business Name <span style="color: red;">*</span></label></div>
-                           <div class="col-lg-7"> <input type="text" id="business_name" name="business_name" class="form-control" placeholder="Business Name" value="{{$users->business_name}}" readonly style="background: #e9ecef"></div>
+                           <div class="col-lg-7"> <input type="text" id="business_name" name="business_name" class="form-control" placeholder="Business Name" value="{{$users->business_name}}" ></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Street Address <span style="color: red;">*</span></label></div>
@@ -185,7 +193,7 @@
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Business URL</label></div>
-                           <div class="col-lg-7"><input type="text" name="url" class="form-control" placeholder="Business URL" value="{{$users->url}}"></div>
+                           <div class="col-lg-7"><input type="text" id="business_url" name="url" class="form-control" placeholder="Business URL" value="{{$users->url}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Industry <span style="color: red;">*</span></label></div>
@@ -376,15 +384,24 @@
 <script type="text/javascript">
   var address;
   function initialize() {
-    var input        = document.getElementById('address');
+    var input        = document.getElementById('business_name');
     var autocomplete = new google.maps.places.Autocomplete(input);
 
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
       var place = autocomplete.getPlace();
       console.log(place);
-      document.getElementById('address').value = place.formatted_address;
-      document.getElementById('phone_number').value = place.formatted_phone_number;
-      document.getElementById('business_name').value = place.name;
+      if(place.formatted_address){
+        document.getElementById('address').value = place.formatted_address;
+      }
+      if(place.formatted_phone_number){
+        document.getElementById('phone_number').value = place.formatted_phone_number;
+      }
+      if(place.name){
+        document.getElementById('business_name').value = place.name;
+      }
+      if(place.website){
+        document.getElementById('business_url').value = place.website;
+      }
     });
   }
   google.maps.event.addDomListener(window, 'load', initialize);

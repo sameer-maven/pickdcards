@@ -109,7 +109,7 @@
                @foreach ($featuredBusses as $featuredBus)
                <div class="slide">
                   <div class="search-result-col">
-                        <h5 class="result-col-title"><a href="{{ url('/store-detail') }}<?php echo "/".base64_encode($featuredBus->id); ?>" style="color: #3e3e3e;font-size: 17px;font-weight: 700;">{{ $featuredBus->business_name }}</a></h5>
+                        <h5 class="result-col-title"><a href="{{ url('/store') }}<?php echo "/".$featuredBus->slug; ?>" style="color: #3e3e3e;font-size: 17px;font-weight: 700;">{{ $featuredBus->business_name }}</a></h5>
                         <!-- <p class="result-col-subtitle">{{ $featuredBus->address }}, {{ $featuredBus->city }}, {{ $featuredBus->state }}</p> -->
                         <p class="result-col-subtitle">{{ $featuredBus->address }}</p>
                         <a href="{{ url('/fill-order-details') }}<?php echo "/".base64_encode($featuredBus->id); ?>" class="btn pickd-btn1 text-white btn-green">Purchase Gift Card</a>

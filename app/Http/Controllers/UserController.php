@@ -87,7 +87,7 @@ class UserController extends Controller
             //'pincode'           => 'required',
             'phone_number'      => 'required',
             //'email'             => 'required',
-            //'business_industry' => 'required',
+            'business_industry' => 'required',
             //'business_type'     => 'required',
             //'tax_id_number'     => 'required'
         ]);
@@ -154,6 +154,25 @@ class UserController extends Controller
             $sql->tax_id_number             = ""; 
         }
 
+        $new_filename = 'default.jpg';
+
+        if(!empty($input['business_industry']) && $input['business_industry']== 1) {
+            $new_filename = 'entertainment.png';
+        }elseif ($input['business_industry']== 2) {
+            $new_filename = 'food.png';
+        }elseif ($input['business_industry']== 3) {
+            $new_filename = 'beauty.png';
+        }elseif ($input['business_industry']== 4) {
+            $new_filename = 'hospitality.png';
+        }elseif ($input['business_industry']== 5) {
+            $new_filename = 'retail.png';
+        }elseif ($input['business_industry']== 6) {
+            $new_filename = 'service.png';
+        }else{
+            $new_filename = 'other.png';
+        }
+
+        $sql->avatar         = $new_filename;
         $sql->about_business = $input['about_business'];
         $saved               = $sql->save();
         $savedID             = $sql->id;
@@ -162,7 +181,7 @@ class UserController extends Controller
         $logoSize         = 0.2;
         $bussId           = base64_encode($savedID);
         $base_url         = URL::to('/');
-        $business_url     = $base_url."/business/".$slug;
+        $business_url     = $base_url."/business/".$bussId;
 
         QrCode::format('png')->merge($logoImg,$logoSize,true)->size(300)->errorCorrection('H')->generate($business_url, public_path('bussiness_qrcode/'.$filename));
 
@@ -570,10 +589,10 @@ class UserController extends Controller
             // 'state'             => 'required',
             // 'pincode'           => 'required',
             'phone_number'      => 'required',
-            'email'             => 'required',
+            //'email'             => 'required',
             'business_industry' => 'required',
-            'business_type'     => 'required',
-            'tax_id_number'     => 'required'
+            //'business_type'     => 'required',
+            //'tax_id_number'     => 'required'
         ]);
 
         $businessName        = trim($input['business_name']);
@@ -601,7 +620,12 @@ class UserController extends Controller
             $sql->pincode             = ""; 
         }
         $sql->phone_number   = $input['phone_number'];
-        $sql->business_email = $input['email'];
+
+        if(isset($input['email']) && !empty($input['email'])){
+            $sql->business_email = $input['email'];
+        }else{
+            $sql->business_email = "";
+        }
 
         if(isset($input['business_url']) && !empty($input['business_url'])){
             $sql->url             = $input['business_url'];
@@ -612,8 +636,39 @@ class UserController extends Controller
         $filename            = 'bussiness-'.$slug.'-'.str_random(8).'.png';
         $sql->buss_qrcode    = $filename;
         $sql->industry_id    = $input['business_industry'];
-        $sql->type_id        = $input['business_type'];
-        $sql->tax_id_number  = $input['tax_id_number'];
+
+        if(isset($input['business_type']) && !empty($input['business_type'])){
+            $sql->type_id        = $input['business_type'];
+        }else{
+            $sql->type_id        = 0;
+        }
+
+        $new_filename = 'default.jpg';
+
+        if(!empty($input['business_industry']) && $input['business_industry']== 1) {
+            $new_filename = 'entertainment.png';
+        }elseif ($input['business_industry']== 2) {
+            $new_filename = 'food.png';
+        }elseif ($input['business_industry']== 3) {
+            $new_filename = 'beauty.png';
+        }elseif ($input['business_industry']== 4) {
+            $new_filename = 'hospitality.png';
+        }elseif ($input['business_industry']== 5) {
+            $new_filename = 'retail.png';
+        }elseif ($input['business_industry']== 6) {
+            $new_filename = 'service.png';
+        }else{
+            $new_filename = 'other.png';
+        }
+
+        $sql->avatar         = $new_filename;
+
+        if(isset($input['tax_id_number']) && !empty($input['tax_id_number'])){
+            $sql->tax_id_number        = $input['tax_id_number'];
+        }else{
+            $sql->tax_id_number        = "";
+        }
+
         $sql->about_business = $input['about_business'];
         $saved               = $sql->save();
         $savedID             = $sql->id;
@@ -623,7 +678,7 @@ class UserController extends Controller
         $bussId   = base64_encode($savedID);
         $base_url = URL::to('/');
         
-        $business_url = $base_url."/business/".$slug;
+        $business_url = $base_url."/business/".$bussId;
         QrCode::format('png')->merge($logoImg,$logoSize,true)->size(300)->errorCorrection('H')->generate($business_url, public_path('bussiness_qrcode/'.$filename));
 
         if($saved){

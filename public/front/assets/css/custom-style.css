@@ -218,7 +218,7 @@ strong {
     background: #fff;
 }
 .sbm-logo-holder img { 
-   width: 80%;
+   width: 60%;
    max-width: 355px;
    object-fit:content;
 }
@@ -340,7 +340,7 @@ a.btn.pickd-btn1 {
     background: #fff;
 }
 .sbm-logo-holder img { 
-   width: 80%;
+   width: 60%;
    max-width: 355px;
    object-fit:contain;
 }

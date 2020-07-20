@@ -53,14 +53,14 @@
                <div class="col-lg-12 form-group">
                   <input type="text" class="form-control" id="business_url" name="business_url" placeholder="Business Website">
                </div>
-               <!-- <div class="col-lg-12 form-group">
+               <div class="col-lg-12 form-group">
                   <select class="cstm-select" name="business_industry" id="business_industry">
                     <option value="">Select Industry</option>
                     @foreach($Industries as $industry)
                     <option value="{{ $industry['id'] }}">{{ $industry['industry'] }}</option>
                     @endforeach
                   </select>
-               </div> -->
+               </div>
                <!-- <div class="col-lg-12 form-group">
                   <select class="cstm-select" name="business_type" id="business_type">
                     <option value="">Select Type</option>
@@ -77,7 +77,7 @@
                </div>
                 <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Business Logo</label></div>
-                           <div class="col-lg-7">
+                           <div class="col-lg-8">
                               <div class="upload-photo">
                                  <div class="photo-wrap">
                                     <label for="file_upload_image" id="custom-file-upload" class="custom-file-upload mb-0">
@@ -151,15 +151,25 @@
 <script type="text/javascript">
   var address;
   function initialize() {
-    var input        = document.getElementById('address');
+    var input        = document.getElementById('business_name');
+    //var input        = document.getElementById('address');
     var autocomplete = new google.maps.places.Autocomplete(input);
 
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
       var place = autocomplete.getPlace();
       console.log(place);
-      document.getElementById('address').value = place.formatted_address;
-      document.getElementById('phone_number').value = place.formatted_phone_number;
-      document.getElementById('business_name').value = place.name;
+      if(place.formatted_address){
+        document.getElementById('address').value = place.formatted_address;
+      }
+      if(place.formatted_phone_number){
+        document.getElementById('phone_number').value = place.formatted_phone_number;
+      }
+      if(place.name){
+        document.getElementById('business_name').value = place.name;
+      }
+      if(place.website){
+        document.getElementById('business_url').value = place.website;
+      }
     });
   }
   google.maps.event.addDomListener(window, 'load', initialize);

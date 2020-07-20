@@ -29,9 +29,9 @@ $(document).ready(function() {
                 //     required: true,
                 //     email: true
                 // },
-                // business_industry: {
-                //     required: true,
-                // },
+                business_industry: {
+                    required: true,
+                },
                 // business_type: {
                 //     required: true
                 // },
@@ -40,6 +40,11 @@ $(document).ready(function() {
                 // },
                 about_business: {
                     required: false
+                }
+            },
+            messages: {
+                business_industry: {
+                    required: "Please select below business industry"
                 }
             }
         });
