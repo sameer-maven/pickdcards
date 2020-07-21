@@ -183,7 +183,7 @@ class UserController extends Controller
         $base_url         = URL::to('/');
         $business_url     = $base_url."/business/".$bussId;
 
-        QrCode::format('png')->merge($logoImg,$logoSize,true)->size(300)->errorCorrection('H')->generate($business_url, public_path('bussiness_qrcode/'.$filename));
+        QrCode::format('png')->merge($logoImg,$logoSize,true)->size(300)->color(222, 82, 70)->errorCorrection('H')->generate($business_url, public_path('bussiness_qrcode/'.$filename));
 
         if($saved){
             $user  = User::find($id);
@@ -602,6 +602,7 @@ class UserController extends Controller
         $sql->slug           = $slug;
         $sql->user_id        = $id;
         $sql->address        = $input['address'];
+
         if(isset($input['city']) && !empty($input['city'])){
             $sql->city             = $input['city'];
         }else{
@@ -619,6 +620,7 @@ class UserController extends Controller
         }else{
             $sql->pincode             = ""; 
         }
+        
         $sql->phone_number   = $input['phone_number'];
 
         if(isset($input['email']) && !empty($input['email'])){
@@ -679,7 +681,7 @@ class UserController extends Controller
         $base_url = URL::to('/');
         
         $business_url = $base_url."/business/".$bussId;
-        QrCode::format('png')->merge($logoImg,$logoSize,true)->size(300)->errorCorrection('H')->generate($business_url, public_path('bussiness_qrcode/'.$filename));
+        QrCode::format('png')->merge($logoImg,$logoSize,true)->size(300)->color(222, 82, 70)->errorCorrection('H')->generate($business_url, public_path('bussiness_qrcode/'.$filename));
 
         if($saved){
             $user  = User::find($id);
@@ -800,17 +802,34 @@ class UserController extends Controller
             $usersBusInfo->pincode = $input['pincode'];
         }
 
-        $usersBusInfo->about_business = $input['about_business'];
-        $usersBusInfo->phone_number   = $input['phone_number'];
-        $usersBusInfo->business_email = $input['business_email'];
+        if(isset($input['about_business']) && !empty($input['about_business'])){
+            $usersBusInfo->about_business = $input['about_business'];
+        }
+
+        if(isset($input['phone_number']) && !empty($input['phone_number'])){
+            $usersBusInfo->phone_number   = $input['phone_number'];
+        }
+
+        if(isset($input['business_email']) && !empty($input['business_email'])){
+            $usersBusInfo->business_email = $input['business_email'];
+        }
         
         if(isset($input['url']) && !empty($input['url'])){
             $usersBusInfo->url = $input['url'];
         }
 
-        $usersBusInfo->tax_id_number = $input['tax_id_number'];
-        $usersBusInfo->industry_id   = $input['business_industry'];
-        $usersBusInfo->type_id       = $input['business_type'];
+        if(isset($input['tax_id_number']) && !empty($input['tax_id_number'])){
+            $usersBusInfo->tax_id_number = $input['tax_id_number'];
+        }
+
+        if(isset($input['business_industry']) && !empty($input['business_industry'])){
+            $usersBusInfo->industry_id   = $input['business_industry'];
+        }
+
+        if(isset($input['business_type']) && !empty($input['business_type'])){
+            $usersBusInfo->type_id       = $input['business_type'];
+        }
+
         $usersBusInfo->status        = $input['status'];
         $usersBusInfo->save(); 
 

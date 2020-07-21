@@ -114,6 +114,7 @@
                   <li><i class="fa fa-phone"></i> <a href="tel:{{$business->phone_number}}">{{$business->phone_number}}</a></li>
                   <li><i class="fa fa-globe"></i> <a href="{{$business->url}}" target="_blank">{{$business->url}}</a></li>
                </ul>
+               <div class="text-center mt-4"> <a href="{{ url('/fill-order-details') }}<?php echo "/".base64_encode($business->id); ?>" class="btn sbm-btn">Purchase Gift Card</a></div>
             </div>
          </div>
       </div>
@@ -135,8 +136,8 @@
                <li>Scan the QR code to reveal the Gift Card Code.</li>
                <li>Enter the 8-digit Gift Card Code below.</li>
                <li>Check if the code is valid.</li>
-               <li>Enter a redeem amount less than or equal to the remaining amount.</li>
                <li>Click Redeem.</li>
+               <li>Enter a redeem amount less than or equal to the remaining amount.</li>
             </ul>
          </div>
             <form action="">

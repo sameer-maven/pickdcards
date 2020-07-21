@@ -22,6 +22,9 @@
         @endif
          <form class="mt-4" id="profileFrm" method="POST" action="{{ url('/user/store-add-business') }}" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" class="form-control" id="city" name="city">
+            <input type="hidden" class="form-control" id="state" name="state">
+            <input type="hidden" class="form-control" id="pincode" name="pincode">
             <div class="row">
                <div class="col-lg-12 form-group">
                   <input type="text" class="form-control" id="business_name" name="business_name" placeholder="Business Name">
@@ -75,7 +78,10 @@
                   <textarea class="form-control" id="about_business" name="about_business" rows="4" placeholder="Tell us a little about your business"></textarea>
                </div>
                 <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Business Logo</label></div>
+                          <div class="col-lg-5"> 
+                            <label class="mb-0 label-1">Business Logo</label><br>
+                            <span style="color: red;">(* Only PNG image allowed)</span>
+                          </div>
                            <div class="col-lg-7">
                               <div class="upload-photo">
                                  <div class="photo-wrap">
@@ -151,6 +157,54 @@
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
       var place = autocomplete.getPlace();
       console.log(place);
+
+      var city,state,pincode;
+
+      if(place.address_components[2] && place.address_components[2]['types'][0]=='locality'){
+         city    = place.address_components[2]['long_name'];
+      }
+
+      if(place.address_components[3] && place.address_components[3]['types'][0]=='locality'){
+         city    = place.address_components[3]['long_name'];
+      }
+
+      //State Placement
+      if(place.address_components[4] && place.address_components[4]['types'][0]=='administrative_area_level_1'){
+         state    = place.address_components[4]['long_name'];
+      }
+
+      if(place.address_components[5] && place.address_components[5]['types'][0]=='administrative_area_level_1'){
+         state    = place.address_components[5]['long_name'];
+      }
+
+      if(place.address_components[6] && place.address_components[6]['types'][0]=='administrative_area_level_1'){
+         state    = place.address_components[6]['long_name'];
+      }
+
+      //Pincode Placement
+      if(place.address_components[6] && place.address_components[6]['types'][0]=='postal_code'){
+         pincode    = place.address_components[6]['long_name'];
+      }
+
+      if(place.address_components[7] && place.address_components[7]['types'][0]=='postal_code'){
+         pincode    = place.address_components[7]['long_name'];
+      }
+
+      if(place.address_components[8] && place.address_components[8]['types'][0]=='postal_code'){
+         pincode    = place.address_components[8]['long_name'];
+      }
+
+      if(city){
+        document.getElementById('city').value = city;
+      }
+
+      if(state){
+        document.getElementById('state').value = state;
+      }
+
+      if(pincode){
+        document.getElementById('pincode').value = pincode;
+      }
 
       if(place.formatted_address){
         document.getElementById('address').value = place.formatted_address;

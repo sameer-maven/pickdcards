@@ -154,6 +154,9 @@
                   </div>
                   <form class="flex-grow-1 py-5" method="POST" id="userProfile" action="{{ url('/user/store-edit-business') }}" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" class="form-control" id="city" name="city">
+                    <input type="hidden" class="form-control" id="state" name="state">
+                    <input type="hidden" class="form-control" id="pincode" name="pincode">
                     <input type="hidden" name="id" id="bus_id" value="{{$users->id}}">
                      <div class="col-lg-8">
                         <div class="form-group profile-form-group d-flex align-items-center">
@@ -188,7 +191,7 @@
                            <div class="col-lg-7"><input type="tel" id="phone_number" name="phone_number" class="form-control" placeholder="Phone Number" value="{{$users->phone_number}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"><label class="mb-0 label-1">Business Email <span style="color: red;">*</span></label></div>
+                           <div class="col-lg-5"><label class="mb-0 label-1">Business Email</label></div>
                            <div class="col-lg-7"><input type="email" name="business_email" class="form-control" placeholder="Business Email" value="{{$users->business_email}}"></div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
@@ -207,7 +210,7 @@
                           </div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Type of Business <span style="color: red;">*</span></label></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Type of Business</label></div>
                            <div class="col-lg-7">
                              <select name="business_type" id="business_type" class="form-control">
                               <option value="">Type of Business</option>
@@ -218,7 +221,7 @@
                            </div>
                         </div>
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Tax ID <span style="color: red;">*</span></label></div>
+                           <div class="col-lg-5"> <label class="mb-0 label-1">Tax ID</label></div>
                            <div class="col-lg-7"><input type="tel" name="tax_id_number" class="form-control" placeholder="Tax ID" id="tax_id_number" value="{{$users->tax_id_number}}"></div>
                         </div>
 
@@ -238,7 +241,10 @@
                         </div>
 
                         <div class="form-group profile-form-group d-flex align-items-center">
-                           <div class="col-lg-5"> <label class="mb-0 label-1">Business Logo</label></div>
+                          <div class="col-lg-5"> 
+                            <label class="mb-0 label-1">Business Logo</label><br>
+                            <span style="color: red;">(* Only PNG image allowed)</span>
+                          </div>
                            <div class="col-lg-7">
                               <div class="upload-photo">
                                  <div class="photo-wrap">
@@ -252,7 +258,7 @@
                                     </span>
                                     </label>
                                  </div>
-                                 <span style="color: red;">(* Only PNG image allowed)</span>
+                                 
                                  <div class="photo-preview">
                                     <img src="" alt="Image Preview" id="img-preview" class="img-responsive" style="display: none; width: 100px; height: 100px">
                                  </div>
@@ -322,19 +328,19 @@
                  required: true,
                  minlength : 8
              },
-             business_email: {
-                 required: true,
-                 email: true
-             },
+             // business_email: {
+             //     required: true,
+             //     email: true
+             // },
              business_industry: {
                  required: true,
              },
-             business_type: {
-                 required: true
-             },
-             tax_id_number: {
-                 required: true
-             }
+             // business_type: {
+             //     required: true
+             // },
+             // tax_id_number: {
+             //     required: true
+             // }
          }
      });
  });
@@ -390,6 +396,55 @@
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
       var place = autocomplete.getPlace();
       console.log(place);
+
+      var city,state,pincode;
+
+      if(place.address_components[2] && place.address_components[2]['types'][0]=='locality'){
+         city    = place.address_components[2]['long_name'];
+      }
+
+      if(place.address_components[3] && place.address_components[3]['types'][0]=='locality'){
+         city    = place.address_components[3]['long_name'];
+      }
+
+      //State Placement
+      if(place.address_components[4] && place.address_components[4]['types'][0]=='administrative_area_level_1'){
+         state    = place.address_components[4]['long_name'];
+      }
+
+      if(place.address_components[5] && place.address_components[5]['types'][0]=='administrative_area_level_1'){
+         state    = place.address_components[5]['long_name'];
+      }
+
+      if(place.address_components[6] && place.address_components[6]['types'][0]=='administrative_area_level_1'){
+         state    = place.address_components[6]['long_name'];
+      }
+
+      //Pincode Placement
+      if(place.address_components[6] && place.address_components[6]['types'][0]=='postal_code'){
+         pincode    = place.address_components[6]['long_name'];
+      }
+
+      if(place.address_components[7] && place.address_components[7]['types'][0]=='postal_code'){
+         pincode    = place.address_components[7]['long_name'];
+      }
+
+      if(place.address_components[8] && place.address_components[8]['types'][0]=='postal_code'){
+         pincode    = place.address_components[8]['long_name'];
+      }
+
+      if(city){
+        document.getElementById('city').value = city;
+      }
+
+      if(state){
+        document.getElementById('state').value = state;
+      }
+
+      if(pincode){
+        document.getElementById('pincode').value = pincode;
+      }
+      
       if(place.formatted_address){
         document.getElementById('address').value = place.formatted_address;
       }

@@ -45,7 +45,7 @@ class OrderController extends Controller
         $html.= "GIFT CARD CODE: ".$card_code;
         $html.= "<br><br> REDEEM PAGE URL: ".$redeem_page_url;
 
-        $image     = QrCode::format('png')->merge($logoImg,0.3,true)->size(300)->errorCorrection('H')->generate($html, public_path('qrcode/'.$filename));  
+        $image     = QrCode::format('png')->merge($logoImg,0.3,true)->size(300)->color(222, 82, 70)->errorCorrection('H')->generate($html, public_path('qrcode/'.$filename));  
     }
 
     /**
