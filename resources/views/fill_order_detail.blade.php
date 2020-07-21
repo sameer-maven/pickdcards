@@ -1,9 +1,61 @@
 @extends('layouts.home')
 
 @section('content')
+<style>
+
+/* label Design  */
+.sbm-list-wrapper.label-wrapper {
+    padding-top: 45px !important;
+}
+.bg-contact .container-contact .label-wrapper.wrap-contact {
+    padding-top: 55px !important;
+
+}
+.label-wrapper.wrap-contact .ribbon-green {
+   top: 20px;
+}
+
+.label-wrapper {
+      position: relative;
+      z-index: 90;
+      overflow:hidden;
+   }
+   .label-wrapper .ribbon-green {
+      transform-origin: center center;
+    padding: 1px 6px 1px 10px;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    width: auto;
+    background-color: #86c959;
+    color: #ffffff;
+    text-align: left;
+    display: inline-block;
+    box-shadow: 5px 5px 12px #A0A0A0;
+}
+.featured-business-sec .search-result-col.label-wrapper {
+    padding-top: 45px;
+}
+.label-wrapper .ribbon-green:before {
+   height: 100%;
+    width: 20px;
+    position: absolute;
+    top: 0;
+    left: -19px;
+    content: "";
+    background: #86c959;
+    z-index: 1;
+    border-style: none;
+    transform: scaleX(-1);
+    clip-path: polygon(100% 0, 27% 50%, 100% 100%, 0 100%, 0 0);
+}
+
+/* End Label Design  */
+</style>
 <div class="bg-contact overlay-2" style="background-image: url({{ asset('public/front/assets/images/sign-in-bg.jpg') }});">
    <div class="container-contact">
-      <div class="wrap-contact" style="max-width: 500px;margin-top: 50px;">
+      <div class="label-wrapper wrap-contact" style="max-width: 500px;margin-top: 50px;">
+        <div class="ribbon-green">10% free</div>
         <img src="{{ asset('public/avatar/'.$users->avatar) }}" class="img-fluid d-block mx-auto" width="150" height="150"><br>
          <h2 class="contact-title text-center">{{ $users->business_name }}</h2>
          <p class="contact-subtitle">Purchase a gift card for any amount between $15 and $500.</p>

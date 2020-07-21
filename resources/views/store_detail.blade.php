@@ -82,6 +82,48 @@
     -webkit-box-shadow: 0 2px 5px 0px rgb(0 0 0 / 0.2); 
     padding: 20px;
 }
+
+/* label Design  */
+.sbm-list-wrapper.label-wrapper {
+    padding-top: 45px;
+}
+
+.label-wrapper {
+    position: relative;
+    z-index: 90;
+    overflow:hidden;
+ }
+ .label-wrapper .ribbon-green {
+    transform-origin: center center;
+    padding: 1px 6px 1px 10px;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    width: auto;
+    background-color: #86c959;
+    color: #ffffff;
+    text-align: left;
+    display: inline-block;
+    box-shadow: 5px 5px 12px #A0A0A0;
+}
+.featured-business-sec .search-result-col.label-wrapper {
+    padding-top: 45px;
+}
+.label-wrapper .ribbon-green:before {
+   height: 100%;
+    width: 20px;
+    position: absolute;
+    top: 0;
+    left: -19px;
+    content: "";
+    background: #86c959;
+    z-index: 1;
+    border-style: none;
+    transform: scaleX(-1);
+    clip-path: polygon(100% 0, 27% 50%, 100% 100%, 0 100%, 0 0);
+}
+
+/* End Label Design  */
 </style>
 <div class="support-sec sec-padding overlay1 business-support topbanner-padd default-banner" style="background-image: url({{ asset('public/front/assets/images/page-banner.jpg') }});padding: 50px 0;">
    <div class="container">
@@ -105,7 +147,8 @@
             </div>
          </div>
          <div class="col-md-6 col-lg-5">
-            <div class="sbm-list-wrapper">
+            <div class="sbm-list-wrapper label-wrapper">
+               <div class="ribbon-green">10% free</div>
                <ul class="sbm-icon-list-1">
                   <li><i class="fa fa-map-marker"></i> {{$users->address}}</li>
                   <li><i class="fa fa-phone"></i> <a href="tel:{{$users->phone_number}}">{{$users->phone_number}}</a></li>

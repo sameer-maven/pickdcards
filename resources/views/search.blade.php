@@ -5,7 +5,43 @@
    .select2-selection--single{
       width:240px;
    }
+/* label Design  */
+   .label-wrapper {
+      position: relative;
+      z-index: 90;
+      overflow:hidden;
+   }
+   .label-wrapper .ribbon-green {
+      transform-origin: center center;
+      padding: 1px 6px 1px 10px;
+      position: absolute;
+      right: 0;
+      top: 7px;
+      width: auto;
+      background-color: #86c959;
+      color: #ffffff;
+      text-align: left;
+      display: inline-block;
+      box-shadow: 5px 5px 12px #A0A0A0;
+   }
+   .featured-business-sec .search-result-col.label-wrapper {
+       padding-top: 45px;
+   }
+   .label-wrapper .ribbon-green:before {
+      height: 100%;
+       width: 20px;
+       position: absolute;
+       top: 0;
+       left: -19px;
+       content: "";
+       background: #86c959;
+       z-index: 1;
+       border-style: none;
+       transform: scaleX(-1);
+       clip-path: polygon(100% 0, 27% 50%, 100% 100%, 0 100%, 0 0);
+   }
 
+/* End Label Design  */
 </style>
 <!-- support-sec -->
 <!-- <div class="support-sec sec-padding overlay1 business-support topbanner-padd default-banner" style="background-image: url({{ asset('public/front/assets/images/page-banner.jpg') }});"> -->
@@ -79,7 +115,7 @@
       <div class="search-result-wrap mt-5">
          <div class="result-heading-top d-flex flex-wrap align-items-center justify-content-between mb-4">
             <h4 class="result-title">{{$data->total()}} Results</h4>
-            <div class="search-result-select">
+            <div class="search-result-select ">
               <!--  <form id="industryFrm" action="{{ url('search') }}" method="get"> -->
                   <div class="form-group search-select-group mb-0">
                      <select class="cstm-select search-select" name="industry" id="industry">
@@ -97,7 +133,8 @@
             @if( $data->total() !=  0 && $data->count() != 0 )
             @foreach( $data as $user )
             <div class="col-md-6 col-lg-4 col-xl-3">
-               <div class="search-result-col">
+               <div class="search-result-col label-wrapper">
+                  <div class="ribbon-green">50% Free</div>
                   <h5 class="result-col-title"><a href="{{ url('/store/'.$user->slug) }}" style="color: #3e3e3e;font-size: 17px;font-weight: 700;">{{ $user->business_name }}</a></h5>
                   <!-- <p class="result-col-subtitle">{{ $user->address }}, {{ $user->city }}, {{ $user->state }}</p> -->
                   <p class="result-col-subtitle">{{ $user->address }}</p>
