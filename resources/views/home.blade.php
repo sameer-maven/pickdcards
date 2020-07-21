@@ -8,18 +8,20 @@
       z-index: 90;
       overflow:hidden;
    }
+   
    .label-wrapper .ribbon-green {
       transform-origin: center center;
       padding: 1px 6px 1px 10px;
       position: absolute;
       right: 0;
-      top: 7px;
+      top: 10px;
       width: auto;
       background-color: #86c959;
       color: #ffffff;
       text-align: left;
       display: inline-block;
       box-shadow: 5px 5px 12px #A0A0A0;
+      background-image: linear-gradient(to right, red , #660000);
    }
    .featured-business-sec .search-result-col.label-wrapper {
        padding-top: 45px;
@@ -31,7 +33,7 @@
        top: 0;
        left: -19px;
        content: "";
-       background: #86c959;
+       background: red;
        z-index: 1;
        border-style: none;
        transform: scaleX(-1);
