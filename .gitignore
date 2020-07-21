@@ -1,4 +1,8 @@
 .env
 .env.backup
 pickdCards.zip
-public/
+public/bussiness_qrcode/
+public/qrcode/
+public/avatar/
+public/testimonials/
+public/temp/

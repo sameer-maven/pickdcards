@@ -211,6 +211,7 @@
   var user_id            = "{{$business->user_id}}";
   var ajaxUrl            = "{{url('/order/redeem-order-ajax')}}";
   var transactionAjaxUrl = "{{url('/order/transaction-order-ajax')}}";
+  var thanksUrl          = "{{url('/business-thanks/')}}";
   var orderID;
   var used_amount;
   var remaining_amount;
@@ -358,19 +359,16 @@
 
               if(result.value.save=="yes"){
 
+                
+                
                 Swal.fire({
                   title: "Done",
                   text: result.value.message,
                   icon: 'success',
                 }).then((e)=>{
-                  var am1 = parseInt(used_amount)+parseInt(redeem_amount);
-                  var am2 = parseInt(remaining_amount)-parseInt(redeem_amount);
-                  am1 = am1.toFixed(2);
-                  am2 = am2.toFixed(2);
-                  $("#used").text("$"+am1);
-                  $("#remaining").text("$"+am2);
+                  var url = thanksUrl+'/'+orderID;
+                  window.location = url;
                 });
-
               }
 
               if(result.value.save=="no"){

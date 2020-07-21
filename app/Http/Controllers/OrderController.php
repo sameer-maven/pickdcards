@@ -301,6 +301,17 @@ class OrderController extends Controller
         return view('business_order_redeem')->with($data);
     }
 
+    public function redeemOrderThanks($id)
+    {
+        $data['order']           = DB::table('orders')->select("*")->where('id', $id)->first();
+
+        $data['business']        = DB::table('businessinfos')->select("*")->where('id', $data['order']->business_id)->first();
+        $data['lastTransaction'] = DB::table('transactions')->select("*")->where('order_id', $data['order']->id)->orderBy('id', 'DESC')->first();
+        $data['allTransactions'] = DB::table('transactions')->select("*")->where('order_id', $data['order']->id)->orderBy('id', 'DESC')->get();
+
+        return view('business_order_redeem_thanks')->with($data);
+    }
+
     public function redeemOrderAjax(Request $request)
     {
         
