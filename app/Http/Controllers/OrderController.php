@@ -269,7 +269,7 @@ class OrderController extends Controller
                         'senderName'      => $order->customer_full_name,
                         'senderNotes'     => $order->recipient_notes,
                         'businessName'    => $user->business_name,
-                        'businessAddress' => $user->address.", ".$user->city.", ".$user->state.", ".$user->pincode,
+                        'businessAddress' => $user->address,
                         'businessPhone'   => $user->phone_number,
                         'bgImg'           => asset('public/front-email-template/img/bg.jpg'),
                         'mainbgImg'       => asset('public/front-email-template/img/main-bg.jpg'),
