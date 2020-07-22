@@ -231,7 +231,7 @@
 
                         <div class="form-group profile-form-group d-flex align-items-center">
                            <div class="col-lg-5"> <label class="mb-0 label-1">Get Free %</label></div>
-                           <div class="col-lg-7"><input type="text" name="get_free_percentage" class="form-control" placeholder="0.00" id="get_free_percentage" value="{{$users->get_free_percentage}}"></div>
+                           <div class="col-lg-7"><input type="number" name="get_free_percentage" class="form-control" placeholder="0.00" id="get_free_percentage" value="{{$users->get_free_percentage}}" min="0" max="99"></div>
                         </div>
 
                         <div class="form-group profile-form-group d-flex align-items-center">
