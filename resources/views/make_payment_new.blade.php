@@ -17,7 +17,7 @@
 <div class="bg-contact overlay-2" style="background-image: url({{ asset('public/front/assets/images/sign-in-bg.jpg') }});">
    <div class="container-contact">
     <div class="wrap-contact" style="width: 500px;margin-top: 50px">
-      <h2 class="contact-title">Make Payment</h2>
+      <h2 class="contact-title">Payment Details</h2>
       <p class="contact-subtitle">Please fill following info to complete payment.</p>
         <div class='form-row'>
           <div class='col-lg-12 form-group'>
@@ -70,12 +70,28 @@
               <span class='amount'>$ {{$fee_amount}}</span></td>
               </tr>
               <tr>
-                <td>Total:
+                <td>Pay Total:
               <span class='amount'>$ {{$amount}}</span></td>
               </tr>
             </tbody>
           </table>
         </div>
+        @if($get_free_amount!=0)
+        <hr>
+        <label class="control-label font-weight-bold">You have got {{number_format($get_free_percentage)}}% Free</label>
+        <div class="table-responsive">
+          <table class="table payment-table">
+            <tbody>
+              <tr>
+                <td>Free Amount:<span class='amount'>$ {{number_format($get_free_amount,2)}}</span></td>
+              </tr>
+              <tr>
+                <td>Total Card Amount:<span class='amount'>$ {{number_format($balance+$get_free_amount,2)}}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        @endif
         <div class="form-group">
            <div class="form-check">
              <input class="form-check-input" type="checkbox" id="gridCheck1" value="yes" name="agree_terms">

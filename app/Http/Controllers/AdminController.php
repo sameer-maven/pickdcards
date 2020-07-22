@@ -234,8 +234,7 @@ class AdminController extends Controller
         $id    = $input["id"];
 
         $validatedData = $request->validate([
-            'business_name'  => 'required',
-            'business_email' => 'required'
+            'business_name'  => 'required'
         ]);
 
         $usersBusInfo                  = Businessinfo::find($id);                                                                                                                                                                                                

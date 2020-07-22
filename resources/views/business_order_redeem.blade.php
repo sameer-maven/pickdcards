@@ -83,6 +83,7 @@
     -webkit-box-shadow: 0 2px 5px 0px rgb(0 0 0 / 0.2); 
     padding: 20px;
 }
+
 </style>
 <div class="support-sec sec-padding overlay1 business-support default-banner" style="background-image: url({{ asset('public/front/assets/images/search-page.png') }});padding: 50px 0;">
    <div class="container">
@@ -108,7 +109,10 @@
             </div>
          </div>
          <div class="col-md-6 col-lg-5">
-            <div class="sbm-list-wrapper">
+            <div class="sbm-list-wrapper label-wrapper">
+              @if($business->get_free_percentage != 0)
+               <div class="ribbon-green">Get {{number_format($business->get_free_percentage)}}% Free</div>
+               @endif
                <ul class="sbm-icon-list-1">
                   <li><i class="fa fa-map-marker"></i> {{$business->address}}</li>
                   <li><i class="fa fa-phone"></i> <a href="tel:{{$business->phone_number}}">{{$business->phone_number}}</a></li>

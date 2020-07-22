@@ -237,7 +237,10 @@
             </div>
          </div>
          <div class="col-md-6 col-lg-5">
-            <div class="sbm-list-wrapper">
+            <div class="sbm-list-wrapper label-wrapper">
+                @if($business->get_free_percentage != 0)
+                <div class="ribbon-green">Get {{number_format($business->get_free_percentage)}}% Free</div>
+                @endif
                <ul class="sbm-icon-list-1">
                   <li><i class="fa fa-map-marker"></i> {{$business->address}}</li>
                   <li><i class="fa fa-phone"></i> <a href="tel:{{$business->phone_number}}">{{$business->phone_number}}</a></li>

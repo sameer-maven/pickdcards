@@ -115,6 +115,11 @@ class OrderController extends Controller
         // echo "business_user_amount: ".$business_user_amount."</br>";
         // echo "pickd: ".$pickd_card_amount."</br>";
         // die;
+
+        $get_free_amount = 0.00;
+        if($businessInfo->get_free_percentage!= 0){
+            $get_free_amount = Helper::getPercentOfNumber($input['card_amount'],$businessInfo->get_free_percentage);
+        }
         
         $paymentOpt = [
           'payment_method_types'   => ['card'],
@@ -133,11 +138,18 @@ class OrderController extends Controller
         $order->amount                       = $actualAmount;
         $order->trx_id                       = $payment_intent->id;
         $order->qrcode                       = "";
-        $order->balance                      = $input['card_amount'];
+
+        if($get_free_amount!=0){
+            $order->balance                  = $input['card_amount']+$get_free_amount;
+        }else{
+            $order->balance                  = $input['card_amount'];
+        }
+
         $order->used_amount                  = 0.00;
         $order->admin_fee_amount             = $pickd_card_amount;
         $order->business_user_amount         = $business_user_amount;
         $order->stripe_fees                  = $stripe_fees;
+        $order->get_free_amount              = $get_free_amount;
         $order->payment_intent_client_secret = $payment_intent->client_secret;
         $order->recipient_name               = $input['recipient_name'];
         $order->recipient_email              = $input['recipient_email'];
@@ -171,17 +183,37 @@ class OrderController extends Controller
                 'u.id',
                 'u.name',
                 'b.business_name',
+                'b.get_free_percentage',
                 'b.connected_stripe_account_id')
          ->leftjoin('businessinfos as b', 'b.user_id', '=', 'u.id')
-         ->where('u.id', $order->user_id)->first();
+         ->where('b.id', $order->business_id)->first();
+
         
         if($order->status=='0'){
-            $data['id']             = base64_encode($order->id);  
-            $data['balance']        = $order->balance;
+            $data['id']             = base64_encode($order->id);
+            
+            $data['get_free_amount']= 0;
+
+            if($order->get_free_amount!=0){
+                $orderbalance            = $order->balance - $order->get_free_amount;
+                $data['balance']         = number_format($orderbalance,2);
+                $data['get_free_amount'] = $order->get_free_amount;
+            }else{
+                $data['balance']     = $order->balance;
+            }  
+
             $data['amount']         = $order->amount;
-            $data['fee_amount']     = $order->amount - $order->balance;
-            $data['payment_intent'] = $order->payment_intent_client_secret;
-            $data['stripeAccount']  = $user->connected_stripe_account_id;
+
+            if($order->get_free_amount!=0){
+                $orderbalance = $order->balance - $order->get_free_amount;
+                $data['fee_amount']     = $order->amount - $orderbalance;
+            }else{
+                $data['fee_amount']     = $order->amount - $order->balance;
+            }
+
+            $data['payment_intent']      = $order->payment_intent_client_secret;
+            $data['stripeAccount']       = $user->connected_stripe_account_id;
+            $data['get_free_percentage'] = $user->get_free_percentage;
             return view('make_payment_new')->with($data);
         }else{
            return redirect('/search'); 

@@ -313,7 +313,7 @@ class UserController extends Controller
                 }//<--- IF FILE EXISTS
                 
                 //<<<-- Delete old image -->>>/
-                if ( \File::exists($imgOld) && $imgOld != $path.'default.jpg' ) {
+                if ( \File::exists($imgOld) && $imgOld != $path.'default.jpg' && $imgOld != $path.'beauty.png' && $imgOld != $path.'entertainment.png' && $imgOld != $path.'food.png' && $imgOld != $path.'hospitality.png' && $imgOld != $path.'other.png' && $imgOld != $path.'retail.png' && $imgOld != $path.'service.png') {
                     \File::delete($temp.$avatar);   
                     \File::delete($imgOld);
                 }//<--- IF FILE EXISTS #1
@@ -822,6 +822,10 @@ class UserController extends Controller
             $usersBusInfo->tax_id_number = $input['tax_id_number'];
         }
 
+        if(isset($input['get_free_percentage']) && !empty($input['get_free_percentage'])){
+            $usersBusInfo->get_free_percentage = $input['get_free_percentage'];
+        }
+        
         if(isset($input['business_industry']) && !empty($input['business_industry'])){
             $usersBusInfo->industry_id   = $input['business_industry'];
         }
@@ -863,7 +867,7 @@ class UserController extends Controller
                 }//<--- IF FILE EXISTS
                 
                 //<<<-- Delete old image -->>>/
-                if ( \File::exists($imgOld) && $imgOld != $path.'default.jpg' ) {
+                if ( \File::exists($imgOld) && $imgOld != $path.'default.jpg' && $imgOld != $path.'beauty.png' && $imgOld != $path.'entertainment.png' && $imgOld != $path.'food.png' && $imgOld != $path.'hospitality.png' && $imgOld != $path.'other.png' && $imgOld != $path.'retail.png' && $imgOld != $path.'service.png') {
                     \File::delete($temp.$avatar);   
                     \File::delete($imgOld);
                 }//<--- IF FILE EXISTS #1

@@ -105,7 +105,7 @@
                         </div>
             </div>
             <div class="mt-4 text-center">
-              <button type="submit" class="btn btn-primary bus-profile-btn">Confirm</button>
+              <button type="submit" class="btn btn-primary bus-profile-btn">Add Business</button>
             </div>
          </form>
       </div>

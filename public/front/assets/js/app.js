@@ -75,7 +75,7 @@ $(document).ready(function() {
          dots: false,
          infinite: false,
          speed: 300,
-         slidesToShow: 4,
+         slidesToShow: 3,
          slidesToScroll: 1,
          nextArrow: '<span class="slick-next"> <i class="fa fa-angle-right" aria-hidden="true"></i></span>',
          prevArrow: '<span class="slick-prev"><i class="fa fa-angle-left" aria-hidden="true"></i></span>',

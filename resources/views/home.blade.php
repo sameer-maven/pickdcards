@@ -1,47 +1,5 @@
 @extends('layouts.home')
 @section('content')
-<style>
-
-/* label Design  */
-   .label-wrapper {
-      position: relative;
-      z-index: 90;
-      overflow:hidden;
-   }
-   
-   .label-wrapper .ribbon-green {
-      transform-origin: center center;
-      padding: 1px 6px 1px 10px;
-      position: absolute;
-      right: 0;
-      top: 10px;
-      width: auto;
-      background-color: #86c959;
-      color: #ffffff;
-      text-align: left;
-      display: inline-block;
-      box-shadow: 5px 5px 12px #A0A0A0;
-      background-image: linear-gradient(to right, red , #660000);
-   }
-   .featured-business-sec .search-result-col.label-wrapper {
-       padding-top: 45px;
-   }
-   .label-wrapper .ribbon-green:before {
-      height: 100%;
-       width: 20px;
-       position: absolute;
-       top: 0;
-       left: -19px;
-       content: "";
-       background: red;
-       z-index: 1;
-       border-style: none;
-       transform: scaleX(-1);
-       clip-path: polygon(100% 0, 27% 50%, 100% 100%, 0 100%, 0 0);
-   }
-
-/* End Label Design  */
-</style>
 <!-- top-banner -->
 <!-- <div class="top-banner overlay1" style="background-image: url({{ asset('public/front/assets/images/top-banner.jpg') }});"> -->
 <div class="top-banner overlay1" style="background-image: url({{ asset('public/front/assets/images/home-page.png') }});">
@@ -151,7 +109,9 @@
                @foreach ($featuredBusses as $featuredBus)
                <div class="slide">
                   <div class="search-result-col label-wrapper">
-                        <div class="ribbon-green">50% Free</div>
+                        @if($featuredBus->get_free_percentage != 0)
+                        <div class="ribbon-green">Get {{number_format($featuredBus->get_free_percentage)}}% Free</div>
+                        @endif
                         <h5 class="result-col-title"><a href="{{ url('/store') }}<?php echo "/".$featuredBus->slug; ?>" style="color: #3e3e3e;font-size: 17px;font-weight: 700;">{{ $featuredBus->business_name }}</a></h5>
                         <!-- <p class="result-col-subtitle">{{ $featuredBus->address }}, {{ $featuredBus->city }}, {{ $featuredBus->state }}</p> -->
                         <p class="result-col-subtitle">{{ $featuredBus->address }}</p>
