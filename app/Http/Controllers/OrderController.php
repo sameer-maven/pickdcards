@@ -166,8 +166,9 @@ class OrderController extends Controller
         $order = Order::find($order_id);
         
         if($order->status=='0'){
-            $data['id'] = base64_encode($order->id);  
-            $data['amount'] = $order->amount;
+            $data['business'] = DB::table('businessinfos')->select('*')->where('id', $order->id)->first();
+            $data['id']       = base64_encode($order->id);  
+            $data['amount']   = $order->amount;
             return view('make_payment')->with($data);
         }else{
            return redirect('/search'); 
@@ -190,9 +191,10 @@ class OrderController extends Controller
 
         
         if($order->status=='0'){
-            $data['id']             = base64_encode($order->id);
-            
-            $data['get_free_amount']= 0;
+
+            $data['business']        = DB::table('businessinfos')->select('*')->where('id', $order->business_id)->first();
+            $data['id']              = base64_encode($order->id);
+            $data['get_free_amount'] = 0;
 
             if($order->get_free_amount!=0){
                 $orderbalance            = $order->balance - $order->get_free_amount;

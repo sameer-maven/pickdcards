@@ -190,7 +190,7 @@
       padding-left: 50px;
    }
    .sbm-table-2 td:first-child {
-      width: 30%;
+      /*width: 30%;*/
    }
 }
 @media(max-width:991px) {
@@ -239,7 +239,7 @@
          <div class="col-md-6 col-lg-5">
             <div class="sbm-list-wrapper label-wrapper">
                 @if($business->get_free_percentage != 0)
-                <div class="ribbon-green">Get {{number_format($business->get_free_percentage)}}% Free</div>
+                <div class="ribbon-green">{{number_format($business->get_free_percentage)}}% Bonus!</div>
                 @endif
                <ul class="sbm-icon-list-1">
                   <li><i class="fa fa-map-marker"></i> {{$business->address}}</li>
@@ -257,23 +257,23 @@
    <div class="container">
          <i class="fa fa-handshake-o" aria-hidden="true"></i>
          <h2>Thank You!</h2>
-         <p>You have successfully redeemed {{$lastTransaction->tranx_amount}}$ using [{{$order->card_code}}]</p>
+         <p>You have successfully redeemed ${{$lastTransaction->tranx_amount}} using {{$order->card_code}}</p>
    </div>
 </section>
 <section class="product-detail-sec sec-padding pt-0 pb-5">
    <div class="container">
       <div class="row justify-content-center">
          <div class="col-md-10 mb-30">
-            <div class="table-responsive">
+            <div class="table-responsive" style="width: 80%;margin: 0 auto;">
                <table class="table table-bordered table-hover sbm-table-2">
                   <thead>
                      <tr>
-                        <td colspan="2">Gift Card Transaction: </td>
+                        <td colspan="2">Gift Card Transactions </td>
                      </tr>
                   </thead>
                   <tbody>
                      <tr>
-                        <td class="fw-600">Date: </td>
+                        <td class="fw-600">Date </td>
                         <td class="fw-600">Amount</td>
                      </tr>
                      @foreach($allTransactions as $transaction)
@@ -286,8 +286,36 @@
                </table>
             </div>
          </div>
-         
       </div>
+
+      <div class="row justify-content-center">
+         <div class="col-md-10 mb-30">
+            <div class="table-responsive" style="width: 80%;margin: 0 auto;">
+               <table class="table table-bordered table-hover sbm-table-2">
+                  <thead>
+                     <tr>
+                        <td colspan="2">Gift Card Details </td>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td class="fw-600">Gift Card Amount</td>
+                        <td>{{$order->balance}}</td>
+                     </tr>
+                     <tr>
+                        <td class="fw-600">Used Amount</td>
+                        <td>{{$order->used_amount}}</td>
+                     </tr>
+                     <tr>
+                        <td class="fw-600">Remaining Amount</td>
+                        <td>{{number_format($order->balance-$order->used_amount,2)}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+
    </div>
 </section>
 <!-- order-detail -->

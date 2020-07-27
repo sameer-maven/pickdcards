@@ -110,7 +110,7 @@
                <div class="slide">
                   <div class="search-result-col label-wrapper">
                         @if($featuredBus->get_free_percentage != 0)
-                        <div class="ribbon-green">Get {{number_format($featuredBus->get_free_percentage)}}% Free</div>
+                        <div class="ribbon-green">{{number_format($featuredBus->get_free_percentage)}}% Bonus!</div>
                         @endif
                         <h5 class="result-col-title"><a href="{{ url('/store') }}<?php echo "/".$featuredBus->slug; ?>" style="color: #3e3e3e;font-size: 17px;font-weight: 700;">{{ $featuredBus->business_name }}</a></h5>
                         <!-- <p class="result-col-subtitle">{{ $featuredBus->address }}, {{ $featuredBus->city }}, {{ $featuredBus->state }}</p> -->

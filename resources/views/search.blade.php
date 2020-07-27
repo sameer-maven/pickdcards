@@ -29,17 +29,16 @@
    <div class="container">
       <nav>
          <div class="nav nav-tabs cstm-nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link @if(empty(Request::get('name'))) active @endif" id="search-city-tab" data-toggle="tab" href="#search-city" role="tab" aria-controls="nav-home" aria-selected="true">Search by City, State or Zip Code</a>
-            <a class="nav-item nav-link @if(!empty(Request::get('name'))) active @endif" id="search-business-tab" data-toggle="tab" href="#search-business" role="tab" aria-controls="nav-profile" aria-selected="false">Search by Business Name</a>
+            <!-- <a class="nav-item nav-link @if(empty(Request::get('name'))) active @endif" id="search-city-tab" data-toggle="tab" href="#search-city" role="tab" aria-controls="nav-home" aria-selected="true">Search by City, State or Zip Code</a> -->
+            <!-- <a class="nav-item nav-link @if(!empty(Request::get('name'))) active @endif" id="search-business-tab" data-toggle="tab" href="#search-business" role="tab" aria-controls="nav-profile" aria-selected="false">Search by Business Name</a> -->
          </div>
       </nav>
    <form id="industryFrm" action="{{ url('search') }}" method="get">
       <div class="tab-content" id="nav-tabContent">
-         <div class="tab-pane fade @if(empty(Request::get('name'))) active show @endif cstm-tab" id="search-city" role="tabpanel" aria-labelledby="search-city-tab">
-          <!--   <form role="search" autocomplete="off" action="{{ url('search') }}" method="get"> -->
+         <!-- <div class="tab-pane fade @if(empty(Request::get('name'))) active show @endif cstm-tab" id="search-city" role="tabpanel" aria-labelledby="search-city-tab">
                <div class="form-row align-items-center">
                   <div class="col-lg-3 form-group search-select-group">
-                     <input type="text" class="form-control flex-grow-1" id="" name="city" placeholder="City" style="margin-left: 10px;" value="{{ Request::get('city') }}">
+                     <input type="text" class="form-control flex-grow-1" id="city" name="city" placeholder="City" style="margin-left: 10px;" value="{{ Request::get('city') }}">
                   </div>
                   <div class="col-lg-3 form-group search-select-group">
                      <select class="form-control flex-grow-1" name="state">
@@ -57,13 +56,16 @@
                      <button type="submit" class="btn btn-primary w-100 btn-2" style="min-height: 55px;">Search</button>
                   </div>
                </div>
-            <!-- </form> -->
-         </div>
-         <div class="tab-pane fade cstm-tab @if(!empty(Request::get('name'))) active show @endif" id="search-business" role="tabpanel" aria-labelledby="search-business-tab">
+         </div> -->
+         <div class="tab-pane fade cstm-tab  active show " id="search-business" role="tabpanel" aria-labelledby="search-business-tab">
            <!--  <form role="search" autocomplete="off" action="{{ url('search') }}" method="get"> -->
                <div class="form-row align-items-center">
                   <div class="col-lg-10 form-group d-flex align-items-center">
-                     <input type="text" class="form-control flex-grow-1" id="" name="name" placeholder="Business Name" value="{{ Request::get('name') }}">
+                     <input type="text" class="form-control flex-grow-1" id="formatted_address" name="q" placeholder="Business name, city, state or zip code" value="{{ Request::get('q') }}">
+                     <input type="hidden" id="business_name" name="name" value="{{ Request::get('name') }}">
+                     <input type="hidden" id="city" name="city" value="{{ Request::get('city') }}">
+                     <input type="hidden" id="state" name="state" value="{{ Request::get('state') }}">
+                     <input type="hidden" id="zipcode" name="zipcode" value="{{ Request::get('zipcode') }}">
                   </div>
                   <div class="col-lg-2 form-group">
                      <button type="submit" class="btn btn-primary w-100 btn-2" style="min-height: 55px;">Search</button>
@@ -98,7 +100,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3">
                <div class="search-result-col label-wrapper">
                   @if($user->get_free_percentage != 0)
-                  <div class="ribbon-green">Get {{number_format($user->get_free_percentage)}}% Free</div>
+                  <div class="ribbon-green">{{number_format($user->get_free_percentage)}}% Bonus!</div>
                   @endif
                   <h5 class="result-col-title"><a href="{{ url('/store/'.$user->slug) }}" style="color: #3e3e3e;font-size: 17px;font-weight: 700;">{{ $user->business_name }}</a></h5>
                   <!-- <p class="result-col-subtitle">{{ $user->address }}, {{ $user->city }}, {{ $user->state }}</p> -->
@@ -147,11 +149,102 @@
 @endsection
 
 @section('javascript')
-   <script>
-      $(document).ready(function(){
-         $('#industry').change(function(){
-            $("#industryFrm").submit();   
-         });
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ2dYr4UDXo--NFstm8vBB31ax_2qWaME&libraries=places"></script>
+<script>
+   $(document).ready(function(){
+      $('#industry').change(function(){
+         $("#industryFrm").submit();   
       });
-   </script>
+   });
+</script>
+<script type="text/javascript">
+   $(window).keydown(function(event){
+      if(event.keyCode == 13) {
+        event.preventDefault();
+        return false;
+      }
+   });
+  var address;
+  function initialize() {
+    var input        = document.getElementById('formatted_address');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+      var place = autocomplete.getPlace();
+      console.log(place);
+
+      var city,state,pincode;
+
+      if(place.address_components[0] && place.address_components[0]['types'][0]=='locality'){
+         city    = place.address_components[0]['long_name'];
+      }
+
+      if(place.address_components[2] && place.address_components[2]['types'][0]=='locality'){
+         city    = place.address_components[2]['long_name'];
+      }
+
+      if(place.address_components[3] && place.address_components[3]['types'][0]=='locality'){
+         city    = place.address_components[3]['long_name'];
+      }
+
+      //State Placement
+      if(place.address_components[2] && place.address_components[2]['types'][0]=='administrative_area_level_1'){
+         state    = place.address_components[2]['long_name'];
+      }
+
+      if(place.address_components[4] && place.address_components[4]['types'][0]=='administrative_area_level_1'){
+         state    = place.address_components[4]['long_name'];
+      }
+
+      if(place.address_components[5] && place.address_components[5]['types'][0]=='administrative_area_level_1'){
+         state    = place.address_components[5]['long_name'];
+      }
+
+      if(place.address_components[6] && place.address_components[6]['types'][0]=='administrative_area_level_1'){
+         state    = place.address_components[6]['long_name'];
+      }
+
+      //Pincode Placement
+      if(place.address_components[6] && place.address_components[6]['types'][0]=='postal_code'){
+         pincode    = place.address_components[6]['long_name'];
+      }
+
+      if(place.address_components[7] && place.address_components[7]['types'][0]=='postal_code'){
+         pincode    = place.address_components[7]['long_name'];
+      }
+
+      if(place.address_components[8] && place.address_components[8]['types'][0]=='postal_code'){
+         pincode    = place.address_components[8]['long_name'];
+      }
+
+      if(place.name){
+         var buss_name;
+         var formatted_addr;
+         if(city!=place.name){
+            buss_name      = place.name;  
+            formatted_addr = place.name; 
+         }else{
+            buss_name      = "";
+            formatted_addr = place.formatted_address;
+         }
+         document.getElementById('business_name').value = buss_name;
+         document.getElementById('formatted_address').value = formatted_addr;
+      }
+
+      if(city){
+        document.getElementById('city').value = city;
+      }
+
+      if(state){
+        document.getElementById('state').value = state;
+      }
+
+      if(pincode){
+        document.getElementById('zipcode').value = pincode;
+      }
+      
+    });
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>
 @endsection

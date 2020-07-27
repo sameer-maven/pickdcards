@@ -5,7 +5,7 @@
    <div class="container-contact">
       <div class="label-wrapper wrap-contact" style="max-width: 500px;margin-top: 50px;">
         @if($users->get_free_percentage != 0)
-        <div class="ribbon-green">Get {{number_format($users->get_free_percentage)}}% Free</div>
+        <div class="ribbon-green">{{number_format($users->get_free_percentage)}}% Bonus!</div>
         @endif
         <img src="{{ asset('public/avatar/'.$users->avatar) }}" class="img-fluid d-block mx-auto" width="150" height="150"><br>
          <h2 class="contact-title text-center">{{ $users->business_name }}</h2>

@@ -24,16 +24,16 @@
             <ul class="consumer-info-list list-unstyled mb-0">
               <li><b>Business Name</b> </li>
               <li><b>Address </b></li>
-              <li><b>City </b></li>
+              <!-- <li><b>City </b></li>
               <li><b>State </b></li>
-              <li><b>Zip Code </b></li>
+              <li><b>Zip Code </b></li> -->
             </ul>
             <ul class="consumer-info-list list-unstyled flex-grow-1 mb-0">
               <li><b>:</b> {{$businessinfo->business_name}}</li>
               <li><b>:</b> {{$businessinfo->address}}</li>
-              <li><b>:</b> {{$businessinfo->city}}</li>
+              <!-- <li><b>:</b> {{$businessinfo->city}}</li>
               <li><b>:</b> {{$businessinfo->state}}</li>
-              <li><b>:</b> {{$businessinfo->pincode}}</li>
+              <li><b>:</b> {{$businessinfo->pincode}}</li> -->
             </ul>
           </div>
         </div>

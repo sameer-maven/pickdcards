@@ -115,7 +115,7 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-               <p class="sign-small-txt mt-3"><strong>Password must contain 8 characters (1 lowercase, 1 uppercase, 1 number, 1 special)</strong></p>
+               <p class="sign-small-txt mt-3"><strong>Password must contain 8 characters (1 lowercase, 1 uppercase, 1 number)</strong></p>
             </div>
             <div class="form-group">
                <div class="form-check">

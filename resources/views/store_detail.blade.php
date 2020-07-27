@@ -150,7 +150,7 @@
          <div class="col-md-6 col-lg-5">
             <div class="sbm-list-wrapper label-wrapper">
                @if($users->get_free_percentage != 0)
-               <div class="ribbon-green">Get {{number_format($users->get_free_percentage)}}% Free</div>
+               <div class="ribbon-green">{{number_format($users->get_free_percentage)}}% Bonus!</div>
                @endif
                <ul class="sbm-icon-list-1">
                   <li><i class="fa fa-map-marker"></i> {{$users->address}}</li>

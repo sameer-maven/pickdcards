@@ -21,6 +21,13 @@
       <p class="contact-subtitle">Please fill following info to complete payment.</p>
         <div class='form-row'>
           <div class='col-lg-12 form-group'>
+            <label class='control-label font-weight-bold'>Gift Card Business Store</label>
+            <input class='form-control' type='text' value="{{$business->business_name}}" readonly>
+          </div>
+        </div>
+
+        <div class='form-row'>
+          <div class='col-lg-12 form-group'>
             <label class='control-label font-weight-bold'>Card Holder Name</label>
             <input class='form-control' size='4' type='text' name="card_holder" id="card_holder">
           </div>
@@ -62,15 +69,15 @@
           <table class="table payment-table">
             <tbody>
               <tr>
-                <td>Card Amount:
+                <td>Card Amount
               <span class='amount'>$ {{$balance}}</span></td>
               </tr>
               <tr>
-                <td>Service Fee:
+                <td>Service Fee
               <span class='amount'>$ {{$fee_amount}}</span></td>
               </tr>
               <tr>
-                <td>Pay Total:
+                <td>Pay Total
               <span class='amount'>$ {{$amount}}</span></td>
               </tr>
             </tbody>
@@ -78,15 +85,15 @@
         </div>
         @if($get_free_amount!=0)
         <hr>
-        <label class="control-label font-weight-bold">You have got {{number_format($get_free_percentage)}}% Free</label>
+        <label class="control-label font-weight-bold">You have received a {{number_format($get_free_percentage)}}% BONUS</label>
         <div class="table-responsive">
           <table class="table payment-table">
             <tbody>
               <tr>
-                <td>Free Amount:<span class='amount'>$ {{number_format($get_free_amount,2)}}</span></td>
+                <td>Bonus Amount<span class='amount'>$ {{number_format($get_free_amount,2)}}</span></td>
               </tr>
               <tr>
-                <td>Total Card Amount:<span class='amount'>$ {{number_format($balance+$get_free_amount,2)}}</span></td>
+                <td>Total Card Amount<span class='amount'>$ {{number_format($balance+$get_free_amount,2)}}</span></td>
               </tr>
             </tbody>
           </table>
@@ -135,6 +142,9 @@
   });
 
   $(document).on("click","#card-button",function(){
+
+    $(this).prop('disabled', true);
+
     var cardHolder = $("#card_holder").val();
 
     if(cardHolder==""){
@@ -152,6 +162,7 @@
         title: 'Oops...',
         text: "Please read and agree to the terms"
       });
+      $(this).prop('disabled', false);
       return false;
     }
 

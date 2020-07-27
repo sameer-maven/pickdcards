@@ -111,7 +111,7 @@
          <div class="col-md-6 col-lg-5">
             <div class="sbm-list-wrapper label-wrapper">
               @if($business->get_free_percentage != 0)
-               <div class="ribbon-green">Get {{number_format($business->get_free_percentage)}}% Free</div>
+               <div class="ribbon-green">{{number_format($business->get_free_percentage)}}% Bonus!</div>
                @endif
                <ul class="sbm-icon-list-1">
                   <li><i class="fa fa-map-marker"></i> {{$business->address}}</li>
@@ -139,7 +139,7 @@
             <ul class="gift-list list-unstyled">
                <li>Scan the QR code to reveal the Gift Card Code.</li>
                <li>Enter the 8-digit Gift Card Code below.</li>
-               <li>Check if the code is valid.</li>
+               <li>Click Verify.</li>
                <li>Click Redeem.</li>
                <li>Enter a redeem amount less than or equal to the remaining amount.</li>
             </ul>
@@ -155,11 +155,11 @@
             </form>
          </div>
          <div class="col-md-10 mb-30" style="display: none" id="detailsShow">
-            <div class="table-responsive">
+            <div class="table-responsive" style="width: 85%;">
               <table class="table table-light table-striped  sbm-table-2">
                 <thead>
                    <tr>
-                      <td></td>
+                      <td>Gift Card Details</td>
                       <td></td>
                    </tr>
                 </thead>
@@ -181,21 +181,20 @@
                       <td id="recipient_email"></td>
                    </tr>
                    <tr>
-                      <td class="fw-600">Total</td>
+                      <td class="fw-600">Gift Card Amount</td>
                       <td class="fw-600" id="total"></td>
                    </tr>
                    <tr>
-                      <td>Used</td>
+                      <td>Used Amount</td>
                       <td id="used"></td>
                    </tr>
                    <tr>
-                      <td>Remaining</td>
+                      <td>Remaining Amount</td>
                       <td id="remaining"></td>
                    </tr>
                 </tbody>
              </table>
             </div>
-            <h3>Redeem</h3>
             <div class="d-flex flex-wrap align-items-center mt-4">
                <button class="btn pickd-btn text-white mr-3" id="redeem">Redeem</button>
                <button class="btn pickd-btn text-white" id="allTransactions">View Transactions</button>
