@@ -61,11 +61,11 @@
            <!--  <form role="search" autocomplete="off" action="{{ url('search') }}" method="get"> -->
                <div class="form-row align-items-center">
                   <div class="col-lg-10 form-group d-flex align-items-center">
-                     <input type="text" class="form-control flex-grow-1" id="formatted_address" name="q" placeholder="Business name, city, state or zip code" value="{{ Request::get('q') }}">
                      <input type="hidden" id="business_name" name="name" value="{{ Request::get('name') }}">
                      <input type="hidden" id="city" name="city" value="{{ Request::get('city') }}">
                      <input type="hidden" id="state" name="state" value="{{ Request::get('state') }}">
                      <input type="hidden" id="zipcode" name="zipcode" value="{{ Request::get('zipcode') }}">
+                     <input type="text" class="form-control flex-grow-1" id="formatted_address" name="qe" placeholder="Business name, city, state or zip code" value="{{ Request::get('qe') }}">
                   </div>
                   <div class="col-lg-2 form-group">
                      <button type="submit" class="btn btn-primary w-100 btn-2" style="min-height: 55px;">Search</button>
@@ -175,8 +175,16 @@
 
       var city,state,pincode;
 
+      if(place.address_components[0] && place.address_components[0]['types'][0]=='postal_code'){
+         pincode    = place.address_components[0]['long_name'];
+      }
+
       if(place.address_components[0] && place.address_components[0]['types'][0]=='locality'){
          city    = place.address_components[0]['long_name'];
+      }
+
+      if(place.address_components[1] && place.address_components[1]['types'][0]=='locality'){
+         city    = place.address_components[1]['long_name'];
       }
 
       if(place.address_components[2] && place.address_components[2]['types'][0]=='locality'){
@@ -188,6 +196,9 @@
       }
 
       //State Placement
+      if(place.address_components[3] && place.address_components[3]['types'][0]=='administrative_area_level_1'){
+         state    = place.address_components[3]['long_name'];
+      }
       if(place.address_components[2] && place.address_components[2]['types'][0]=='administrative_area_level_1'){
          state    = place.address_components[2]['long_name'];
       }
@@ -227,7 +238,13 @@
             buss_name      = "";
             formatted_addr = place.formatted_address;
          }
-         document.getElementById('business_name').value = buss_name;
+
+         if(buss_name == pincode){
+            document.getElementById('business_name').value = '';
+         }else{
+            document.getElementById('business_name').value = buss_name;
+         }
+         
          document.getElementById('formatted_address').value = formatted_addr;
       }
 
