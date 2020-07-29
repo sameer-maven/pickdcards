@@ -158,14 +158,18 @@
    });
 </script>
 <script type="text/javascript">
+
    $(window).keydown(function(event){
       if(event.keyCode == 13) {
         event.preventDefault();
         return false;
       }
    });
+
   var address;
+
   function initialize() {
+
     var input        = document.getElementById('formatted_address');
     var autocomplete = new google.maps.places.Autocomplete(input);
 
@@ -173,92 +177,56 @@
       var place = autocomplete.getPlace();
       console.log(place);
 
-      var city,state,pincode;
+      if (place.address_components[0]['types'][0]=='administrative_area_level_1') {
+        // State Case 
+        var state         = place.address_components[0]['long_name'];
+        var country       = place.address_components[1]['long_name'];
+        var city          = '';
+        var business_name = '';
+        var pincode       = '';
+      } 
 
-      if(place.address_components[0] && place.address_components[0]['types'][0]=='postal_code'){
-         pincode    = place.address_components[0]['long_name'];
+      if (place.address_components[0]['types'][0]=='locality') {
+         // City Case
+         var city          = place.address_components[0]['long_name'];
+         var state         = place.address_components[2]['long_name'];
+         var country       = place.address_components[3]['long_name'];
+         var business_name = '';
+         var pincode       = '';
       }
 
-      if(place.address_components[0] && place.address_components[0]['types'][0]=='locality'){
-         city    = place.address_components[0]['long_name'];
+      if (place.address_components[0]['types'][0]=='street_number') {
+        // Business Name case
+        var arrLenght = place.address_components.length;
+        if(arrLenght==7){
+          var business_name = place.name;
+          var city          = place.address_components[2]['long_name'];
+          var state         = place.address_components[4]['long_name'];
+          var country       = place.address_components[5]['long_name'];
+          var pincode       = place.address_components[6]['long_name'];
+        }else{
+          var business_name = place.name;
+          var city          = place.address_components[2]['long_name'];
+          var state         = place.address_components[5]['long_name'];
+          var country       = place.address_components[6]['long_name'];
+          var pincode       = place.address_components[7]['long_name'];
+        }
       }
 
-      if(place.address_components[1] && place.address_components[1]['types'][0]=='locality'){
-         city    = place.address_components[1]['long_name'];
+      if(place.address_components[0]['types'][0]=='postal_code') {
+         //pincode case
+         var pincode       = place.address_components[0]['long_name'];
+         var city          = place.address_components[1]['long_name'];
+         var state         = place.address_components[3]['long_name'];
+         var country       = place.address_components[4]['long_name'];
+         var business_name = '';
       }
 
-      if(place.address_components[2] && place.address_components[2]['types'][0]=='locality'){
-         city    = place.address_components[2]['long_name'];
-      }
-
-      if(place.address_components[3] && place.address_components[3]['types'][0]=='locality'){
-         city    = place.address_components[3]['long_name'];
-      }
-
-      //State Placement
-      if(place.address_components[3] && place.address_components[3]['types'][0]=='administrative_area_level_1'){
-         state    = place.address_components[3]['long_name'];
-      }
-      if(place.address_components[2] && place.address_components[2]['types'][0]=='administrative_area_level_1'){
-         state    = place.address_components[2]['long_name'];
-      }
-
-      if(place.address_components[4] && place.address_components[4]['types'][0]=='administrative_area_level_1'){
-         state    = place.address_components[4]['long_name'];
-      }
-
-      if(place.address_components[5] && place.address_components[5]['types'][0]=='administrative_area_level_1'){
-         state    = place.address_components[5]['long_name'];
-      }
-
-      if(place.address_components[6] && place.address_components[6]['types'][0]=='administrative_area_level_1'){
-         state    = place.address_components[6]['long_name'];
-      }
-
-      //Pincode Placement
-      if(place.address_components[6] && place.address_components[6]['types'][0]=='postal_code'){
-         pincode    = place.address_components[6]['long_name'];
-      }
-
-      if(place.address_components[7] && place.address_components[7]['types'][0]=='postal_code'){
-         pincode    = place.address_components[7]['long_name'];
-      }
-
-      if(place.address_components[8] && place.address_components[8]['types'][0]=='postal_code'){
-         pincode    = place.address_components[8]['long_name'];
-      }
-
-      if(place.name){
-         var buss_name;
-         var formatted_addr;
-         if(city!=place.name){
-            buss_name      = place.name;  
-            formatted_addr = place.name; 
-         }else{
-            buss_name      = "";
-            formatted_addr = place.formatted_address;
-         }
-
-         if(buss_name == pincode){
-            document.getElementById('business_name').value = '';
-         }else{
-            document.getElementById('business_name').value = buss_name;
-         }
-         
-         document.getElementById('formatted_address').value = formatted_addr;
-      }
-
-      if(city){
-        document.getElementById('city').value = city;
-      }
-
-      if(state){
-        document.getElementById('state').value = state;
-      }
-
-      if(pincode){
-        document.getElementById('zipcode').value = pincode;
-      }
+      document.getElementById('business_name').value     = business_name;
+      document.getElementById('formatted_address').value = place.name;
+      document.getElementById('city').value              = city;
+      document.getElementById('state').value             = state;
+      document.getElementById('zipcode').value           = pincode;
       
     });
   }
